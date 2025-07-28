@@ -38,79 +38,79 @@ export interface RBACConfig {
 }
 
 // Permission Definitions
-export const permissions = {
+export const permissions: Record<string, Permission> = {
   // Dashboard permissions
-  'dashboard.read': { resource: 'dashboard', action: 'read' },
-  'dashboard.customize': { resource: 'dashboard', action: 'update' },
+  'dashboard.read': { resource: 'dashboard', action: 'read' as const },
+  'dashboard.customize': { resource: 'dashboard', action: 'update' as const },
   
   // CRM permissions
-  'crm.read': { resource: 'crm', action: 'read' },
-  'crm.write': { resource: 'crm', action: 'update' },
-  'crm.create': { resource: 'crm', action: 'create' },
-  'crm.delete': { resource: 'crm', action: 'delete' },
-  'crm.admin': { resource: 'crm', action: 'admin' },
+  'crm.read': { resource: 'crm', action: 'read' as const },
+  'crm.write': { resource: 'crm', action: 'update' as const },
+  'crm.create': { resource: 'crm', action: 'create' as const },
+  'crm.delete': { resource: 'crm', action: 'delete' as const },
+  'crm.admin': { resource: 'crm', action: 'admin' as const },
   
   // ERP permissions
-  'erp.read': { resource: 'erp', action: 'read' },
-  'erp.write': { resource: 'erp', action: 'update' },
-  'erp.create': { resource: 'erp', action: 'create' },
-  'erp.delete': { resource: 'erp', action: 'delete' },
-  'erp.admin': { resource: 'erp', action: 'admin' },
+  'erp.read': { resource: 'erp', action: 'read' as const },
+  'erp.write': { resource: 'erp', action: 'update' as const },
+  'erp.create': { resource: 'erp', action: 'create' as const },
+  'erp.delete': { resource: 'erp', action: 'delete' as const },
+  'erp.admin': { resource: 'erp', action: 'admin' as const },
   
   // HR permissions
-  'hr.read': { resource: 'hr', action: 'read' },
-  'hr.write': { resource: 'hr', action: 'update' },
-  'hr.create': { resource: 'hr', action: 'create' },
-  'hr.delete': { resource: 'hr', action: 'delete' },
-  'hr.admin': { resource: 'hr', action: 'admin' },
+  'hr.read': { resource: 'hr', action: 'read' as const },
+  'hr.write': { resource: 'hr', action: 'update' as const },
+  'hr.create': { resource: 'hr', action: 'create' as const },
+  'hr.delete': { resource: 'hr', action: 'delete' as const },
+  'hr.admin': { resource: 'hr', action: 'admin' as const },
   
   // IT Asset permissions
-  'assets.read': { resource: 'assets', action: 'read' },
-  'assets.write': { resource: 'assets', action: 'update' },
-  'assets.create': { resource: 'assets', action: 'create' },
-  'assets.delete': { resource: 'assets', action: 'delete' },
-  'assets.admin': { resource: 'assets', action: 'admin' },
+  'assets.read': { resource: 'assets', action: 'read' as const },
+  'assets.write': { resource: 'assets', action: 'update' as const },
+  'assets.create': { resource: 'assets', action: 'create' as const },
+  'assets.delete': { resource: 'assets', action: 'delete' as const },
+  'assets.admin': { resource: 'assets', action: 'admin' as const },
   
   // GST permissions
-  'gst.read': { resource: 'gst', action: 'read' },
-  'gst.write': { resource: 'gst', action: 'update' },
-  'gst.create': { resource: 'gst', action: 'create' },
-  'gst.delete': { resource: 'gst', action: 'delete' },
-  'gst.admin': { resource: 'gst', action: 'admin' },
+  'gst.read': { resource: 'gst', action: 'read' as const },
+  'gst.write': { resource: 'gst', action: 'update' as const },
+  'gst.create': { resource: 'gst', action: 'create' as const },
+  'gst.delete': { resource: 'gst', action: 'delete' as const },
+  'gst.admin': { resource: 'gst', action: 'admin' as const },
   
   // Business Intelligence permissions
-  'bi.read': { resource: 'bi', action: 'read' },
-  'bi.write': { resource: 'bi', action: 'update' },
-  'bi.admin': { resource: 'bi', action: 'admin' },
+  'bi.read': { resource: 'bi', action: 'read' as const },
+  'bi.write': { resource: 'bi', action: 'update' as const },
+  'bi.admin': { resource: 'bi', action: 'admin' as const },
   
   // Automation permissions
-  'automation.read': { resource: 'automation', action: 'read' },
-  'automation.write': { resource: 'automation', action: 'update' },
-  'automation.admin': { resource: 'automation', action: 'admin' },
+  'automation.read': { resource: 'automation', action: 'read' as const },
+  'automation.write': { resource: 'automation', action: 'update' as const },
+  'automation.admin': { resource: 'automation', action: 'admin' as const },
   
   // File Management permissions
-  'files.read': { resource: 'files', action: 'read' },
-  'files.write': { resource: 'files', action: 'update' },
-  'files.create': { resource: 'files', action: 'create' },
-  'files.delete': { resource: 'files', action: 'delete' },
-  'files.admin': { resource: 'files', action: 'admin' },
+  'files.read': { resource: 'files', action: 'read' as const },
+  'files.write': { resource: 'files', action: 'update' as const },
+  'files.create': { resource: 'files', action: 'create' as const },
+  'files.delete': { resource: 'files', action: 'delete' as const },
+  'files.admin': { resource: 'files', action: 'admin' as const },
   
   // User Management permissions
-  'users.read': { resource: 'users', action: 'read' },
-  'users.write': { resource: 'users', action: 'update' },
-  'users.create': { resource: 'users', action: 'create' },
-  'users.delete': { resource: 'users', action: 'delete' },
-  'users.admin': { resource: 'users', action: 'admin' },
+  'users.read': { resource: 'users', action: 'read' as const },
+  'users.write': { resource: 'users', action: 'update' as const },
+  'users.create': { resource: 'users', action: 'create' as const },
+  'users.delete': { resource: 'users', action: 'delete' as const },
+  'users.admin': { resource: 'users', action: 'admin' as const },
   
   // Reports permissions
-  'reports.read': { resource: 'reports', action: 'read' },
-  'reports.write': { resource: 'reports', action: 'update' },
-  'reports.admin': { resource: 'reports', action: 'admin' },
+  'reports.read': { resource: 'reports', action: 'read' as const },
+  'reports.write': { resource: 'reports', action: 'update' as const },
+  'reports.admin': { resource: 'reports', action: 'admin' as const },
   
   // Settings permissions
-  'settings.read': { resource: 'settings', action: 'read' },
-  'settings.write': { resource: 'settings', action: 'update' },
-  'settings.admin': { resource: 'settings', action: 'admin' }
+  'settings.read': { resource: 'settings', action: 'read' as const },
+  'settings.write': { resource: 'settings', action: 'update' as const },
+  'settings.admin': { resource: 'settings', action: 'admin' as const }
 };
 
 // Role Definitions

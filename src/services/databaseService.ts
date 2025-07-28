@@ -3,7 +3,8 @@
  * Provides easy-to-use CRUD operations for all HR modules
  */
 
-import database, {
+import database from '../lib/database.json';
+import type {
   Employee,
   TrainingCourse,
   EmployeeTraining,
@@ -13,7 +14,7 @@ import database, {
   BackupCode,
   TrustedDevice,
   User
-} from '../lib/database.sqlite';
+} from '../types/database';
 
 export class DatabaseService {
   private static instance: DatabaseService;
@@ -28,17 +29,17 @@ export class DatabaseService {
   }
 
   /**
-   * Initialize database connection
+   * Initialize database connection (not needed for JSON database)
    */
   async initialize(): Promise<void> {
-    await database.initialize();
+    // JSON database is auto-initialized
   }
 
   /**
-   * Close database connection
+   * Close database connection (not needed for JSON database)
    */
   async close(): Promise<void> {
-    await database.close();
+    // JSON database doesn't need explicit closing
   }
 
   // ==================== USER OPERATIONS ====================
@@ -117,7 +118,9 @@ export class DatabaseService {
   }): Promise<Employee> {
     return await database.createEmployee({
       ...employeeData,
-      status: employeeData.status || 'active'
+      phone: employeeData.phone || '',
+      date_of_birth: employeeData.date_of_birth || '',
+      status: (employeeData.status as 'active' | 'inactive' | 'terminated') || 'active'
     });
   }
 
@@ -181,6 +184,7 @@ export class DatabaseService {
   }): Promise<TrainingCourse> {
     return await database.createTrainingCourse({
       ...courseData,
+      description: courseData.description || '',
       current_enrollment: courseData.current_enrollment || 0,
       status: courseData.status || 'Draft',
       rating: courseData.rating || 0,
@@ -298,6 +302,7 @@ export class DatabaseService {
   }): Promise<LeaveRequest> {
     return await database.createLeaveRequest({
       ...requestData,
+      reason: requestData.reason || '',
       status: requestData.status || 'Pending',
       submitted_date: requestData.submitted_date || new Date().toISOString()
     });

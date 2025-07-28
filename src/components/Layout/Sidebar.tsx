@@ -9,6 +9,7 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { ScrollArea } from '../ui/scroll-area';
 import { useStore } from '../../store/useStore';
+import { useRBAC } from '../../hooks/useRBAC';
 import {
   LayoutDashboard,
   Users,
@@ -284,24 +285,27 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
   const hasPermission = (permissions: string[] = []) => {
     if (!currentUser) {
-      console.log('🔍 No current user found');
       return false;
     }
     
-    console.log('🔍 Checking permissions for user:', currentUser.name, 'Role:', currentUser.role);
-    console.log('🔍 Required permissions:', permissions);
-    console.log('🔍 User permissions:', currentUser.permissions);
+    // Use the RBAC system properly
+    const { canAccess } = useRBAC();
     
-    if (currentUser.role === 'admin') {
-      console.log('✅ Admin user - all permissions granted');
+    // Check if user has admin role (full access)
+    if (currentUser.role === 'admin' || currentUser.role === 'superAdmin') {
       return true;
     }
     
-    const hasPermission = permissions.some(permission => currentUser.permissions.includes(permission));
-    console.log('🔍 Permission check result:', hasPermission);
+    // Check specific permissions
+    if (permissions.length > 0) {
+      return permissions.some(permission => {
+        const [resource, action] = permission.split('.');
+        return canAccess(resource);
+      });
+    }
     
-    // TEMPORARY: Show all modules for debugging
-    return true;
+    // Default to false for security
+    return false;
   };
 
   const isActive = (href: string) => {
@@ -313,11 +317,6 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
   const filteredNavItems = navigationItems.filter(item => hasPermission(item.permissions));
   
-  console.log('🔍 Total navigation items:', navigationItems.length);
-  console.log('🔍 Filtered navigation items:', filteredNavItems.length);
-  console.log('🔍 Available modules:', filteredNavItems.map(item => item.title));
-  console.log('🔍 Expanded items:', expandedItems);
-
   const handleLogout = () => {
     logout();
     onClose();
@@ -380,17 +379,6 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
           {/* Navigation */}
           <ScrollArea className="flex-1 px-3 py-4">
-            {/* Debug Section - Temporary */}
-            <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <h3 className="text-xs font-bold text-yellow-800 mb-2">🔧 Debug Info</h3>
-              <div className="text-xs text-yellow-700 space-y-1">
-                <div>User: {currentUser?.name || 'Not logged in'}</div>
-                <div>Role: {currentUser?.role || 'None'}</div>
-                <div>Modules: {filteredNavItems.length}/{navigationItems.length}</div>
-                <div>Expanded: {expandedItems.length}</div>
-              </div>
-            </div>
-            
             <nav className="space-y-1">
               {filteredNavItems.map((item) => {
                 const Icon = item.icon;

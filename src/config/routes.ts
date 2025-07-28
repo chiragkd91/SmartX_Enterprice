@@ -230,7 +230,7 @@ export const routes: RouteConfig[] = [
     module: 'erp'
   },
   {
-    path: '/erp/advanced-analytics',
+    path: '/erp/analytics',
     component: ERPAdvancedAnalytics,
     title: 'Advanced Analytics',
     description: 'Access advanced analytics and reporting tools',
@@ -566,7 +566,7 @@ export const navigationMenu = {
         { title: 'Financial', path: '/erp/financial' },
         { title: 'Logistics', path: '/erp/logistics' },
         { title: 'Quality', path: '/erp/quality' },
-        { title: 'Advanced Analytics', path: '/erp/advanced-analytics' }
+        { title: 'Advanced Analytics', path: '/erp/analytics' }
       ]
     },
     {

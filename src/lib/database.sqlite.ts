@@ -3,8 +3,9 @@
  * Complete CRUD operations for all HR modules
  */
 
-import sqlite3 from 'sqlite3';
-import { open, Database } from 'sqlite';
+// Using JSON database instead of SQLite for better compatibility
+// import sqlite3 from 'sqlite3';
+// import { open, Database } from 'sqlite';
 import path from 'path';
 
 // Database interface types

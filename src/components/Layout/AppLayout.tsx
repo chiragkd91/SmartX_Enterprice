@@ -15,22 +15,26 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const { initializeApp, loadDashboardData, loading } = useStore();
-const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const { sessionState, extendSession, getSessionConfig } = useSessionManager();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { sessionState, extendSession, getSessionConfig } = useSessionManager();
   const { currentUser, logout } = useStore();
 
   useEffect(() => {
     const initApp = async () => {
       try {
+        console.log('🔄 AppLayout: Starting app initialization...');
         await initializeApp();
-        await loadDashboardData();
+        console.log('🔄 AppLayout: App initialization completed');
       } catch (error) {
         console.error('Failed to initialize app:', error);
       }
     };
 
-    initApp();
-  }, [initializeApp, loadDashboardData]);
+    // Only initialize if not already loading
+    if (!loading) {
+      initApp();
+    }
+  }, []); // Remove dependencies to prevent infinite re-renders
 
   // Close mobile menu on screen resize
   useEffect(() => {
@@ -66,8 +70,10 @@ const { sessionState, extendSession, getSessionConfig } = useSessionManager();
     );
   }
 
+  const sessionConfig = getSessionConfig();
+
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50">
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div 
@@ -82,28 +88,30 @@ const { sessionState, extendSession, getSessionConfig } = useSessionManager();
         ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         <Sidebar 
-          isOpen={isMobileMenuOpen} 
+          open={isMobileMenuOpen} 
           onClose={handleMobileMenuClose}
         />
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col min-h-screen">
         <Header 
           onMenuToggle={handleMenuToggle}
           isMobileMenuOpen={isMobileMenuOpen}
         />
-        <main className="flex-1 overflow-hidden">
-{/* Session Warning Dialog */}
+        <main className="flex-1 overflow-y-auto bg-gray-50">
+          {/* Session Warning Dialog */}
           <SessionWarningDialog
             isOpen={sessionState.showWarning}
-            timeRemaining={getSessionConfig.warningMinutes * 60}
-            warningMinutes={getSessionConfig.warningMinutes}
+            timeRemaining={sessionConfig.warningMinutes * 60}
+            warningMinutes={sessionConfig.warningMinutes}
             onExtend={extendSession}
             onLogout={logout}
             userRole={currentUser?.role || 'user'}
           />
-          {children}
+          <div className="min-h-full">
+            {children}
+          </div>
         </main>
       </div>
     </div>

@@ -288,8 +288,17 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
+      {/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Additional Third-party Integrations</h1>
@@ -309,6 +318,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
         </div>
       </div>
 
+      {/* Alert Section */}
       <Alert>
         <Cloud className="h-4 w-4" />
         <AlertDescription>
@@ -318,7 +328,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
       </Alert>
 
       {/* Integration Metrics */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -374,6 +384,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
         </Card>
       </div>
 
+      {/* Tabs Section */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="payments" className="flex items-center space-x-2">
@@ -390,6 +401,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
           </TabsTrigger>
         </TabsList>
 
+        {/* Payment Gateways Tab */}
         <TabsContent value="payments" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
@@ -541,6 +553,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
           </Card>
         </TabsContent>
 
+        {/* Calendar Integrations Tab */}
         <TabsContent value="calendar" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
@@ -694,6 +707,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
           </Card>
         </TabsContent>
 
+        {/* Email Marketing Tab */}
         <TabsContent value="email" className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
@@ -753,7 +767,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
                     0}%
                 </div>
                 <p className="text-sm text-gray-600 mt-2">
-                  Industry average: 21.5%
+                  Industry average
                 </p>
               </CardContent>
             </Card>
@@ -851,6 +865,7 @@ const AdditionalThirdPartyIntegrations: React.FC = () => {
         </TabsContent>
       </Tabs>
 
+      {/* Action Buttons */}
       <div className="flex justify-end space-x-4">
         <Button variant="outline">
           <RefreshCw className="h-4 w-4 mr-2" />

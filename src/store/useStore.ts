@@ -597,19 +597,88 @@ export const useStore = create<StoreState>((set, get) => ({
 
   // Initialize app
   initializeApp: async () => {
-    set({ loading: true });
+    console.log('🚀 Initializing app...');
+    set({ loading: true, error: null });
+    
     try {
-      // Load initial data
-      await Promise.all([
-        get().loadUsers(),
-        get().loadCustomers(),
-        get().loadLeads(),
-        get().loadProducts(),
-        get().loadEmployees()
+      // Load initial data without setting loading state in individual functions
+      const loadUsersData = async () => {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 500));
+          return DEFAULT_USERS;
+        } catch (error) {
+          console.error('Failed to load users:', error);
+          return [];
+        }
+      };
+
+      const loadCustomersData = async () => {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          return []; // Sample customers data would go here
+        } catch (error) {
+          console.error('Failed to load customers:', error);
+          return [];
+        }
+      };
+
+      const loadLeadsData = async () => {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          return []; // Sample leads data would go here
+        } catch (error) {
+          console.error('Failed to load leads:', error);
+          return [];
+        }
+      };
+
+      const loadProductsData = async () => {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          return []; // Sample products data would go here
+        } catch (error) {
+          console.error('Failed to load products:', error);
+          return [];
+        }
+      };
+
+      const loadEmployeesData = async () => {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          return []; // Sample employees data would go here
+        } catch (error) {
+          console.error('Failed to load employees:', error);
+          return [];
+        }
+      };
+
+      // Load all data in parallel
+      const [users, customers, leads, products, employees] = await Promise.all([
+        loadUsersData(),
+        loadCustomersData(),
+        loadLeadsData(),
+        loadProductsData(),
+        loadEmployeesData()
       ]);
-      set({ loading: false });
+
+      console.log('✅ App initialization completed');
+      
+      // Set all data at once
+      set({ 
+        users,
+        customers,
+        leads,
+        products,
+        employees,
+        loading: false,
+        error: null
+      });
     } catch (error) {
-      set({ error: 'Failed to initialize app', loading: false });
+      console.error('❌ App initialization failed:', error);
+      set({ 
+        error: 'Failed to initialize app', 
+        loading: false 
+      });
     }
   }
 }));

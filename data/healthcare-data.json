@@ -1,0 +1,202 @@
+{
+  "patients": [
+    {
+      "patient_id": "PAT001",
+      "first_name": "Ramesh",
+      "last_name": "Kumar",
+      "email": "ramesh.kumar@email.com",
+      "phone": "+91 98765-12345",
+      "date_of_birth": "1975-05-15",
+      "gender": "Male",
+      "blood_group": "O+",
+      "address": "123 MG Road, Bangalore, Karnataka",
+      "emergency_contact": "+91 98765-54321",
+      "medical_history": "Hypertension, Diabetes",
+      "insurance_provider": "Star Health",
+      "insurance_number": "STAR123456789",
+      "status": "active"
+    },
+    {
+      "patient_id": "PAT002",
+      "first_name": "Sunita",
+      "last_name": "Sharma",
+      "email": "sunita.sharma@email.com",
+      "phone": "+91 98765-12346",
+      "date_of_birth": "1982-08-22",
+      "gender": "Female",
+      "blood_group": "A+",
+      "address": "456 Indiranagar, Bangalore, Karnataka",
+      "emergency_contact": "+91 98765-54322",
+      "medical_history": "Asthma",
+      "insurance_provider": "ICICI Lombard",
+      "insurance_number": "ICICI987654321",
+      "status": "active"
+    }
+  ],
+  "products": [
+    {
+      "product_id": "PROD001",
+      "name": "ECG Machine",
+      "description": "12-lead ECG machine with digital display",
+      "category": "Diagnostic Equipment",
+      "brand": "GE Healthcare",
+      "model": "MAC 2000",
+      "hsn_code": "9018",
+      "gst_rate": 18,
+      "unit_price": 150000,
+      "cost_price": 120000,
+      "stock_quantity": 5,
+      "min_stock": 2,
+      "supplier": "MedEquip Solutions",
+      "location": "Cardiology Department",
+      "status": "active"
+    },
+    {
+      "product_id": "PROD002",
+      "name": "MRI Scanner",
+      "description": "1.5 Tesla MRI Scanner with advanced imaging",
+      "category": "Imaging Equipment",
+      "brand": "Siemens",
+      "model": "MAGNETOM Aera",
+      "hsn_code": "9022",
+      "gst_rate": 18,
+      "unit_price": 25000000,
+      "cost_price": 20000000,
+      "stock_quantity": 1,
+      "min_stock": 1,
+      "supplier": "Siemens Healthcare",
+      "location": "Radiology Department",
+      "status": "active"
+    }
+  ],
+  "vendors": [
+    {
+      "vendor_id": "VEN001",
+      "name": "MedEquip Solutions",
+      "contact_person": "Rajesh Agarwal",
+      "email": "rajesh@medequip.com",
+      "phone": "+91 98765-55555",
+      "address": "456 Industrial Area, Mumbai, Maharashtra",
+      "gst_number": "27AABCM1234A1Z5",
+      "pan_number": "AABCM1234A",
+      "credit_limit": 1000000,
+      "payment_terms": "Net 30",
+      "rating": 4.5,
+      "status": "active"
+    },
+    {
+      "vendor_id": "VEN002",
+      "name": "Siemens Healthcare",
+      "contact_person": "Priya Sharma",
+      "email": "priya.sharma@siemens.com",
+      "phone": "+91 98765-66666",
+      "address": "789 Corporate Park, Delhi, NCR",
+      "gst_number": "07AABCS5678B2Z9",
+      "pan_number": "AABCS5678B",
+      "credit_limit": 5000000,
+      "payment_terms": "Net 45",
+      "rating": 4.8,
+      "status": "active"
+    }
+  ],
+  "leads": [
+    {
+      "lead_id": "LEAD001",
+      "first_name": "Meera",
+      "last_name": "Iyer",
+      "email": "meera.iyer@email.com",
+      "phone": "+91 98765-11111",
+      "company": "TechCorp India",
+      "position": "HR Manager",
+      "source": "Website",
+      "status": "New",
+      "priority": "High",
+      "assigned_to": "dr.smith",
+      "expected_value": 50000,
+      "lead_score": 85,
+      "notes": "Interested in corporate health checkup packages"
+    }
+  ],
+  "orders": [
+    {
+      "order_id": "ORD001",
+      "patient_id": "PAT001",
+      "order_date": "2024-01-15",
+      "delivery_date": "2024-01-20",
+      "status": "Confirmed",
+      "total_amount": 5000,
+      "payment_status": "Paid",
+      "payment_method": "Insurance",
+      "items": [
+        {
+          "product_id": "PROD001",
+          "quantity": 1,
+          "unit_price": 5000,
+          "total_price": 5000
+        }
+      ]
+    }
+  ],
+  "invoices": [
+    {
+      "invoice_id": "INV001",
+      "order_id": "ORD001",
+      "patient_id": "PAT001",
+      "invoice_date": "2024-01-15",
+      "due_date": "2024-01-22",
+      "total_amount": 5000,
+      "gst_amount": 900,
+      "cgst": 450,
+      "sgst": 450,
+      "igst": 0,
+      "net_amount": 5900,
+      "status": "Paid",
+      "payment_date": "2024-01-16"
+    }
+  ],
+  "itAssets": [
+    {
+      "asset_id": "IT001",
+      "name": "Hospital Information System Server",
+      "category": "Server",
+      "brand": "Dell",
+      "model": "PowerEdge R740",
+      "serial_number": "DELL123456789",
+      "location": "IT Server Room",
+      "assigned_to": "IT Department",
+      "purchase_date": "2023-01-15",
+      "warranty_expiry": "2026-01-15",
+      "status": "Active",
+      "value": 500000
+    }
+  ],
+  "softwareLicenses": [
+    {
+      "license_id": "LIC001",
+      "software_name": "Hospital Management System",
+      "vendor": "HealthcareSoft",
+      "license_type": "Enterprise",
+      "license_key": "HMS-ENT-2024-001",
+      "seats": 100,
+      "used_seats": 85,
+      "purchase_date": "2024-01-01",
+      "expiry_date": "2024-12-31",
+      "cost": 500000,
+      "status": "Active"
+    }
+  ],
+  "supportTickets": [
+    {
+      "ticket_id": "TKT001",
+      "title": "ECG Machine not working",
+      "description": "ECG machine in Cardiology department showing error code E-101",
+      "category": "Medical Equipment",
+      "priority": "High",
+      "status": "Open",
+      "assigned_to": "Technical Support",
+      "reported_by": "Dr. Sarah Smith",
+      "created_date": "2024-01-20",
+      "due_date": "2024-01-22"
+    }
+  ]
+} 
