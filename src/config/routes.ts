@@ -68,6 +68,8 @@ const FileManagement = lazy(() => import('../pages/FileManagement'));
 const Settings = lazy(() => import('../pages/Settings'));
 const UserManagement = lazy(() => import('../pages/UserManagement'));
 const Pricing = lazy(() => import('../pages/Pricing'));
+const UserProfile = lazy(() => import('../pages/UserProfile'));
+const Customization = lazy(() => import('../pages/Customization'));
 
 export interface RouteConfig {
   path: string;
@@ -485,6 +487,27 @@ export const routes: RouteConfig[] = [
     component: Pricing,
     title: 'Pricing',
     description: 'View pricing plans and subscriptions',
+    module: 'common'
+  },
+  {
+    path: '/profile',
+    component: UserProfile,
+    title: 'User Profile',
+    description: 'Manage user profile and preferences',
+    module: 'common'
+  },
+  {
+    path: '/customization',
+    component: Customization,
+    title: 'Customization',
+    description: 'Customize system appearance and behavior',
+    module: 'common'
+  },
+  {
+    path: '/home',
+    component: Home,
+    title: 'Home',
+    description: 'Welcome page and system overview',
     module: 'common'
   }
 ];

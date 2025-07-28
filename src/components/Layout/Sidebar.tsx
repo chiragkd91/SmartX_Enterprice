@@ -57,7 +57,9 @@ import {
   Cpu,
   Globe,
   Server,
-  Lock
+  Lock,
+  Truck,
+  Home
 } from 'lucide-react';
 
 interface NavItem {
@@ -103,7 +105,15 @@ const navigationItems: NavItem[] = [
       { title: 'Products Management', href: '/erp/products', icon: Package, permissions: ['products.view'] },
       { title: 'Orders Management', href: '/erp/orders', icon: ShoppingCart, permissions: ['orders.view'] },
       { title: 'Invoice Management', href: '/erp/invoices', icon: Receipt, permissions: ['invoices.view'] },
-      { title: 'Vendor Management', href: '/erp/vendors', icon: Building2, permissions: ['vendors.view'] }
+      { title: 'Vendor Management', href: '/erp/vendors', icon: Building2, permissions: ['vendors.view'] },
+      { title: 'Inventory Management', href: '/erp/inventory', icon: Database, permissions: ['inventory.view'] },
+      { title: 'Manufacturing Management', href: '/erp/manufacturing', icon: Cpu, permissions: ['manufacturing.view'] },
+      { title: 'Procurement Management', href: '/erp/procurement', icon: ShoppingCart, permissions: ['procurement.view'] },
+      { title: 'Customer Management', href: '/erp/customers', icon: UserCheck, permissions: ['customers.view'] },
+      { title: 'Financial Management', href: '/erp/financial', icon: DollarSign, permissions: ['financial.view'] },
+      { title: 'Logistics Management', href: '/erp/logistics', icon: Truck, permissions: ['logistics.view'] },
+      { title: 'Quality Management', href: '/erp/quality', icon: Shield, permissions: ['quality.view'] },
+      { title: 'Advanced Analytics', href: '/erp/analytics', icon: Brain, permissions: ['analytics.view'] }
     ]
   },
   {
@@ -216,6 +226,30 @@ const navigationItems: NavItem[] = [
     href: '/users',
     icon: Shield,
     permissions: ['users.view']
+  },
+  {
+    title: 'User Profile',
+    href: '/profile',
+    icon: User,
+    permissions: ['profile.view']
+  },
+  {
+    title: 'Customization',
+    href: '/customization',
+    icon: Settings,
+    permissions: ['settings.view']
+  },
+  {
+    title: 'Pricing',
+    href: '/pricing',
+    icon: DollarSign,
+    permissions: ['pricing.view']
+  },
+  {
+    title: 'Home',
+    href: '/home',
+    icon: Home,
+    permissions: ['home.view']
   },
   {
     title: 'Settings',
