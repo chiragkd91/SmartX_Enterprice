@@ -1,0 +1,181 @@
+{
+  "users": [
+    {
+      "id": "admin-001",
+      "email": "admin@smartbizflow.com",
+      "password": "$2a$12$WQFXbowzFzHfFVzM3y1Ai.e.lrV1e6xqwr0.kjiQfW4ZWWGtk2UUa",
+      "role": "ADMIN",
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:42.012Z",
+      "updatedAt": "2025-07-27T19:54:42.012Z"
+    },
+    {
+      "id": "hr-001",
+      "email": "hr@smartbizflow.com",
+      "password": "$2a$12$Of3m.pAbyXGwihT2WwifBenTrASBmt3hPvyWp.MDqjbyMIW.LwLGu",
+      "role": "HR_MANAGER",
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:42.645Z",
+      "updatedAt": "2025-07-27T19:54:42.645Z"
+    },
+    {
+      "id": "emp-001",
+      "email": "john.doe@smartbizflow.com",
+      "password": "$2a$12$juErqj52QkYzMgI5vi0JF.dlCtZC5QNeapUbkrr.OwshX0WBGxZ.q",
+      "role": "EMPLOYEE",
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:43.230Z",
+      "updatedAt": "2025-07-27T19:54:43.230Z"
+    },
+    {
+      "id": "emp-002",
+      "email": "jane.smith@smartbizflow.com",
+      "password": "$2a$12$asEpgzAENh2qpY/Om31IbeVW9HbAvQJMQ54H1/2/EQJr0chyDa4Ry",
+      "role": "EMPLOYEE",
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:43.797Z",
+      "updatedAt": "2025-07-27T19:54:43.797Z"
+    },
+    {
+      "id": "emp-003",
+      "email": "mike.wilson@smartbizflow.com",
+      "password": "$2a$12$jH9WGSqatveyWSkB2EMWvu3fn1oigBCxpYrkragSmJXOA7M8xGZ.2",
+      "role": "EMPLOYEE",
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    }
+  ],
+  "employees": [
+    {
+      "id": "admin-001",
+      "employeeId": "EMP001",
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@smartbizflow.com",
+      "department": "IT",
+      "position": "System Administrator",
+      "hireDate": "2024-01-01T00:00:00.000Z",
+      "salary": 75000,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:42.013Z",
+      "updatedAt": "2025-07-27T19:54:42.013Z"
+    },
+    {
+      "id": "hr-001",
+      "employeeId": "EMP002",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "email": "hr@smartbizflow.com",
+      "department": "Human Resources",
+      "position": "HR Manager",
+      "hireDate": "2024-01-15T00:00:00.000Z",
+      "salary": 65000,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:42.645Z",
+      "updatedAt": "2025-07-27T19:54:42.645Z"
+    },
+    {
+      "id": "emp-001",
+      "employeeId": "EMP003",
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@smartbizflow.com",
+      "department": "Engineering",
+      "position": "Senior Developer",
+      "hireDate": "2024-02-01T00:00:00.000Z",
+      "salary": 55000,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:43.230Z",
+      "updatedAt": "2025-07-27T19:54:43.230Z"
+    },
+    {
+      "id": "emp-002",
+      "employeeId": "EMP004",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@smartbizflow.com",
+      "department": "Marketing",
+      "position": "Marketing Manager",
+      "hireDate": "2024-02-01T00:00:00.000Z",
+      "salary": 60000,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:43.797Z",
+      "updatedAt": "2025-07-27T19:54:43.797Z"
+    },
+    {
+      "id": "emp-003",
+      "employeeId": "EMP005",
+      "firstName": "Mike",
+      "lastName": "Wilson",
+      "email": "mike.wilson@smartbizflow.com",
+      "department": "Sales",
+      "position": "Sales Executive",
+      "hireDate": "2024-02-01T00:00:00.000Z",
+      "salary": 45000,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    }
+  ],
+  "attendance": [],
+  "leaves": [],
+  "payroll": [],
+  "trainingCourses": [
+    {
+      "id": "course-001",
+      "title": "Leadership Skills",
+      "description": "Essential leadership skills for managers",
+      "category": "Management",
+      "level": "Intermediate",
+      "duration": 8,
+      "instructor": "Dr. Sarah Johnson",
+      "format": "Online",
+      "maxEnrollment": 20,
+      "currentEnrollment": 15,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    },
+    {
+      "id": "course-002",
+      "title": "Project Management",
+      "description": "Project management fundamentals",
+      "category": "Business",
+      "level": "Beginner",
+      "duration": 6,
+      "instructor": "Mike Wilson",
+      "format": "Hybrid",
+      "maxEnrollment": 25,
+      "currentEnrollment": 18,
+      "status": "ACTIVE",
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    }
+  ],
+  "employeeTraining": [],
+  "benefits": [
+    {
+      "id": "benefit-001",
+      "name": "Health Insurance",
+      "description": "Comprehensive health coverage",
+      "type": "HEALTH_INSURANCE",
+      "cost": 500,
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    },
+    {
+      "id": "benefit-002",
+      "name": "Dental Insurance",
+      "description": "Dental care coverage",
+      "type": "DENTAL_INSURANCE",
+      "cost": 200,
+      "isActive": true,
+      "createdAt": "2025-07-27T19:54:44.328Z",
+      "updatedAt": "2025-07-27T19:54:44.328Z"
+    }
+  ],
+  "employeeBenefits": [],
+  "auditLogs": []
+}

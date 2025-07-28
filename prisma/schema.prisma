@@ -1,0 +1,444 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// User Authentication & Authorization
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      UserRole @default(EMPLOYEE)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  employee     Employee?
+  sessions     Session[]
+  permissions  Permission[]
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Permission {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  module      String
+  createdAt   DateTime @default(now())
+
+  // Relations
+  users User[]
+
+  @@map("permissions")
+}
+
+// Employee Management
+model Employee {
+  id            String   @id @default(cuid())
+  employeeId    String   @unique
+  firstName     String
+  lastName      String
+  email         String   @unique
+  phone         String?
+  dateOfBirth   DateTime?
+  gender        Gender?
+  address       String?  // JSON as string for SQLite
+  emergencyContacts String? // JSON as string for SQLite
+  department    String
+  position      String
+  hireDate      DateTime
+  managerId     String?
+  salary        Float
+  status        EmployeeStatus @default(ACTIVE)
+  avatar        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  user              User?               @relation(fields: [id], references: [id], onDelete: Cascade)
+  manager           Employee?           @relation("EmployeeManager", fields: [managerId], references: [id])
+  subordinates      Employee[]          @relation("EmployeeManager")
+  attendance        Attendance[]
+  leaves            Leave[]
+  payroll           Payroll[]
+  performance       Performance[]
+  training          EmployeeTraining[]
+  documents         EmployeeDocument[]
+  benefits          EmployeeBenefit[]
+  onboarding        Onboarding?
+  offboarding       Offboarding?
+
+  @@map("employees")
+}
+
+// Attendance Management
+model Attendance {
+  id          String   @id @default(cuid())
+  employeeId  String
+  date        DateTime
+  checkIn     DateTime?
+  checkOut    DateTime?
+  totalHours  Float?
+  status      AttendanceStatus @default(PRESENT)
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, date])
+  @@map("attendance")
+}
+
+// Leave Management
+model Leave {
+  id          String   @id @default(cuid())
+  employeeId  String
+  type        LeaveType
+  startDate   DateTime
+  endDate     DateTime
+  days        Int
+  reason      String
+  status      LeaveStatus @default(PENDING)
+  approvedBy  String?
+  approvedAt  DateTime?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("leaves")
+}
+
+// Payroll Management
+model Payroll {
+  id            String   @id @default(cuid())
+  employeeId    String
+  month         Int
+  year          Int
+  basicSalary   Float
+  allowances    Float  @default(0)
+  deductions    Float  @default(0)
+  netSalary     Float
+  status        PayrollStatus @default(PENDING)
+  paidAt        DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, month, year])
+  @@map("payroll")
+}
+
+// Performance Management
+model Performance {
+  id          String   @id @default(cuid())
+  employeeId  String
+  period      String   // e.g., "Q1 2024", "Annual 2024"
+  rating      Int      // 1-5 scale
+  goals       String?  // JSON as string for SQLite
+  achievements String? // JSON as string for SQLite
+  feedback    String?
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("performance")
+}
+
+// Training Management
+model TrainingCourse {
+  id              String   @id @default(cuid())
+  title           String
+  description     String
+  category        String
+  level           String
+  duration        Int      // in hours
+  instructor      String?
+  format          String   // Online, In-Person, Hybrid
+  maxEnrollment   Int?
+  currentEnrollment Int @default(0)
+  status          CourseStatus @default(ACTIVE)
+  materials       String?  // JSON as string for SQLite
+  prerequisites   String   // JSON array as string for SQLite
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  enrollments EmployeeTraining[]
+
+  @@map("training_courses")
+}
+
+model EmployeeTraining {
+  id          String   @id @default(cuid())
+  employeeId  String
+  courseId    String
+  status      TrainingStatus @default(ENROLLED)
+  progress    Int      @default(0) // 0-100
+  startDate   DateTime?
+  completionDate DateTime?
+  certificate String?
+  score       Int?
+  feedback    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  course   TrainingCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([employeeId, courseId])
+  @@map("employee_training")
+}
+
+// Document Management
+model EmployeeDocument {
+  id          String   @id @default(cuid())
+  employeeId  String
+  title       String
+  type        DocumentType
+  fileName    String
+  filePath    String
+  fileSize    Int
+  mimeType    String
+  uploadedBy  String
+  uploadedAt  DateTime @default(now())
+  expiresAt   DateTime?
+  isActive    Boolean  @default(true)
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("employee_documents")
+}
+
+// Benefits Management
+model Benefit {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  type        BenefitType
+  cost        Float
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employeeBenefits EmployeeBenefit[]
+
+  @@map("benefits")
+}
+
+model EmployeeBenefit {
+  id          String   @id @default(cuid())
+  employeeId  String
+  benefitId   String
+  startDate   DateTime
+  endDate     DateTime?
+  status      BenefitStatus @default(ACTIVE)
+  cost        Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  benefit  Benefit @relation(fields: [benefitId], references: [id], onDelete: Cascade)
+
+  @@map("employee_benefits")
+}
+
+// Onboarding & Offboarding
+model Onboarding {
+  id          String   @id @default(cuid())
+  employeeId  String   @unique
+  status      OnboardingStatus @default(IN_PROGRESS)
+  startDate   DateTime
+  completionDate DateTime?
+  checklist   String?  // JSON as string for SQLite
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("onboarding")
+}
+
+model Offboarding {
+  id          String   @id @default(cuid())
+  employeeId  String   @unique
+  status      OffboardingStatus @default(INITIATED)
+  startDate   DateTime
+  completionDate DateTime?
+  reason      String
+  checklist   String?  // JSON as string for SQLite
+  exitInterview String? // JSON as string for SQLite
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@map("offboarding")
+}
+
+// Audit & Security
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  table       String
+  recordId    String?
+  oldValues   String?  // JSON as string for SQLite
+  newValues   String?  // JSON as string for SQLite
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  HR_MANAGER
+  MANAGER
+  EMPLOYEE
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  INACTIVE
+  TERMINATED
+  SUSPENDED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  HALF_DAY
+  WORK_FROM_HOME
+}
+
+enum LeaveType {
+  ANNUAL
+  SICK
+  PERSONAL
+  MATERNITY
+  PATERNITY
+  BEREAVEMENT
+  UNPAID
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum PayrollStatus {
+  PENDING
+  PROCESSED
+  PAID
+  CANCELLED
+}
+
+enum CourseStatus {
+  ACTIVE
+  DRAFT
+  ARCHIVED
+}
+
+enum TrainingStatus {
+  ENROLLED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  DROPPED
+}
+
+enum DocumentType {
+  ID_PROOF
+  ADDRESS_PROOF
+  EDUCATIONAL
+  EXPERIENCE
+  CONTRACT
+  POLICY
+  OTHER
+}
+
+enum BenefitType {
+  HEALTH_INSURANCE
+  LIFE_INSURANCE
+  DENTAL_INSURANCE
+  VISION_INSURANCE
+  RETIREMENT
+  TRANSPORT
+  MEAL
+  OTHER
+}
+
+enum BenefitStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+}
+
+enum OnboardingStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum OffboardingStatus {
+  INITIATED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+} 
