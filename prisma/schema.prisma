@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
 }
 
 // User Authentication & Authorization
@@ -15,7 +15,7 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
-  role      UserRole @default(EMPLOYEE)
+  role      String   @default("EMPLOYEE")
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -64,22 +64,22 @@ model Employee {
   email         String   @unique
   phone         String?
   dateOfBirth   DateTime?
-  gender        Gender?
-  address       String?  // JSON as string for SQLite
-  emergencyContacts String? // JSON as string for SQLite
+  gender        String?
+  address       String?  // JSON as string for SQL Server
+  emergencyContacts String? // JSON as string for SQL Server
   department    String
   position      String
   hireDate      DateTime
   managerId     String?
   salary        Float
-  status        EmployeeStatus @default(ACTIVE)
+  status        String   @default("ACTIVE")
   avatar        String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   // Relations
   user              User?               @relation(fields: [id], references: [id], onDelete: Cascade)
-  manager           Employee?           @relation("EmployeeManager", fields: [managerId], references: [id])
+  manager           Employee?           @relation("EmployeeManager", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   subordinates      Employee[]          @relation("EmployeeManager")
   attendance        Attendance[]
   leaves            Leave[]
@@ -102,13 +102,13 @@ model Attendance {
   checkIn     DateTime?
   checkOut    DateTime?
   totalHours  Float?
-  status      AttendanceStatus @default(PRESENT)
+  status      String   @default("PRESENT")
   notes       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([employeeId, date])
   @@map("attendance")
@@ -118,12 +118,12 @@ model Attendance {
 model Leave {
   id          String   @id @default(cuid())
   employeeId  String
-  type        LeaveType
+  type        String
   startDate   DateTime
   endDate     DateTime
   days        Int
   reason      String
-  status      LeaveStatus @default(PENDING)
+  status      String   @default("PENDING")
   approvedBy  String?
   approvedAt  DateTime?
   notes       String?
@@ -131,7 +131,7 @@ model Leave {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("leaves")
 }
@@ -146,13 +146,13 @@ model Payroll {
   allowances    Float  @default(0)
   deductions    Float  @default(0)
   netSalary     Float
-  status        PayrollStatus @default(PENDING)
+  status        String   @default("PENDING")
   paidAt        DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([employeeId, month, year])
   @@map("payroll")
@@ -164,8 +164,8 @@ model Performance {
   employeeId  String
   period      String   // e.g., "Q1 2024", "Annual 2024"
   rating      Int      // 1-5 scale
-  goals       String?  // JSON as string for SQLite
-  achievements String? // JSON as string for SQLite
+  goals       String?  // JSON as string for SQL Server
+  achievements String? // JSON as string for SQL Server
   feedback    String?
   reviewedBy  String?
   reviewedAt  DateTime?
@@ -173,7 +173,7 @@ model Performance {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("performance")
 }
@@ -190,9 +190,9 @@ model TrainingCourse {
   format          String   // Online, In-Person, Hybrid
   maxEnrollment   Int?
   currentEnrollment Int @default(0)
-  status          CourseStatus @default(ACTIVE)
-  materials       String?  // JSON as string for SQLite
-  prerequisites   String   // JSON array as string for SQLite
+  status          String   @default("ACTIVE")
+  materials       String?  // JSON as string for SQL Server
+  prerequisites   String   // JSON array as string for SQL Server
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
@@ -206,7 +206,7 @@ model EmployeeTraining {
   id          String   @id @default(cuid())
   employeeId  String
   courseId    String
-  status      TrainingStatus @default(ENROLLED)
+  status      String   @default("ENROLLED")
   progress    Int      @default(0) // 0-100
   startDate   DateTime?
   completionDate DateTime?
@@ -217,8 +217,8 @@ model EmployeeTraining {
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  course   TrainingCourse @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  course   TrainingCourse @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@unique([employeeId, courseId])
   @@map("employee_training")
@@ -229,7 +229,7 @@ model EmployeeDocument {
   id          String   @id @default(cuid())
   employeeId  String
   title       String
-  type        DocumentType
+  type        String
   fileName    String
   filePath    String
   fileSize    Int
@@ -240,7 +240,7 @@ model EmployeeDocument {
   isActive    Boolean  @default(true)
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("employee_documents")
 }
@@ -250,7 +250,7 @@ model Benefit {
   id          String   @id @default(cuid())
   name        String
   description String?
-  type        BenefitType
+  type        String
   cost        Float
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
@@ -268,14 +268,14 @@ model EmployeeBenefit {
   benefitId   String
   startDate   DateTime
   endDate     DateTime?
-  status      BenefitStatus @default(ACTIVE)
+  status      String   @default("ACTIVE")
   cost        Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
-  benefit  Benefit @relation(fields: [benefitId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  benefit  Benefit @relation(fields: [benefitId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("employee_benefits")
 }
@@ -284,16 +284,16 @@ model EmployeeBenefit {
 model Onboarding {
   id          String   @id @default(cuid())
   employeeId  String   @unique
-  status      OnboardingStatus @default(IN_PROGRESS)
+  status      String   @default("IN_PROGRESS")
   startDate   DateTime
   completionDate DateTime?
-  checklist   String?  // JSON as string for SQLite
+  checklist   String?  // JSON as string for SQL Server
   notes       String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("onboarding")
 }
@@ -301,17 +301,17 @@ model Onboarding {
 model Offboarding {
   id          String   @id @default(cuid())
   employeeId  String   @unique
-  status      OffboardingStatus @default(INITIATED)
+  status      String   @default("INITIATED")
   startDate   DateTime
   completionDate DateTime?
   reason      String
-  checklist   String?  // JSON as string for SQLite
-  exitInterview String? // JSON as string for SQLite
+  checklist   String?  // JSON as string for SQL Server
+  exitInterview String? // JSON as string for SQL Server
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relations
-  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@map("offboarding")
 }
@@ -323,122 +323,14 @@ model AuditLog {
   action      String
   table       String
   recordId    String?
-  oldValues   String?  // JSON as string for SQLite
-  newValues   String?  // JSON as string for SQLite
+  oldValues   String?  // JSON as string for SQL Server
+  newValues   String?  // JSON as string for SQL Server
   ipAddress   String?
   userAgent   String?
   createdAt   DateTime @default(now())
 
   // Relations
-  user User? @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@map("audit_logs")
-}
-
-// Enums
-enum UserRole {
-  ADMIN
-  HR_MANAGER
-  MANAGER
-  EMPLOYEE
-}
-
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
-}
-
-enum EmployeeStatus {
-  ACTIVE
-  INACTIVE
-  TERMINATED
-  SUSPENDED
-}
-
-enum AttendanceStatus {
-  PRESENT
-  ABSENT
-  LATE
-  HALF_DAY
-  WORK_FROM_HOME
-}
-
-enum LeaveType {
-  ANNUAL
-  SICK
-  PERSONAL
-  MATERNITY
-  PATERNITY
-  BEREAVEMENT
-  UNPAID
-}
-
-enum LeaveStatus {
-  PENDING
-  APPROVED
-  REJECTED
-  CANCELLED
-}
-
-enum PayrollStatus {
-  PENDING
-  PROCESSED
-  PAID
-  CANCELLED
-}
-
-enum CourseStatus {
-  ACTIVE
-  DRAFT
-  ARCHIVED
-}
-
-enum TrainingStatus {
-  ENROLLED
-  IN_PROGRESS
-  COMPLETED
-  FAILED
-  DROPPED
-}
-
-enum DocumentType {
-  ID_PROOF
-  ADDRESS_PROOF
-  EDUCATIONAL
-  EXPERIENCE
-  CONTRACT
-  POLICY
-  OTHER
-}
-
-enum BenefitType {
-  HEALTH_INSURANCE
-  LIFE_INSURANCE
-  DENTAL_INSURANCE
-  VISION_INSURANCE
-  RETIREMENT
-  TRANSPORT
-  MEAL
-  OTHER
-}
-
-enum BenefitStatus {
-  ACTIVE
-  INACTIVE
-  EXPIRED
-}
-
-enum OnboardingStatus {
-  NOT_STARTED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
-}
-
-enum OffboardingStatus {
-  INITIATED
-  IN_PROGRESS
-  COMPLETED
-  CANCELLED
 } 

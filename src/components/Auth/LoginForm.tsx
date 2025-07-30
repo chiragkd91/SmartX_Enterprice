@@ -97,7 +97,8 @@ import {
   ThumbsDown,
   MessageSquare,
   MessageCircle,
-  Phone as PhoneIcon
+  Phone as PhoneIcon,
+  Laptop
 } from 'lucide-react';
 
 type AuthScreen = 'login' | 'forgot-password' | 'reset-success';
@@ -240,80 +241,80 @@ export default function LoginForm() {
               </div>
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              SmartBizFlow Enterprise
+              SmartX Solution Enterprise
             </h1>
             <p className="text-xl text-gray-600">
-              Complete HRMS + CRM + ERP Solution
+              Complete SmartX CRM + ERP + HRMS + IT Asset Solution
             </p>
             <div className="flex justify-center space-x-2">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">HRMS</Badge>
-              <Badge variant="secondary" className="bg-purple-100 text-purple-800">CRM</Badge>
-              <Badge variant="secondary" className="bg-green-100 text-green-800">ERP</Badge>
-              <Badge variant="secondary" className="bg-orange-100 text-orange-800">GST</Badge>
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800">SmartX CRM</Badge>
+              <Badge variant="secondary" className="bg-purple-100 text-purple-800">SmartX ERP</Badge>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">SmartX HRMS</Badge>
+              <Badge variant="secondary" className="bg-orange-100 text-orange-800">SmartX IT Asset</Badge>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-xl shadow-lg border border-blue-100">
               <div className="flex items-center space-x-3 mb-3">
-                <Users className="h-8 w-8 text-blue-600" />
-                <h3 className="font-semibold text-gray-800">HR Management</h3>
-              </div>
-              <p className="text-sm text-gray-600">
-                Complete employee lifecycle management with payroll, attendance, and performance tracking
-              </p>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-purple-100">
-              <div className="flex items-center space-x-3 mb-3">
-                <TrendingUp className="h-8 w-8 text-purple-600" />
-                <h3 className="font-semibold text-gray-800">CRM System</h3>
+                <TrendingUp className="h-8 w-8 text-blue-600" />
+                <h3 className="font-semibold text-gray-800">SmartX CRM</h3>
               </div>
               <p className="text-sm text-gray-600">
                 Customer relationship management with lead tracking, sales pipeline, and analytics
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-green-100">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-purple-100">
               <div className="flex items-center space-x-3 mb-3">
-                <Package className="h-8 w-8 text-green-600" />
-                <h3 className="font-semibold text-gray-800">ERP Operations</h3>
+                <Package className="h-8 w-8 text-purple-600" />
+                <h3 className="font-semibold text-gray-800">SmartX ERP</h3>
               </div>
               <p className="text-sm text-gray-600">
                 Enterprise resource planning with inventory, orders, invoices, and vendor management
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-xl shadow-lg border border-orange-100">
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-green-100">
               <div className="flex items-center space-x-3 mb-3">
-                <FileText className="h-8 w-8 text-orange-600" />
-                <h3 className="font-semibold text-gray-800">GST Compliance</h3>
+                <Users className="h-8 w-8 text-green-600" />
+                <h3 className="font-semibold text-gray-800">SmartX HRMS</h3>
               </div>
               <p className="text-sm text-gray-600">
-                Indian GST support with automatic tax calculations and e-Invoice generation
+                Complete employee lifecycle management with payroll, attendance, and performance tracking
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-xl shadow-lg border border-orange-100">
+              <div className="flex items-center space-x-3 mb-3">
+                <Laptop className="h-8 w-8 text-orange-600" />
+                <h3 className="font-semibold text-gray-800">SmartX IT Asset</h3>
+              </div>
+              <p className="text-sm text-gray-600">
+                IT asset management with tracking, maintenance, software licenses, and support tickets
               </p>
             </div>
           </div>
 
           {/* System Stats */}
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <h3 className="font-semibold text-gray-800 mb-4">System Overview</h3>
+            <h3 className="font-semibold text-gray-800 mb-4">SmartX Solution Overview</h3>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div className="flex items-center space-x-2">
-                <Users className="h-4 w-4 text-blue-600" />
-                <span className="text-gray-600">500+ Employees</span>
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span className="text-gray-600">SmartX CRM</span>
               </div>
               <div className="flex items-center space-x-2">
-                <TrendingUp className="h-4 w-4 text-purple-600" />
-                <span className="text-gray-600">1000+ Customers</span>
+                <Package className="h-4 w-4 text-purple-600" />
+                <span className="text-gray-600">SmartX ERP</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Package className="h-4 w-4 text-green-600" />
-                <span className="text-gray-600">200+ Products</span>
+                <Users className="h-4 w-4 text-green-600" />
+                <span className="text-gray-600">SmartX HRMS</span>
               </div>
               <div className="flex items-center space-x-2">
-                <BarChart3 className="h-4 w-4 text-orange-600" />
-                <span className="text-gray-600">99.9% Uptime</span>
+                <Laptop className="h-4 w-4 text-orange-600" />
+                <span className="text-gray-600">SmartX IT Asset</span>
               </div>
             </div>
           </div>
@@ -335,7 +336,7 @@ export default function LoginForm() {
                     Welcome Back
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    Sign in to your SmartBizFlow Enterprise Portal
+                    Sign in to your SmartX Solution Enterprise Portal
                   </CardDescription>
                   
                   {/* Logout Reason Alert */}
@@ -542,7 +543,7 @@ export default function LoginForm() {
 
                   <div className="mt-6 text-center">
                     <p className="text-xs text-gray-500">
-                      © 2024 SmartBizFlow Enterprise. All rights reserved.
+                      © 2024 SmartX Solution Enterprise. All rights reserved.
                     </p>
                   </div>
                 </CardContent>

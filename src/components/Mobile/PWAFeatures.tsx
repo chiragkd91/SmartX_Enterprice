@@ -184,7 +184,7 @@ export default function PWAFeatures({ isOnline, isInstalled }: PWAFeaturesProps)
     try {
       if (navigator.share) {
         await navigator.share({
-          title: 'SmartBizFlow HR Portal',
+          title: 'SmartX Solution HR Portal',
           text: 'Check out this amazing HR management app!',
           url: window.location.href
         });

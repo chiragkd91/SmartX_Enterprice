@@ -73,7 +73,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const sessionConfig = getSessionConfig();
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 relative">
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
         <div 
@@ -99,7 +99,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           onMenuToggle={handleMenuToggle}
           isMobileMenuOpen={isMobileMenuOpen}
         />
-        <main className="flex-1 overflow-y-auto bg-gray-50">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-4 lg:p-6">
           {/* Session Warning Dialog */}
           <SessionWarningDialog
             isOpen={sessionState.showWarning}
@@ -109,7 +109,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
             onLogout={logout}
             userRole={currentUser?.role || 'user'}
           />
-          <div className="min-h-full">
+          <div className="w-full">
             {children}
           </div>
         </main>

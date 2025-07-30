@@ -1,0 +1,11 @@
+{
+  "success": [
+    "Server access successful"
+  ],
+  "errors": [
+    "Test execution failed: page.waitForTimeout is not a function"
+  ],
+  "screenshots": [
+    "01-homepage.png"
+  ]
+}

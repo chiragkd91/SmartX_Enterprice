@@ -1,6 +1,6 @@
 /**
  * SmartBizFlow - Real-time Performance Monitor
- * Tracks and displays system performance metrics
+ * Tracks and displays system performance metrics with SQL Server integration
  */
 
 import React, { useState, useEffect } from 'react';
@@ -10,13 +10,14 @@ import { Badge } from '@/components/ui/badge';
 import { 
   Activity, 
   Cpu, 
-  Memory, 
   HardDrive, 
   Network, 
   Clock,
   TrendingUp,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  Database,
+  Server
 } from 'lucide-react';
 
 interface PerformanceMetrics {
@@ -28,12 +29,20 @@ interface PerformanceMetrics {
   throughput: number;
   errorRate: number;
   uptime: number;
+  // Database metrics
+  dbConnections: number;
+  dbQueryTime: number;
+  dbThroughput: number;
+  dbErrorRate: number;
+  dbPoolSize: number;
+  dbActiveConnections: number;
 }
 
 interface PerformanceAlert {
   type: 'warning' | 'error' | 'info';
   message: string;
   timestamp: Date;
+  source: 'system' | 'database';
 }
 
 const PerformanceMonitor: React.FC = () => {
@@ -45,26 +54,75 @@ const PerformanceMonitor: React.FC = () => {
     responseTime: 0,
     throughput: 0,
     errorRate: 0,
-    uptime: 0
+    uptime: 0,
+    dbConnections: 0,
+    dbQueryTime: 0,
+    dbThroughput: 0,
+    dbErrorRate: 0,
+    dbPoolSize: 10,
+    dbActiveConnections: 0
   });
 
   const [alerts, setAlerts] = useState<PerformanceAlert[]>([]);
   const [isMonitoring, setIsMonitoring] = useState(true);
+  const [dbStatus, setDbStatus] = useState<'connected' | 'disconnected' | 'error'>('disconnected');
 
-  // Simulate real-time performance data
+  // Fetch real database metrics
+  const fetchDatabaseMetrics = async () => {
+    try {
+      // Import the performance service directly
+      const { performanceService } = await import('../services/performanceService');
+      const dbMetrics = await performanceService.getDatabaseMetrics();
+      setDbStatus('connected');
+      return dbMetrics;
+    } catch (error) {
+      console.error('Failed to fetch database metrics:', error);
+      setDbStatus('error');
+      return null;
+    }
+  };
+
+  // Fetch system metrics
+  const fetchSystemMetrics = async () => {
+    try {
+      // Import the performance service directly
+      const { performanceService } = await import('../services/performanceService');
+      return await performanceService.getSystemMetrics();
+    } catch (error) {
+      console.error('Failed to fetch system metrics:', error);
+    }
+    return null;
+  };
+
+  // Real-time performance monitoring
   useEffect(() => {
     if (!isMonitoring) return;
 
-    const interval = setInterval(() => {
+    const updateMetrics = async () => {
+      // Fetch real metrics from API endpoints
+      const [systemMetrics, dbMetrics] = await Promise.all([
+        fetchSystemMetrics(),
+        fetchDatabaseMetrics()
+      ]);
+
       const newMetrics: PerformanceMetrics = {
-        cpu: Math.random() * 30 + 10, // 10-40%
-        memory: Math.random() * 20 + 30, // 30-50%
-        disk: Math.random() * 15 + 5, // 5-20%
-        network: Math.random() * 25 + 15, // 15-40%
-        responseTime: Math.random() * 50 + 30, // 30-80ms
-        throughput: Math.random() * 200 + 800, // 800-1000 req/min
-        errorRate: Math.random() * 0.2, // 0-0.2%
-        uptime: 99.9 + Math.random() * 0.1 // 99.9-100%
+        // System metrics (fallback to simulated if API fails)
+        cpu: systemMetrics?.cpu ?? Math.random() * 30 + 10,
+        memory: systemMetrics?.memory ?? Math.random() * 20 + 30,
+        disk: systemMetrics?.disk ?? Math.random() * 15 + 5,
+        network: systemMetrics?.network ?? Math.random() * 25 + 15,
+        responseTime: systemMetrics?.responseTime ?? Math.random() * 50 + 30,
+        throughput: systemMetrics?.throughput ?? Math.random() * 200 + 800,
+        errorRate: systemMetrics?.errorRate ?? Math.random() * 0.2,
+        uptime: systemMetrics?.uptime ?? 99.9 + Math.random() * 0.1,
+        
+        // Database metrics
+        dbConnections: dbMetrics?.connections ?? 0,
+        dbQueryTime: dbMetrics?.queryTime ?? 0,
+        dbThroughput: dbMetrics?.throughput ?? 0,
+        dbErrorRate: dbMetrics?.errorRate ?? 0,
+        dbPoolSize: dbMetrics?.poolSize ?? 10,
+        dbActiveConnections: dbMetrics?.activeConnections ?? 0
       };
 
       setMetrics(newMetrics);
@@ -72,11 +130,13 @@ const PerformanceMonitor: React.FC = () => {
       // Generate alerts for performance issues
       const newAlerts: PerformanceAlert[] = [];
       
+      // System alerts
       if (newMetrics.cpu > 35) {
         newAlerts.push({
           type: 'warning',
           message: `High CPU usage: ${newMetrics.cpu.toFixed(1)}%`,
-          timestamp: new Date()
+          timestamp: new Date(),
+          source: 'system'
         });
       }
 
@@ -84,7 +144,8 @@ const PerformanceMonitor: React.FC = () => {
         newAlerts.push({
           type: 'warning',
           message: `High memory usage: ${newMetrics.memory.toFixed(1)}%`,
-          timestamp: new Date()
+          timestamp: new Date(),
+          source: 'system'
         });
       }
 
@@ -92,17 +153,61 @@ const PerformanceMonitor: React.FC = () => {
         newAlerts.push({
           type: 'warning',
           message: `Slow response time: ${newMetrics.responseTime.toFixed(1)}ms`,
-          timestamp: new Date()
+          timestamp: new Date(),
+          source: 'system'
+        });
+      }
+
+      // Database alerts
+      if (newMetrics.dbQueryTime > 100) {
+        newAlerts.push({
+          type: 'warning',
+          message: `Slow database queries: ${newMetrics.dbQueryTime.toFixed(1)}ms`,
+          timestamp: new Date(),
+          source: 'database'
+        });
+      }
+
+      if (newMetrics.dbErrorRate > 0.1) {
+        newAlerts.push({
+          type: 'error',
+          message: `High database error rate: ${newMetrics.dbErrorRate.toFixed(3)}%`,
+          timestamp: new Date(),
+          source: 'database'
+        });
+      }
+
+      if (newMetrics.dbActiveConnections > newMetrics.dbPoolSize * 0.8) {
+        newAlerts.push({
+          type: 'warning',
+          message: `High database connection usage: ${newMetrics.dbActiveConnections}/${newMetrics.dbPoolSize}`,
+          timestamp: new Date(),
+          source: 'database'
+        });
+      }
+
+      if (dbStatus === 'error') {
+        newAlerts.push({
+          type: 'error',
+          message: 'Database connection failed',
+          timestamp: new Date(),
+          source: 'database'
         });
       }
 
       if (newAlerts.length > 0) {
         setAlerts(prev => [...newAlerts, ...prev.slice(0, 4)]);
       }
-    }, 2000);
+    };
+
+    // Initial update
+    updateMetrics();
+
+    // Set up interval for real-time updates
+    const interval = setInterval(updateMetrics, 5000); // Update every 5 seconds
 
     return () => clearInterval(interval);
-  }, [isMonitoring]);
+  }, [isMonitoring, dbStatus]);
 
   const getStatusColor = (value: number, thresholds: { warning: number; error: number }) => {
     if (value >= thresholds.error) return 'text-red-500';
@@ -116,13 +221,29 @@ const PerformanceMonitor: React.FC = () => {
     return <CheckCircle className="h-4 w-4 text-green-500" />;
   };
 
+  const getDbStatusColor = () => {
+    switch (dbStatus) {
+      case 'connected': return 'text-green-500';
+      case 'error': return 'text-red-500';
+      default: return 'text-yellow-500';
+    }
+  };
+
+  const getDbStatusIcon = () => {
+    switch (dbStatus) {
+      case 'connected': return <CheckCircle className="h-4 w-4 text-green-500" />;
+      case 'error': return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      default: return <Server className="h-4 w-4 text-yellow-500" />;
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">System Performance Monitor</h2>
-          <p className="text-muted-foreground">Real-time system performance metrics</p>
+          <p className="text-muted-foreground">Real-time system and database performance metrics</p>
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant={isMonitoring ? "default" : "secondary"}>
@@ -136,6 +257,32 @@ const PerformanceMonitor: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* Database Status */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium">Database Status</CardTitle>
+          <Database className="h-4 w-4 text-muted-foreground" />
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <div className={`text-2xl font-bold ${getDbStatusColor()}`}>
+              {dbStatus.charAt(0).toUpperCase() + dbStatus.slice(1)}
+            </div>
+            {getDbStatusIcon()}
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <div>
+              <p className="text-sm text-muted-foreground">Active Connections</p>
+              <p className="text-lg font-semibold">{metrics.dbActiveConnections}/{metrics.dbPoolSize}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Query Time</p>
+              <p className="text-lg font-semibold">{metrics.dbQueryTime.toFixed(1)}ms</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Performance Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -167,7 +314,7 @@ const PerformanceMonitor: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Memory Usage</CardTitle>
-            <Memory className="h-4 w-4 text-muted-foreground" />
+            <HardDrive className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="flex items-center space-x-2">
@@ -211,19 +358,19 @@ const PerformanceMonitor: React.FC = () => {
           </CardContent>
         </Card>
 
-        {/* Throughput */}
+        {/* Database Throughput */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Throughput</CardTitle>
+            <CardTitle className="text-sm font-medium">DB Throughput</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold">{metrics.throughput.toFixed(0)}</div>
+              <div className="text-2xl font-bold">{metrics.dbThroughput.toFixed(0)}</div>
               <CheckCircle className="h-4 w-4 text-green-500" />
             </div>
-            <p className="text-xs text-muted-foreground mt-1">requests/min</p>
-            <p className="text-xs text-green-600 mt-1">Excellent performance</p>
+            <p className="text-xs text-muted-foreground mt-1">queries/min</p>
+            <p className="text-xs text-green-600 mt-1">Database performance</p>
           </CardContent>
         </Card>
       </div>
@@ -239,7 +386,7 @@ const PerformanceMonitor: React.FC = () => {
           <CardContent>
             <div className="text-2xl font-bold">{metrics.disk.toFixed(1)}%</div>
             <Progress value={metrics.disk} className="mt-2" />
-            <p className="text-xs text-muted-foreground mt-1">15.2MB / 1GB used</p>
+            <p className="text-xs text-muted-foreground mt-1">Storage utilization</p>
           </CardContent>
         </Card>
 
@@ -252,7 +399,7 @@ const PerformanceMonitor: React.FC = () => {
           <CardContent>
             <div className="text-2xl font-bold">{metrics.network.toFixed(1)}%</div>
             <Progress value={metrics.network} className="mt-2" />
-            <p className="text-xs text-muted-foreground mt-1">Active connections</p>
+            <p className="text-xs text-muted-foreground mt-1">Network utilization</p>
           </CardContent>
         </Card>
 
@@ -265,7 +412,7 @@ const PerformanceMonitor: React.FC = () => {
           <CardContent>
             <div className="text-2xl font-bold">{metrics.uptime.toFixed(3)}%</div>
             <Progress value={metrics.uptime} className="mt-2" />
-            <p className="text-xs text-muted-foreground mt-1">99.9% availability</p>
+            <p className="text-xs text-muted-foreground mt-1">Availability</p>
           </CardContent>
         </Card>
       </div>
@@ -291,6 +438,11 @@ const PerformanceMonitor: React.FC = () => {
                   }`}
                 >
                   <div className="flex items-center space-x-2">
+                    {alert.source === 'database' ? (
+                      <Database className="h-4 w-4 text-blue-500" />
+                    ) : (
+                      <Server className="h-4 w-4 text-gray-500" />
+                    )}
                     {alert.type === 'error' ? (
                       <AlertTriangle className="h-4 w-4 text-red-500" />
                     ) : alert.type === 'warning' ? (
@@ -341,19 +493,25 @@ const PerformanceMonitor: React.FC = () => {
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Performance Metrics</h4>
+              <h4 className="font-semibold mb-2">Database Health</h4>
               <div className="space-y-1">
                 <div className="flex justify-between">
+                  <span>Database Status:</span>
+                  <Badge variant={dbStatus === 'error' ? "destructive" : dbStatus === 'connected' ? "default" : "secondary"}>
+                    {dbStatus === 'error' ? 'Error' : dbStatus === 'connected' ? 'Connected' : 'Disconnected'}
+                  </Badge>
+                </div>
+                <div className="flex justify-between">
+                  <span>Query Time:</span>
+                  <Badge variant={metrics.dbQueryTime > 100 ? "destructive" : metrics.dbQueryTime > 50 ? "secondary" : "default"}>
+                    {metrics.dbQueryTime > 100 ? 'Slow' : metrics.dbQueryTime > 50 ? 'Moderate' : 'Fast'}
+                  </Badge>
+                </div>
+                <div className="flex justify-between">
                   <span>Error Rate:</span>
-                  <span className="text-green-600">{metrics.errorRate.toFixed(3)}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Throughput:</span>
-                  <span className="text-green-600">{metrics.throughput.toFixed(0)} req/min</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Uptime:</span>
-                  <span className="text-green-600">{metrics.uptime.toFixed(3)}%</span>
+                  <Badge variant={metrics.dbErrorRate > 0.1 ? "destructive" : "default"}>
+                    {metrics.dbErrorRate > 0.1 ? 'High' : 'Low'}
+                  </Badge>
                 </div>
               </div>
             </div>

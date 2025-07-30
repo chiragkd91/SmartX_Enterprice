@@ -1,0 +1,316 @@
+{
+  "summary": {
+    "total": 22,
+    "passed": 22,
+    "failed": 0,
+    "successRate": "100.00",
+    "timestamp": "2025-07-28T11:04:35.214Z",
+    "user": {
+      "email": "admin@smartbizflow.com",
+      "role": "admin"
+    }
+  },
+  "moduleStats": {
+    "dashboard": {
+      "passed": 2,
+      "failed": 0,
+      "total": 2
+    },
+    "crm": {
+      "passed": 3,
+      "failed": 0,
+      "total": 3
+    },
+    "erp": {
+      "passed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "hr": {
+      "passed": 5,
+      "failed": 0,
+      "total": 5
+    },
+    "it-assets": {
+      "passed": 3,
+      "failed": 0,
+      "total": 3
+    },
+    "gst": {
+      "passed": 1,
+      "failed": 0,
+      "total": 1
+    },
+    "common": {
+      "passed": 3,
+      "failed": 0,
+      "total": 3
+    }
+  },
+  "results": [
+    {
+      "testCaseId": "NAV-DASHBOARD-001",
+      "testCaseName": "Navigate to Dashboard",
+      "module": "dashboard",
+      "path": "/dashboard",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 4863,
+      "screenshots": [
+        "screenshots/NAV-DASHBOARD-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HOME-001",
+      "testCaseName": "Navigate to Home",
+      "module": "dashboard",
+      "path": "/home",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 4317,
+      "screenshots": [
+        "screenshots/NAV-HOME-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-CRM-001",
+      "testCaseName": "Navigate to CRM Overview",
+      "module": "crm",
+      "path": "/crm",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 6162,
+      "screenshots": [
+        "screenshots/NAV-CRM-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-CRM-002",
+      "testCaseName": "Navigate to CRM Leads",
+      "module": "crm",
+      "path": "/crm/leads",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 4156,
+      "screenshots": [
+        "screenshots/NAV-CRM-002.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-CRM-003",
+      "testCaseName": "Navigate to CRM Customers",
+      "module": "crm",
+      "path": "/crm/customers",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3819,
+      "screenshots": [
+        "screenshots/NAV-CRM-003.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-ERP-001",
+      "testCaseName": "Navigate to ERP Overview",
+      "module": "erp",
+      "path": "/erp",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3801,
+      "screenshots": [
+        "screenshots/NAV-ERP-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-ERP-002",
+      "testCaseName": "Navigate to ERP Products",
+      "module": "erp",
+      "path": "/erp/products",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3638,
+      "screenshots": [
+        "screenshots/NAV-ERP-002.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-ERP-003",
+      "testCaseName": "Navigate to ERP Orders",
+      "module": "erp",
+      "path": "/erp/orders",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3985,
+      "screenshots": [
+        "screenshots/NAV-ERP-003.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-ERP-004",
+      "testCaseName": "Navigate to ERP Invoices",
+      "module": "erp",
+      "path": "/erp/invoices",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3758,
+      "screenshots": [
+        "screenshots/NAV-ERP-004.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-ERP-005",
+      "testCaseName": "Navigate to ERP Vendors",
+      "module": "erp",
+      "path": "/erp/vendors",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3627,
+      "screenshots": [
+        "screenshots/NAV-ERP-005.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HR-001",
+      "testCaseName": "Navigate to HR Dashboard",
+      "module": "hr",
+      "path": "/hr",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 11763,
+      "screenshots": [
+        "screenshots/NAV-HR-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HR-002",
+      "testCaseName": "Navigate to HR Employees",
+      "module": "hr",
+      "path": "/hr/employees",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 4251,
+      "screenshots": [
+        "screenshots/NAV-HR-002.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HR-003",
+      "testCaseName": "Navigate to HR Attendance",
+      "module": "hr",
+      "path": "/hr/attendance",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3618,
+      "screenshots": [
+        "screenshots/NAV-HR-003.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HR-004",
+      "testCaseName": "Navigate to HR Leave",
+      "module": "hr",
+      "path": "/hr/leave",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3650,
+      "screenshots": [
+        "screenshots/NAV-HR-004.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-HR-005",
+      "testCaseName": "Navigate to HR Payroll",
+      "module": "hr",
+      "path": "/hr/payroll",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3663,
+      "screenshots": [
+        "screenshots/NAV-HR-005.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-IT-ASSET-001",
+      "testCaseName": "Navigate to IT Asset Dashboard",
+      "module": "it-assets",
+      "path": "/assets",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3716,
+      "screenshots": [
+        "screenshots/NAV-IT-ASSET-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-IT-ASSET-002",
+      "testCaseName": "Navigate to IT Asset Management",
+      "module": "it-assets",
+      "path": "/assets/management",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3690,
+      "screenshots": [
+        "screenshots/NAV-IT-ASSET-002.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-IT-ASSET-003",
+      "testCaseName": "Navigate to IT Asset Tracking",
+      "module": "it-assets",
+      "path": "/assets/tracking",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3649,
+      "screenshots": [
+        "screenshots/NAV-IT-ASSET-003.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-GST-001",
+      "testCaseName": "Navigate to GST",
+      "module": "gst",
+      "path": "/gst",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3658,
+      "screenshots": [
+        "screenshots/NAV-GST-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-COMMON-001",
+      "testCaseName": "Navigate to User Management",
+      "module": "common",
+      "path": "/users",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3686,
+      "screenshots": [
+        "screenshots/NAV-COMMON-001.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-COMMON-002",
+      "testCaseName": "Navigate to Settings",
+      "module": "common",
+      "path": "/settings",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 3751,
+      "screenshots": [
+        "screenshots/NAV-COMMON-002.png"
+      ]
+    },
+    {
+      "testCaseId": "NAV-COMMON-003",
+      "testCaseName": "Navigate to Reports",
+      "module": "common",
+      "path": "/reports",
+      "status": "PASSED",
+      "errors": [],
+      "duration": 4526,
+      "screenshots": [
+        "screenshots/NAV-COMMON-003.png"
+      ]
+    }
+  ]
+}

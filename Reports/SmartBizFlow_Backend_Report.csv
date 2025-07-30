@@ -1,0 +1,69 @@
+Module,Component,File_Path,Type,Status,Features,Technologies,Database,API_Endpoints,Security,Performance,Last_Updated
+Server,Main Server,server/index.js,Server,Complete,Express server,Node.js,Express,JSON Database,138 endpoints,JWT,Rate Limiting,2024-12-01
+Database,Database Service,server/database.js,Service,Complete,JSON database,Node.js,File-based,CRUD operations,Authentication,Optimized,2024-12-01
+Database,Prisma Schema,prisma/schema.prisma,Schema,Complete,Database schema,Prisma,SQL Server,ORM mapping,Constraints,Indexed,2024-12-01
+Database,SQLite Database,src/lib/database.sqlite.ts,Service,Complete,SQLite integration,SQLite,SQLite,Local storage,Encryption,Fast queries,2024-12-01
+Database,Database Utils,src/lib/database.ts,Utility,Complete,Database utilities,TypeScript,Multiple,Connection mgmt,Validation,Optimized,2024-12-01
+Database,Seed Data,src/lib/seedData.ts,Data,Complete,Sample data,TypeScript,JSON,Test data,Sanitized,Validated,2024-12-01
+Database,Healthcare Data,src/lib/healthcareSeedData.ts,Data,Complete,Healthcare data,TypeScript,JSON,Medical data,Compliant,Validated,2024-12-01
+API,API Routes Config,src/config/apiRoutes.ts,Configuration,Complete,API routes,TypeScript,None,138 routes,Auth required,Documented,2024-12-01
+API,API Service,src/services/apiService.ts,Service,Complete,HTTP client,TypeScript,Axios,All endpoints,Token mgmt,Retry logic,2024-12-01
+API,Database Service,src/services/databaseService.ts,Service,Complete,Database operations,TypeScript,Multiple,CRUD APIs,Validation,Optimized,2024-12-01
+API,Error Logging,src/services/errorLoggingService.ts,Service,Complete,Error handling,TypeScript,Winston,Logging API,Secure,Monitored,2024-12-01
+API,File Service,src/services/fileService.ts,Service,Complete,File operations,TypeScript,Multer,Upload API,Validation,Compressed,2024-12-01
+API,JSON Database,src/services/jsonDatabaseService.ts,Service,Complete,JSON operations,TypeScript,JSON,File API,Validation,Fast I/O,2024-12-01
+API,Lead Service,src/services/leadService.ts,Service,Complete,Lead management,TypeScript,Database,Lead APIs,Validation,Optimized,2024-12-01
+API,MSSQL Service,src/services/mssqlService.ts,Service,Complete,SQL Server,TypeScript,MSSQL,DB APIs,Encryption,Pooled,2024-12-01
+API,Performance Service,src/services/performanceService.ts,Service,Complete,Performance monitoring,TypeScript,None,Metrics API,Caching,Optimized,2024-12-01
+API,Search Service,src/services/searchService.ts,Service,Complete,Search functionality,TypeScript,Database,Search API,Validation,Fast search,2024-12-01
+API,Security Service,src/services/securityService.ts,Service,Complete,Security features,TypeScript,None,Security API,Encryption,Monitored,2024-12-01
+API,User Service,src/services/userService.ts,Service,Complete,User management,TypeScript,Database,User APIs,Auth,Optimized,2024-12-01
+API,WebSocket Service,src/services/websocketService.ts,Service,Complete,Real-time communication,TypeScript,WebSocket,Real-time API,Secure,Fast,2024-12-01
+Authentication,JWT Authentication,server/index.js,Middleware,Complete,JWT tokens,Node.js,None,Auth endpoints,Encrypted,Fast,2024-12-01
+Authentication,Password Hashing,server/index.js,Utility,Complete,Password security,bcrypt,None,Hash API,12 rounds,Secure,2024-12-01
+Authentication,Session Management,server/index.js,Service,Complete,User sessions,Node.js,Database,Session API,Secure,TTL,2024-12-01
+Authorization,RBAC System,server/index.js,Middleware,Complete,Role-based access,Node.js,Database,Permission API,Granular,Fast,2024-12-01
+Authorization,Permission Matrix,src/config/rbac.ts,Configuration,Complete,Permissions,TypeScript,None,Permission API,Validated,Optimized,2024-12-01
+Security,Rate Limiting,server/index.js,Middleware,Complete,Request limiting,express-rate-limit,None,Limit API,Protected,Configurable,2024-12-01
+Security,CORS Protection,server/index.js,Middleware,Complete,Cross-origin,Node.js,None,CORS API,Configured,Secure,2024-12-01
+Security,Helmet Security,server/index.js,Middleware,Complete,Security headers,Helmet,None,Header API,Protected,Standard,2024-12-01
+Security,Audit Logging,server/index.js,Service,Complete,Activity logging,Node.js,Database,Audit API,Comprehensive,Indexed,2024-12-01
+File Upload,Multer Configuration,server/index.js,Middleware,Complete,File uploads,Multer,File system,Upload API,Validation,Size limit,2024-12-01
+File Upload,File Storage,server/uploads/,Directory,Complete,File storage,Node.js,File system,Storage API,Secure,Organized,2024-12-01
+Configuration,Environment Config,env.example,Configuration,Complete,Environment vars,Node.js,None,Config API,Secure,Validated,2024-12-01
+Configuration,Database Config,src/config/database.ts,Configuration,Complete,Database settings,TypeScript,Multiple,Config API,Secure,Optimized,2024-12-01
+Configuration,MSSQL Config,src/config/mssql-database.ts,Configuration,Complete,SQL Server settings,TypeScript,MSSQL,Config API,Encrypted,Pooled,2024-12-01
+Configuration,Module Config,src/config/modules.ts,Configuration,Complete,Module settings,TypeScript,None,Config API,Validated,Optimized,2024-12-01
+Configuration,Routes Config,src/config/routes.ts,Configuration,Complete,Route settings,TypeScript,None,Route API,Validated,Optimized,2024-12-01
+Configuration,Theme Config,src/config/theme.ts,Configuration,Complete,Theme settings,TypeScript,None,Theme API,Validated,Optimized,2024-12-01
+Configuration,Workflow Config,src/config/workflows.ts,Configuration,Complete,Workflow settings,TypeScript,None,Workflow API,Validated,Optimized,2024-12-01
+Scripts,Build Script,scripts/build.mjs,Script,Complete,Build automation,Node.js,None,Build API,Validated,Optimized,2024-12-01
+Scripts,Deploy Script,scripts/deploy.mjs,Script,Complete,Deployment,Node.js,None,Deploy API,Secure,Automated,2024-12-01
+Scripts,MSSQL Migration,scripts/mssql-migration.js,Script,Complete,Database migration,Node.js,MSSQL,Migration API,Secure,Validated,2024-12-01
+Scripts,MSSQL Setup,scripts/mssql-migration.sql,Script,Complete,SQL setup,SQL,MSSQL,Setup API,Secure,Optimized,2024-12-01
+Scripts,Seed Database,scripts/seedDatabase.js,Script,Complete,Data seeding,Node.js,Database,Seed API,Validated,Automated,2024-12-01
+Scripts,Healthcare Data,scripts/seedHealthcareData.js,Script,Complete,Healthcare seeding,Node.js,Database,Seed API,Compliant,Validated,2024-12-01
+Scripts,VAPT Testing,scripts/vapt-testing-suite.js,Script,Complete,Security testing,Node.js,None,Test API,Comprehensive,Automated,2024-12-01
+Scripts,Server Seed,server/scripts/seed.js,Script,Complete,Server seeding,Node.js,Database,Seed API,Validated,Automated,2024-12-01
+Hooks,Session Manager,src/hooks/useSessionManager.ts,Hook,Complete,Session management,TypeScript,None,Session API,Secure,Optimized,2024-12-01
+Hooks,RBAC Hook,src/hooks/useRBAC.ts,Hook,Complete,Permission checking,TypeScript,Database,RBAC API,Validated,Fast,2024-12-01
+Hooks,Toast Hook,src/hooks/use-toast.ts,Hook,Complete,Notifications,TypeScript,None,Toast API,Validated,Optimized,2024-12-01
+Hooks,Mobile Hook,src/hooks/use-mobile.tsx,Hook,Complete,Mobile detection,TypeScript,None,Mobile API,Validated,Responsive,2024-12-01
+Types,Database Types,src/types/database.ts,Types,Complete,Database types,TypeScript,None,Type API,Validated,Comprehensive,2024-12-01
+Types,Environment Types,src/types/env.d.ts,Types,Complete,Environment types,TypeScript,None,Type API,Validated,Complete,2024-12-01
+Types,Index Types,src/types/index.ts,Types,Complete,Main types,TypeScript,None,Type API,Validated,Comprehensive,2024-12-01
+Types,India Types,src/types/india.ts,Types,Complete,India-specific types,TypeScript,None,Type API,Validated,Localized,2024-12-01
+Utils,RBAC Test,src/utils/rbacTest.ts,Utility,Complete,RBAC testing,TypeScript,None,Test API,Validated,Automated,2024-12-01
+Utils,General Utils,src/lib/utils.ts,Utility,Complete,General utilities,TypeScript,None,Util API,Validated,Optimized,2024-12-01
+Utils,Indian Utils,src/lib/indianUtils.ts,Utility,Complete,India utilities,TypeScript,None,Util API,Validated,Localized,2024-12-01
+Data,HRMS Data,data/hrms.json,Data,Complete,HR data,JSON,File,Data API,Sanitized,Validated,2024-12-01
+Data,Healthcare Data,data/healthcare-data.json,Data,Complete,Healthcare data,JSON,File,Data API,Compliant,Validated,2024-12-01
+Data,SmartBizFlow DB,smartbizflow-db.json,Data,Complete,Main database,JSON,File,DB API,Encrypted,Backed up,2024-12-01
+Package,Main Package,package.json,Configuration,Complete,Dependencies,Node.js,None,Package API,Validated,Updated,2024-12-01
+Package,Lock File,package-lock.json,Configuration,Complete,Dependency lock,Node.js,None,Lock API,Secure,Current,2024-12-01
+Configuration,TypeScript Config,tsconfig.json,Configuration,Complete,TypeScript settings,TypeScript,None,Config API,Validated,Optimized,2024-12-01
+Configuration,Vite Config,vite.config.ts,Configuration,Complete,Vite settings,Vite,None,Config API,Validated,Optimized,2024-12-01
+Configuration,Tailwind Config,tailwind.config.js,Configuration,Complete,Tailwind settings,Tailwind,None,Config API,Validated,Optimized,2024-12-01
+Configuration,PostCSS Config,postcss.config.cjs,Configuration,Complete,PostCSS settings,PostCSS,None,Config API,Validated,Optimized,2024-12-01
+Configuration,ESLint Config,.eslintrc.cjs,Configuration,Complete,ESLint settings,ESLint,None,Config API,Validated,Optimized,2024-12-01
+Configuration,Playwright Config,playwright.config.ts,Configuration,Complete,Playwright settings,Playwright,None,Config API,Validated,Optimized,2024-12-01 

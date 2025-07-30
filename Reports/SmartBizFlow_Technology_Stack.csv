@@ -1,0 +1,74 @@
+Category,Technology,Version,Description,Status,Implementation
+Frontend Framework,React,18.3.1,Main frontend framework with hooks and functional components,Active,Complete
+Frontend Language,TypeScript,5.3.3,Type-safe JavaScript for better development experience,Active,Complete
+Build Tool,Vite,5.0.10,Modern build tool for fast development and optimized production builds,Active,Complete
+Styling Framework,Tailwind CSS,3.4.0,Utility-first CSS framework for rapid UI development,Active,Complete
+UI Component Library,Radix UI,Latest,Accessible and unstyled UI components,Active,Complete
+State Management,Zustand,4.4.7,Lightweight state management library,Active,Complete
+Routing,React Router DOM,6.20.1,Client-side routing for single-page applications,Active,Complete
+Form Handling,React Hook Form,7.61.1,Efficient form validation and handling,Active,Complete
+Form Validation,Zod,3.22.4,TypeScript-first schema validation,Active,Complete
+Charts & Analytics,Recharts,2.15.4,Composable charting library for React,Active,Complete
+Icons,Lucide React,0.526.0,Beautiful and consistent icon library,Active,Complete
+Date Handling,Date-fns,2.30.0,Modern JavaScript date utility library,Active,Complete
+Notifications,Sonner,1.2.4,Toast notifications library,Active,Complete
+Carousel,Embla Carousel,8.6.0,Lightweight carousel library,Active,Complete
+Command Interface,cmdk,1.1.1,Command palette component,Active,Complete
+Resizable Panels,React Resizable Panels,3.0.3,Resizable panel components,Active,Complete
+Theme Management,next-themes,0.4.6,Dark/light theme switching,Active,Complete
+Input OTP,input-otp,1.4.2,One-time password input component,Active,Complete
+Backend Framework,Express.js,4.18.2,Node.js web application framework,Active,Complete
+Backend Language,Node.js,Latest,JavaScript runtime for server-side development,Active,Complete
+Authentication,bcryptjs,2.4.3,Password hashing and verification,Active,Complete
+JWT,jsonwebtoken,9.0.2,JSON Web Token implementation,Active,Complete
+File Upload,Multer,1.4.5-lts.1,Multipart form data handling,Active,Complete
+Email Service,Nodemailer,6.9.7,Email sending functionality,Active,Complete
+Security,Helmet,7.1.0,Security middleware for Express,Active,Complete
+Rate Limiting,express-rate-limit,7.1.5,API rate limiting middleware,Active,Complete
+CORS,cors,2.8.5,Cross-origin resource sharing middleware,Active,Complete
+Environment Variables,dotenv,16.3.1,Environment variable management,Active,Complete
+Database ORM,Prisma,5.7.1,Modern database toolkit and ORM,Active,Complete
+Database Client,Prisma Client,5.7.1,Type-safe database client,Active,Complete
+Database,SQLite,Latest,Lightweight file-based database,Active,Complete
+Database,MSSQL,10.0.4,Microsoft SQL Server database,Active,Complete
+Database Types,@types/mssql,9.1.7,TypeScript definitions for MSSQL,Active,Complete
+Testing,Playwright,1.54.1,End-to-end testing framework,Active,Complete
+Development Server,Nodemon,3.0.2,Development server with auto-restart,Active,Complete
+Linting,ESLint,8.55.0,JavaScript/TypeScript linting,Active,Complete
+TypeScript Linting,@typescript-eslint/eslint-plugin,6.14.0,TypeScript-specific ESLint rules,Active,Complete
+TypeScript Linting,@typescript-eslint/parser,6.14.0,TypeScript parser for ESLint,Active,Complete
+React Linting,eslint-plugin-react-hooks,4.6.0,React hooks linting rules,Active,Complete
+React Linting,eslint-plugin-react-refresh,0.4.5,React refresh linting,Active,Complete
+CSS Processing,PostCSS,8.4.32,CSS transformation tool,Active,Complete
+CSS Autoprefixer,Autoprefixer,10.4.16,Automatic CSS vendor prefixing,Active,Complete
+CSS Animation,Tailwind CSS Animate,1.0.7,CSS animation utilities,Active,Complete
+Utility Libraries,clsx,2.0.0,Conditional className utility,Active,Complete
+Utility Libraries,class-variance-authority,0.7.0,Component variant management,Active,Complete
+Utility Libraries,tailwind-merge,2.2.0,Tailwind CSS class merging utility,Active,Complete
+Utility Libraries,uuid,9.0.1,Unique identifier generation,Active,Complete
+Utility Libraries,vaul,1.1.2,Drawer component library,Active,Complete
+Logging,Winston,3.17.0,Logging library for Node.js,Active,Complete
+Type Definitions,@types/bcryptjs,2.4.6,TypeScript definitions for bcryptjs,Active,Complete
+Type Definitions,@types/cors,2.8.17,TypeScript definitions for CORS,Active,Complete
+Type Definitions,@types/express,4.17.21,TypeScript definitions for Express,Active,Complete
+Type Definitions,@types/jsonwebtoken,9.0.5,TypeScript definitions for JWT,Active,Complete
+Type Definitions,@types/multer,1.4.11,TypeScript definitions for Multer,Active,Complete
+Type Definitions,@types/node,20.10.5,TypeScript definitions for Node.js,Active,Complete
+Type Definitions,@types/nodemailer,6.4.14,TypeScript definitions for Nodemailer,Active,Complete
+Type Definitions,@types/react,18.2.45,TypeScript definitions for React,Active,Complete
+Type Definitions,@types/react-dom,18.2.18,TypeScript definitions for React DOM,Active,Complete
+Type Definitions,@types/uuid,9.0.7,TypeScript definitions for UUID,Active,Complete
+Type Definitions,@types/winston,2.4.4,TypeScript definitions for Winston,Active,Complete
+Development Tools,TypeScript,5.3.3,TypeScript compiler,Active,Complete
+Development Tools,@vitejs/plugin-react,4.2.1,Vite plugin for React,Active,Complete
+Version Control,Git,Latest,Distributed version control system,Active,Complete
+Package Manager,npm,Latest,Node.js package manager,Active,Complete
+Code Editor,VS Code,Latest,Integrated development environment,Active,Complete
+Browser Support,Modern Browsers,Latest,Chrome, Firefox, Safari, Edge support,Active,Complete
+Mobile Support,Progressive Web App,Latest,PWA capabilities for mobile devices,Active,Complete
+Performance,Code Splitting,Latest,Dynamic imports and lazy loading,Active,Complete
+Performance,Bundle Optimization,Latest,Webpack/Vite optimization,Active,Complete
+Security,HTTPS,Latest,Secure communication protocol,Active,Complete
+Security,Content Security Policy,Latest,Web security policy,Active,Complete
+Security,XSS Protection,Latest,Cross-site scripting protection,Active,Complete
+Security,CSRF Protection,Latest,Cross-site request forgery protection,Active,Complete 

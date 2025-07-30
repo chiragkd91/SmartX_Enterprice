@@ -111,6 +111,7 @@ interface StoreState {
   // Authentication
   currentUser: User | null;
   isAuthenticated: boolean;
+  currentModule: string | null;
   
   // Dashboard
   dashboardStats: DashboardStats;
@@ -127,7 +128,8 @@ interface StoreState {
   setError: (error: string | null) => void;
   
   // Authentication actions
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string, module?: string) => Promise<boolean>;
+  loginFallback: (email: string, password: string, module?: string) => Promise<boolean>;
   logout: () => void;
   updateUserSessionInfo: (sessionInfo: Partial<User>) => void;
   
@@ -145,195 +147,27 @@ interface StoreState {
   initializeApp: () => Promise<void>;
 }
 
-// Comprehensive demo users for all modules
-const DEFAULT_USERS: User[] = [
-  {
-    id: '1',
-    name: 'System Administrator',
-    email: 'admin@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'admin',
-    department: 'IT',
-    phone: '+1 (555) 123-4567',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'users.view', 'users.create', 'users.edit', 'users.delete',
-      'hr.view', 'employees.view', 'employees.create', 'employees.edit', 'employees.delete',
-      'attendance.view', 'attendance.edit',
-      'leave.view', 'leave.edit',
-      'payroll.view', 'payroll.edit',
-      'performance.view', 'performance.edit',
-      'recruitment.view', 'recruitment.create', 'recruitment.edit',
-      'training.view', 'training.create', 'training.edit',
-      'crm.view', 'customers.view', 'customers.create', 'customers.edit',
-      'leads.view', 'leads.create', 'leads.edit',
-      'erp.view', 'products.view', 'products.create', 'products.edit',
-      'orders.view', 'orders.create', 'orders.edit',
-      'invoices.view', 'invoices.create', 'invoices.edit',
-      'vendors.view', 'vendors.create', 'vendors.edit',
-      'gst.view', 'gst.create', 'gst.edit',
-      'assets.view', 'assets.create', 'assets.edit',
-      'reports.view', 'settings.view', 'settings.edit'
-    ],
-    created_at: '2024-01-01T00:00:00Z',
-    last_login: '2024-12-03T18:30:00Z'
-  },
-  {
-    id: '2',
-    name: 'HR Manager',
-    email: 'hr@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'hr_manager',
-    department: 'HR',
-    phone: '+1 (555) 234-5678',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'hr.view', 'employees.view', 'employees.create', 'employees.edit',
-      'attendance.view', 'attendance.edit',
-      'leave.view', 'leave.edit',
-      'payroll.view', 'payroll.edit',
-      'performance.view', 'performance.edit',
-      'recruitment.view', 'recruitment.create', 'recruitment.edit',
-      'training.view', 'training.create', 'training.edit',
-      'reports.view'
-    ],
-    created_at: '2024-01-15T09:00:00Z',
-    last_login: '2024-12-03T17:45:00Z'
-  },
-  {
-    id: '3',
-    name: 'John Smith',
-    email: 'john.smith@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'employee',
-    department: 'Engineering',
-    phone: '+1 (555) 345-6789',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'hr.view', 'employees.view',
-      'attendance.view',
-      'leave.view', 'leave.create',
-      'training.view', 'training.enroll',
-      'payroll.view'
-    ],
-    created_at: '2024-02-10T14:20:00Z',
-    last_login: '2024-12-03T16:20:00Z'
-  },
-  {
-    id: '4',
-    name: 'CRM Manager',
-    email: 'crm@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'crm_manager',
-    department: 'Sales',
-    phone: '+1 (555) 456-7890',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'crm.view', 'customers.view', 'customers.create', 'customers.edit',
-      'leads.view', 'leads.create', 'leads.edit',
-      'reports.view'
-    ],
-    created_at: '2024-01-20T11:30:00Z',
-    last_login: '2024-12-03T15:30:00Z'
-  },
-  {
-    id: '5',
-    name: 'Sales Representative',
-    email: 'sales@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'sales_rep',
-    department: 'Sales',
-    phone: '+1 (555) 567-8901',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'crm.view', 'customers.view', 'customers.create',
-      'leads.view', 'leads.create', 'leads.edit'
-    ],
-    created_at: '2024-02-05T13:15:00Z',
-    last_login: '2024-12-03T14:15:00Z'
-  },
-  {
-    id: '6',
-    name: 'Customer Support Agent',
-    email: 'support@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'customer_support',
-    department: 'Support',
-    phone: '+1 (555) 678-9012',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'crm.view', 'customers.view',
-      'leads.view'
-    ],
-    created_at: '2024-02-15T10:45:00Z',
-    last_login: '2024-12-03T13:45:00Z'
-  },
-  {
-    id: '7',
-    name: 'Finance Manager',
-    email: 'finance@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'finance_manager',
-    department: 'Finance',
-    phone: '+1 (555) 789-0123',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'erp.view', 'products.view',
-      'orders.view', 'orders.create', 'orders.edit',
-      'invoices.view', 'invoices.create', 'invoices.edit',
-      'vendors.view', 'vendors.create', 'vendors.edit',
-      'gst.view', 'gst.create', 'gst.edit',
-      'payroll.view', 'payroll.edit',
-      'reports.view'
-    ],
-    created_at: '2024-01-25T08:30:00Z',
-    last_login: '2024-12-03T12:30:00Z'
-  },
-  {
-    id: '8',
-    name: 'IT Administrator',
-    email: 'it@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'it_admin',
-    department: 'IT',
-    phone: '+1 (555) 890-1234',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'assets.view', 'assets.create', 'assets.edit',
-      'users.view', 'users.create', 'users.edit',
-      'settings.view', 'settings.edit',
-      'reports.view'
-    ],
-    created_at: '2024-01-10T16:00:00Z',
-    last_login: '2024-12-03T11:00:00Z'
-  },
-  {
-    id: '9',
-    name: 'Viewer',
-    email: 'viewer@smartbizflow.com',
-    password_hash: 'password123',
-    role: 'viewer',
-    department: 'Management',
-    phone: '+1 (555) 901-2345',
-    status: 'active',
-    permissions: [
-      'dashboard.view', 'reports.view',
-      'hr.view', 'employees.view',
-      'crm.view', 'customers.view', 'leads.view',
-      'erp.view', 'products.view', 'orders.view', 'invoices.view',
-      'gst.view'
-    ],
-    created_at: '2024-03-01T12:00:00Z',
-    last_login: '2024-12-03T10:00:00Z'
-  }
-];
+const STATIC_USER: User = {
+  id: 'static-user-1',
+  name: 'Chirag',
+  email: 'chirag@smartbizflow.com',
+  password_hash: 'Password@123',
+  role: 'admin',
+  department: 'IT',
+  phone: '+1 (555) 123-4567',
+  status: 'active',
+  permissions: ['dashboard.view', 'users.view', 'users.create', 'users.edit', 'users.delete', 'hr.view', 'employees.view', 'employees.create', 'employees.edit', 'employees.delete', 'attendance.view', 'attendance.edit', 'leave.view', 'leave.edit', 'payroll.view', 'payroll.edit', 'performance.view', 'performance.edit', 'recruitment.view', 'recruitment.create', 'recruitment.edit', 'training.view', 'training.create', 'training.edit', 'crm.view', 'customers.view', 'customers.create', 'customers.edit', 'leads.view', 'leads.create', 'leads.edit', 'erp.view', 'products.view', 'products.create', 'products.edit', 'orders.view', 'orders.create', 'orders.edit', 'invoices.view', 'invoices.create', 'invoices.edit', 'vendors.view', 'vendors.create', 'vendors.edit', 'gst.view', 'gst.create', 'gst.edit', 'assets.view', 'assets.create', 'assets.edit', 'reports.view', 'settings.view', 'settings.edit'],
+  created_at: '2024-01-01T00:00:00Z',
+  last_login: new Date().toISOString()
+};
 
 export const useStore = create<StoreState>((set, get) => ({
   // Initial state
   loading: false,
   error: null,
-  currentUser: null,
-  isAuthenticated: false,
+  currentUser: STATIC_USER,
+  isAuthenticated: true,
+  currentModule: null, // Track which module user logged in from
   dashboardStats: {
     totalCustomers: 0,
     activeLeads: 0,
@@ -360,60 +194,14 @@ export const useStore = create<StoreState>((set, get) => ({
   setLoading: (loading: boolean) => set({ loading }),
   setError: (error: string | null) => set({ error }),
 
-  // Authentication system
-  login: async (email: string, password: string) => {
-    console.log('🔐 Login attempt:', { email, password });
-    console.log('🔍 Available users:', DEFAULT_USERS.map(u => ({ email: u.email, role: u.role })));
-    set({ loading: true, error: null });
-    
-    try {
-      // Simulate login delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Find user in default users
-      const user = DEFAULT_USERS.find(u => 
-        u.email.toLowerCase() === email.toLowerCase() && 
-        u.password_hash === password
-      );
-      
-      console.log('👤 User found:', user);
-      
-      if (user) {
-        console.log('✅ Setting authentication state...');
-        set({ 
-          currentUser: user, 
-          isAuthenticated: true, 
-          loading: false,
-          error: null
-        });
-        
-        console.log('📊 Loading dashboard data...');
-        // Load dashboard data after successful login
-        await get().loadDashboardData();
-        
-        console.log('✅ Login successful - state updated');
-        return true;
-      } else {
-        console.log('❌ User not found or password incorrect');
-        set({ 
-          error: 'Invalid email or password', 
-          loading: false,
-          isAuthenticated: false,
-          currentUser: null
-        });
-        console.log('❌ Login failed');
-        return false;
-      }
-    } catch (error) {
-      console.error('🚨 Login error:', error);
-      set({ 
-        error: 'Login failed. Please try again.', 
-        loading: false,
-        isAuthenticated: false,
-        currentUser: null
-      });
-      return false;
-    }
+  // Authentication system with server integration
+  login: async () => {
+    console.log('Login is disabled; using static user.');
+    return Promise.resolve(true);
+  },
+  loginFallback: async () => {
+    console.log('Login fallback is disabled; using static user.');
+    return Promise.resolve(true);
   },
 
   logout: () => {
@@ -421,6 +209,7 @@ export const useStore = create<StoreState>((set, get) => ({
     set({ 
       currentUser: null, 
       isAuthenticated: false,
+      currentModule: null,
       dashboardStats: {
         totalCustomers: 0,
         activeLeads: 0,

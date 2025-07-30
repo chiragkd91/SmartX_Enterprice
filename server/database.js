@@ -60,7 +60,7 @@ class DatabaseService {
 
   async seedData() {
     // Create admin user
-    const adminPassword = await bcrypt.hash('admin123', 12);
+    const adminPassword = await bcrypt.hash('password123', 12);
     const adminUser = {
       id: 'admin-001',
       email: 'admin@smartbizflow.com',
@@ -87,7 +87,7 @@ class DatabaseService {
     };
 
     // Create HR Manager
-    const hrPassword = await bcrypt.hash('hr123', 12);
+    const hrPassword = await bcrypt.hash('password123', 12);
     const hrUser = {
       id: 'hr-001',
       email: 'hr@smartbizflow.com',
@@ -151,7 +151,7 @@ class DatabaseService {
     const sampleEmployeesData = [];
 
     for (const emp of sampleEmployees) {
-      const password = await bcrypt.hash('employee123', 12);
+      const password = await bcrypt.hash('password123', 12);
       const user = {
         id: emp.id,
         email: emp.email,
@@ -254,16 +254,72 @@ class DatabaseService {
     return this.data.users.find(user => user.id === id) || null;
   }
 
+  async getUsers(options = {}) {
+    const { limit = 50, offset = 0, role, status, search } = options;
+    let filtered = [...this.data.users];
+    
+    // Filter by role
+    if (role) {
+      filtered = filtered.filter(user => user.role === role);
+    }
+    
+    // Filter by status (active/inactive)
+    if (status !== undefined) {
+      const isActive = status === 'active';
+      filtered = filtered.filter(user => user.isActive === isActive);
+    }
+    
+    // Search by email
+    if (search) {
+      filtered = filtered.filter(user =>
+        user.email.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    
+    // Sort by creation date (newest first)
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // Apply pagination
+    return filtered.slice(offset, offset + limit);
+  }
+
   async createUser(user) {
     const newUser = {
       ...user,
-      id: `user-${Date.now()}`,
+      id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       createdAt: new Date(),
       updatedAt: new Date()
     };
     this.data.users.push(newUser);
     this.saveData();
     return newUser;
+  }
+
+  async updateUser(id, updates) {
+    const userIndex = this.data.users.findIndex(user => user.id === id);
+    if (userIndex === -1) {
+      return null;
+    }
+    
+    this.data.users[userIndex] = {
+      ...this.data.users[userIndex],
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    this.saveData();
+    return this.data.users[userIndex];
+  }
+
+  async deleteUser(id) {
+    const userIndex = this.data.users.findIndex(user => user.id === id);
+    if (userIndex === -1) {
+      return false;
+    }
+    
+    this.data.users.splice(userIndex, 1);
+    this.saveData();
+    return true;
   }
 
   async getEmployees(limit = 10, offset = 0) {

@@ -37,6 +37,8 @@ const LeaveManagement = lazy(() => import('../pages/HR/LeaveManagement'));
 const PayrollManagement = lazy(() => import('../pages/HR/PayrollManagement'));
 const PerformanceManagement = lazy(() => import('../pages/HR/PerformanceManagement'));
 const RecruitmentManagement = lazy(() => import('../pages/HR/RecruitmentManagement'));
+const ApplicantTrackingSystem = lazy(() => import('../pages/HR/ApplicantTrackingSystem'));
+const BackgroundVerification = lazy(() => import('../pages/HR/BackgroundVerification'));
 const HRReports = lazy(() => import('../pages/HR/HRReports'));
 const TrainingManagement = lazy(() => import('../pages/HR/TrainingManagement'));
 const EmployeeSelfService = lazy(() => import('../pages/HR/EmployeeSelfService'));
@@ -292,6 +294,20 @@ export const routes: RouteConfig[] = [
     component: RecruitmentManagement,
     title: 'Recruitment Management',
     description: 'Manage hiring and recruitment processes',
+    module: 'hr'
+  },
+  {
+    path: '/hr/ats',
+    component: ApplicantTrackingSystem,
+    title: 'Applicant Tracking System',
+    description: 'Comprehensive applicant tracking and hiring management',
+    module: 'hr'
+  },
+  {
+    path: '/hr/bgv',
+    component: BackgroundVerification,
+    title: 'Background Verification',
+    description: 'Manage background verification processes and compliance',
     module: 'hr'
   },
   {
@@ -581,6 +597,8 @@ export const navigationMenu = {
         { title: 'Payroll', path: '/hr/payroll' },
         { title: 'Performance', path: '/hr/performance' },
         { title: 'Recruitment', path: '/hr/recruitment' },
+        { title: 'ATS', path: '/hr/ats' },
+        { title: 'BGV', path: '/hr/bgv' },
         { title: 'Training', path: '/hr/training' },
         { title: 'Self Service', path: '/hr/self-service' },
         { title: 'Onboarding', path: '/hr/onboarding' },

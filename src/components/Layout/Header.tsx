@@ -49,7 +49,7 @@ export default function Header({ onMenuToggle, isMobileMenuOpen }: HeaderProps) 
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-40">
+    <header className="bg-white border-b border-gray-200 px-4 lg:px-6 py-4 sticky top-0 z-30">
       <div className="flex items-center justify-between">
         {/* Mobile Menu Button + Logo */}
         <div className="flex items-center space-x-4">
@@ -74,9 +74,7 @@ export default function Header({ onMenuToggle, isMobileMenuOpen }: HeaderProps) 
               alt="Global Cyber IT" 
               className="h-8 w-auto object-contain"
             />
-            <div className="hidden sm:block">
-              <h2 className="text-lg font-bold text-gray-800">SmartBizFlow</h2>
-            </div>
+            <h2 className="text-lg font-bold text-gray-800">SmartX Solution</h2>
           </div>
         </div>
 

@@ -137,7 +137,7 @@ export const CustomSidebar: React.FC = () => {
       ]
     },
     {
-      title: 'IT Asset Portal',
+      title: 'SmartX IT Asset',
       path: '/assets',
       icon: Monitor,
       module: 'itAssets',

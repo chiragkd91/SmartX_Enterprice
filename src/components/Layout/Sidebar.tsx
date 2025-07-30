@@ -1,5 +1,5 @@
 /**
- * Responsive sidebar navigation for Smart ERP + CRM + HR + IT Asset Portal
+ * Responsive sidebar navigation for SmartX Solution - CRM + ERP + HRMS + IT Asset Portal
  * Includes role-based navigation and mobile-friendly design
  */
 
@@ -60,7 +60,9 @@ import {
   Server,
   Lock,
   Truck,
-  Home
+  Home,
+  FileSearch,
+  ShieldCheck
 } from 'lucide-react';
 
 interface NavItem {
@@ -80,7 +82,7 @@ const navigationItems: NavItem[] = [
     permissions: ['dashboard.view']
   },
   {
-    title: 'CRM Portal',
+    title: 'SmartX CRM',
     href: '/crm',
     icon: TrendingUp,
     badge: 'CRM',
@@ -96,7 +98,7 @@ const navigationItems: NavItem[] = [
     ]
   },
   {
-    title: 'ERP Portal',
+    title: 'SmartX ERP',
     href: '/erp',
     icon: Package,
     badge: 'ERP',
@@ -118,7 +120,7 @@ const navigationItems: NavItem[] = [
     ]
   },
   {
-    title: 'HR Portal',
+    title: 'SmartX HRMS',
     href: '/hr',
     icon: Users,
     badge: 'HR',
@@ -131,6 +133,8 @@ const navigationItems: NavItem[] = [
       { title: 'Payroll', href: '/hr/payroll', icon: DollarSign, permissions: ['payroll.view'] },
       { title: 'Performance', href: '/hr/performance', icon: Target, permissions: ['performance.view'] },
       { title: 'Recruitment', href: '/hr/recruitment', icon: UserPlus, permissions: ['recruitment.view'] },
+      { title: 'ATS System', href: '/hr/ats', icon: FileSearch, permissions: ['hr.view'] },
+      { title: 'Background Verification', href: '/hr/bgv', icon: ShieldCheck, permissions: ['hr.view'] },
       { title: 'HR Reports', href: '/hr/reports', icon: BarChart3, permissions: ['hr.view'] },
       { title: 'Training', href: '/hr/training', icon: GraduationCap, permissions: ['hr.view'] },
       { title: 'Self Service', href: '/hr/self-service', icon: User, permissions: ['hr.view'] },
@@ -143,7 +147,7 @@ const navigationItems: NavItem[] = [
     ]
   },
   {
-    title: 'IT Asset Portal',
+    title: 'SmartX IT Asset',
     href: '/assets',
     icon: Laptop,
     badge: 'IT',
@@ -271,7 +275,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const { currentUser, logout } = useStore();
   // Set default expanded state to show all modules
   const [expandedItems, setExpandedItems] = useState<string[]>([
-    'CRM Portal', 'ERP Portal', 'HR Portal', 'IT Asset Portal', 
+    'SmartX CRM', 'SmartX ERP', 'SmartX HRMS', 'SmartX IT Asset', 
     'Business Intelligence', 'Reports & Analytics', 'Automation Hub', 'Future Enhancements'
   ]);
 
@@ -323,21 +327,11 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   };
 
   return (
-    <>
-      {/* Mobile Overlay */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/50 lg:hidden z-40"
-          onClick={onClose}
-        />
-      )}
-
-      {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out z-50 lg:relative lg:translate-x-0 ${
-          open ? 'translate-x-0' : '-translate-x-full'
-        } w-72 lg:w-64 xl:w-72`}
-      >
+    <div
+      className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out z-40 lg:relative lg:translate-x-0 lg:transform-none ${
+        open ? 'translate-x-0' : '-translate-x-full'
+      } w-72 lg:w-64 xl:w-72`}
+    >
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="p-4 lg:p-6 border-b border-gray-200">
@@ -470,6 +464,5 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           </div>
         </div>
       </div>
-    </>
   );
 }

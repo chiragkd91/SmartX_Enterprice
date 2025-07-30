@@ -108,7 +108,7 @@ const mockEnvironments: SystemEnvironment[] = [
 const mockDeployments: Deployment[] = [
   {
     id: '1',
-    systemName: 'HR Management System',
+    systemName: 'SmartX CRM',
     version: 'v2.1.4',
     environment: 'Production',
     type: 'Update',

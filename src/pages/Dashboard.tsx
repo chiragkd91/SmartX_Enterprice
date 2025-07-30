@@ -1,5 +1,5 @@
 /**
- * Unified Dashboard for Smart ERP + CRM + HR Portal
+ * Unified Dashboard for SmartX Solution - CRM + ERP + HRMS + IT Asset Portal
  * Comprehensive overview with Indian business metrics
  */
 
@@ -261,7 +261,7 @@ export default function Dashboard() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
-              Smart ERP + CRM + HR Portal
+              SmartX Solution - CRM + ERP + HRMS + IT Asset Portal
             </h1>
             <p className="text-sm lg:text-base text-gray-600 mt-1">
               Welcome back, {currentUser?.name} ({currentUser?.role}) - Complete Indian Business Solution

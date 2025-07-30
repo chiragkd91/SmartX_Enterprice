@@ -1,12 +1,13 @@
 /**
- * Smart ERP + CRM + HR + IT Asset Portal - Complete Indian Business Solution
+ * SmartX Solution - ERP + CRM + HR + IT Asset Portal - Complete Indian Business Solution
  * Fully responsive application with GST compliance and multi-user support
  */
 
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { useStore } from './store/useStore';
 import AppLayout from './components/Layout/AppLayout';
 import LoginForm from './components/Auth/LoginForm';
+import ModularLoginRouter from './components/Auth/ModularLoginRouter';
 import { routes } from './config/routes';
 import { ThemeProvider } from './components/Customization/ThemeProvider';
 import { ModuleProvider } from './components/Customization/ModuleProvider';
@@ -96,23 +97,10 @@ import Pricing from './pages/Pricing';
 import Home from './pages/Home';
 import Customization from './pages/Customization';
 
-export default function App() {
-  const { isAuthenticated, currentUser, loading } = useStore();
-
-  console.log('🔍 App component render:', { isAuthenticated, currentUser, loading });
-
-  if (!isAuthenticated) {
-    console.log('🔐 User not authenticated, showing login form');
-    return <LoginForm />;
-  }
-
-  console.log('✅ User authenticated, showing main app layout');
+function AppContent() {
   return (
-    <ThemeProvider>
-      <ModuleProvider>
-        <HashRouter>
-          <AppLayout>
-            <Routes>
+    <AppLayout>
+      <Routes>
           {/* Main Dashboard */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -207,10 +195,27 @@ export default function App() {
           <Route path="/customization" element={<Customization />} />
           <Route path="/pricing" element={<Pricing />} />
 
+
+
           {/* Catch-all route for 404 */}
           <Route path="*" element={<Dashboard />} />
         </Routes>
-      </AppLayout>
+    </AppLayout>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <ModuleProvider>
+        <HashRouter future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}>
+          <Routes>
+            {/* All routes go directly to main app */}
+            <Route path="/*" element={<AppContent />} />
+          </Routes>
         </HashRouter>
       </ModuleProvider>
     </ThemeProvider>

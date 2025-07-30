@@ -1,0 +1,89 @@
+Module,Component,File_Path,Type,Status,Features,Technologies,Responsive,Accessibility,Performance,Last_Updated
+Authentication,InstagramStyleLogin,src/components/Auth/InstagramStyleLogin.tsx,Component,Complete,Social login,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Authentication,LoginForm,src/components/Auth/LoginForm.tsx,Component,Complete,Multi-user login,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Authentication,TwoFactorAuth,src/components/Auth/TwoFactorAuth.tsx,Component,Complete,2FA setup,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Authentication,ChangePasswordModal,src/components/Auth/ChangePasswordModal.tsx,Component,Complete,Password change,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Layout,AppLayout,src/components/Layout/AppLayout.tsx,Component,Complete,Main layout,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Layout,Sidebar,src/components/Layout/Sidebar.tsx,Component,Complete,Navigation menu,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Layout,Header,src/components/Layout/Header.tsx,Component,Complete,Top header,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Layout,CustomHeader,src/components/Layout/CustomHeader.tsx,Component,Complete,Custom header,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Layout,CustomSidebar,src/components/Layout/CustomSidebar.tsx,Component,Complete,Custom sidebar,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Dashboard,Dashboard,src/pages/Dashboard.tsx,Page,Complete,Main dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Dashboard,Home,src/pages/Home.tsx,Page,Complete,Welcome page,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,CRMOverview,src/pages/CRM/CRMOverview.tsx,Page,Complete,CRM dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,LeadsManagement,src/pages/CRM/LeadsManagement.tsx,Page,Complete,Lead management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,AdvancedAnalytics,src/pages/CRM/AdvancedAnalytics.tsx,Page,Complete,CRM analytics,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,EmailIntegration,src/pages/CRM/EmailIntegration.tsx,Page,Complete,Email integration,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,AdvancedLeadScoring,src/pages/CRM/AdvancedLeadScoring.tsx,Page,Complete,Lead scoring,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,RealTimeNotifications,src/pages/CRM/RealTimeNotifications.tsx,Page,Complete,Real-time alerts,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+CRM,IndianCustomers,src/pages/CRM/IndianCustomers.tsx,Page,Complete,Indian customers,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,ERPOverview,src/pages/ERP/ERPOverview.tsx,Page,Complete,ERP dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,ProductsManagement,src/pages/ERP/ProductsManagement.tsx,Page,Complete,Product management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,OrdersManagement,src/pages/ERP/OrdersManagement.tsx,Page,Complete,Order management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,InvoiceManagement,src/pages/ERP/InvoiceManagement.tsx,Page,Complete,Invoice management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,VendorManagement,src/pages/ERP/VendorManagement.tsx,Page,Complete,Vendor management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,InventoryManagement,src/pages/ERP/InventoryManagement.tsx,Page,Complete,Inventory management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,ManufacturingManagement,src/pages/ERP/ManufacturingManagement.tsx,Page,Complete,Manufacturing,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,ProcurementManagement,src/pages/ERP/ProcurementManagement.tsx,Page,Complete,Procurement,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,CustomerManagement,src/pages/ERP/CustomerManagement.tsx,Page,Complete,Customer management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,FinancialManagement,src/pages/ERP/FinancialManagement.tsx,Page,Complete,Financial management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,LogisticsManagement,src/pages/ERP/LogisticsManagement.tsx,Page,Complete,Logistics management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,QualityManagement,src/pages/ERP/QualityManagement.tsx,Page,Complete,Quality management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+ERP,AdvancedAnalytics,src/pages/ERP/AdvancedAnalytics.tsx,Page,Complete,ERP analytics,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,HRDashboard,src/pages/HR/HRDashboard.tsx,Page,Complete,HR dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,EmployeeManagement,src/pages/HR/EmployeeManagement.tsx,Page,Complete,Employee management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,AttendanceManagement,src/pages/HR/AttendanceManagement.tsx,Page,Complete,Attendance tracking,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,LeaveManagement,src/pages/HR/LeaveManagement.tsx,Page,Complete,Leave management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,PayrollManagement,src/pages/HR/PayrollManagement.tsx,Page,Complete,Payroll management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,PerformanceManagement,src/pages/HR/PerformanceManagement.tsx,Page,Complete,Performance reviews,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,RecruitmentManagement,src/pages/HR/RecruitmentManagement.tsx,Page,Complete,Recruitment,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,TrainingManagement,src/pages/HR/TrainingManagement.tsx,Page,Complete,Training management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,EmployeeSelfService,src/pages/HR/EmployeeSelfService.tsx,Page,Complete,Self-service portal,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,OnboardingManagement,src/pages/HR/OnboardingManagement.tsx,Page,Complete,Onboarding,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,OffboardingManagement,src/pages/HR/OffboardingManagement.tsx,Page,Complete,Offboarding,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,BenefitsAdministration,src/pages/HR/BenefitsAdministration.tsx,Page,Complete,Benefits admin,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,WorkflowAutomation,src/pages/HR/WorkflowAutomation.tsx,Page,Complete,Workflow automation,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,SecurityManagement,src/pages/HR/SecurityManagement.tsx,Page,Complete,Security management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,HRReports,src/pages/HR/HRReports.tsx,Page,Complete,HR reports,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,ApplicantTrackingSystem,src/pages/HR/ApplicantTrackingSystem.tsx,Page,Complete,ATS system,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+HR,BackgroundVerification,src/pages/HR/BackgroundVerification.tsx,Page,Complete,BGV system,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,ITAssetDashboard,src/pages/ITAsset/ITAssetDashboard.tsx,Page,Complete,IT Asset dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,AssetManagement,src/pages/ITAsset/AssetManagement.tsx,Page,Complete,Asset management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,AssetTracking,src/pages/ITAsset/AssetTracking.tsx,Page,Complete,Asset tracking,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,MaintenanceManagement,src/pages/ITAsset/MaintenanceManagement.tsx,Page,Complete,Maintenance,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,SoftwareLicenses,src/pages/ITAsset/SoftwareLicenses.tsx,Page,Complete,Software licenses,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,ITInventory,src/pages/ITAsset/ITInventory.tsx,Page,Complete,IT inventory,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,AssetReports,src/pages/ITAsset/AssetReports.tsx,Page,Complete,Asset reports,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,SystemManagement,src/pages/ITAsset/SystemManagement.tsx,Page,Complete,System management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,AccessManagement,src/pages/ITAsset/AccessManagement.tsx,Page,Complete,Access management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+IT Asset,SupportTickets,src/pages/ITAsset/SupportTickets.tsx,Page,Complete,Support tickets,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+GST,GSTInvoice,src/pages/GST/GSTInvoice.tsx,Page,Complete,GST invoicing,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+GST,GSTReturns,src/pages/GST/GSTReturns.tsx,Page,Complete,GST returns,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Business Intelligence,BusinessIntelligence,src/pages/BusinessIntelligence.tsx,Page,Complete,BI dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Reports,Reports,src/pages/Reports.tsx,Page,Complete,Reports dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,FileManagement,src/pages/FileManagement.tsx,Page,Complete,File management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,UserManagement,src/pages/UserManagement.tsx,Page,Complete,User management,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,UserProfile,src/pages/UserProfile.tsx,Page,Complete,User profile,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,Settings,src/pages/Settings.tsx,Page,Complete,Settings,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,Pricing,src/pages/Pricing.tsx,Page,Complete,Pricing,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,AutomationHub,src/pages/AutomationHub.tsx,Page,Complete,Automation hub,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Common,Customization,src/pages/Customization.tsx,Page,Complete,Customization,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Analytics,PredictiveAnalytics,src/components/Analytics/PredictiveAnalytics.tsx,Component,Complete,Predictive analytics,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Analytics,AdvancedBusinessIntelligence,src/components/Analytics/AdvancedBusinessIntelligence.tsx,Component,Complete,Advanced BI,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Business Intelligence,CustomReportBuilder,src/components/BusinessIntelligence/CustomReportBuilder.tsx,Component,Complete,Report builder,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Business Intelligence,RealTimeKPIDashboard,src/components/BusinessIntelligence/RealTimeKPIDashboard.tsx,Component,Complete,Real-time KPIs,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Reports,AdvancedReporting,src/components/Reports/AdvancedReporting.tsx,Component,Complete,Advanced reporting,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Mobile,EnhancedMobileFeatures,src/components/Mobile/EnhancedMobileFeatures.tsx,Component,Complete,Mobile features,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Mobile,PWAFeatures,src/components/Mobile/PWAFeatures.tsx,Component,Complete,PWA features,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Communication,RealTimeChat,src/components/Communication/RealTimeChat.tsx,Component,Complete,Real-time chat,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Security,AdvancedSecurity,src/components/Security/AdvancedSecurity.tsx,Component,Complete,Advanced security,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Integrations,AdditionalThirdPartyIntegrations,src/components/Integrations/AdditionalThirdPartyIntegrations.tsx,Component,Complete,Third-party integrations,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Customization,ModuleProvider,src/components/Customization/ModuleProvider.tsx,Component,Complete,Module provider,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Customization,ThemeProvider,src/components/Customization/ThemeProvider.tsx,Component,Complete,Theme provider,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Customization,WelcomeCustomization,src/components/Customization/WelcomeCustomization.tsx,Component,Complete,Welcome customization,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Future,BlockchainIntegration,src/components/Blockchain/BlockchainIntegration.tsx,Component,Complete,Blockchain integration,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Future,IoTConnectivity,src/components/IoT/IoTConnectivity.tsx,Component,Complete,IoT connectivity,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Future,MultiLanguageSupport,src/components/Internationalization/MultiLanguageSupport.tsx,Component,Complete,Multi-language support,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Future,CloudDeployment,src/components/Cloud/CloudDeployment.tsx,Component,Complete,Cloud deployment,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Performance,PerformanceMonitor,src/components/PerformanceMonitor.tsx,Component,Complete,Performance monitoring,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01
+Security,VAPTDashboard,src/pages/Security/VAPTDashboard.tsx,Page,Complete,VAPT dashboard,React,TypeScript,Tailwind,Yes,WCAG 2.1,Optimized,2024-12-01 

@@ -1,0 +1,59 @@
+/* Instagram-style fonts for SmartX Solution Login */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Instagram Sans font family */
+@font-face {
+  font-family: 'Instagram Sans';
+  src: url('https://static.cdninstagram.com/fonts/instagram-sans-condensed.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instagram Sans';
+  src: url('https://static.cdninstagram.com/fonts/instagram-sans-condensed-bold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback to Inter font */
+.instagram-font {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Instagram-style typography */
+.instagram-text {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.instagram-text-bold {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.instagram-text-light {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+/* Instagram-style input styling */
+.instagram-input {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Instagram-style button text */
+.instagram-button {
+  font-family: 'Instagram Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+} 
