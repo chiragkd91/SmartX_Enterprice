@@ -69,12 +69,7 @@ export default function Header({ onMenuToggle, isMobileMenuOpen }: HeaderProps) 
 
           {/* Mobile Logo */}
           <div className="lg:hidden flex items-center space-x-2">
-            <img 
-              src="https://pub-cdn.sider.ai/u/U0Y3HGVYKOY/web-coder/68696f720dd11641ee25c3cd/resource/90441119-b118-4ef3-a4e2-cd32f4917cfb.png" 
-              alt="Global Cyber IT" 
-              className="h-8 w-auto object-contain"
-            />
-            <h2 className="text-lg font-bold text-gray-800">SmartX Solution</h2>
+            <h2 className="text-lg font-bold text-gray-800">SmartSuite X Portal</h2>
           </div>
         </div>
 
@@ -92,11 +87,7 @@ export default function Header({ onMenuToggle, isMobileMenuOpen }: HeaderProps) 
 
         {/* Desktop Logo - Center */}
         <div className="hidden lg:flex items-center justify-center flex-1 max-w-xs">
-          <img 
-            src="https://pub-cdn.sider.ai/u/U0Y3HGVYKOY/web-coder/68696f720dd11641ee25c3cd/resource/90441119-b118-4ef3-a4e2-cd32f4917cfb.png" 
-            alt="Global Cyber IT" 
-            className="h-8 w-auto object-contain opacity-60"
-          />
+          <h2 className="text-lg font-bold text-gray-800 opacity-60">SmartSuite X Portal</h2>
         </div>
 
         {/* Actions */}

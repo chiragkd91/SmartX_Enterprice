@@ -20,13 +20,13 @@
 
 ## 🚀 **READY FOR TESTING**
 
-### **Server Status**: ✅ Running on `http://localhost:5173/`
+### **Server Status**: ✅ Running on `http://localhost:5174/`
 
 ### **Test URLs**:
-- **HRMS Login**: `http://localhost:5173/#/hrms/login`
-- **CRM Login**: `http://localhost:5173/#/crm/login` 
-- **ERP Login**: `http://localhost:5173/#/erp/login`
-- **IT Asset Login**: `http://localhost:5173/#/assets/login`
+- **HRMS Login**: `http://localhost:5174/#/hrms/login`
+- **CRM Login**: `http://localhost:5174/#/crm/login` 
+- **ERP Login**: `http://localhost:5174/#/erp/login`
+- **IT Asset Login**: `http://localhost:5174/#/assets/login`
 
 ### **Test Credentials** (ALL WORKING):
 | Email | Password | Role |
@@ -44,7 +44,7 @@
 ## 🧪 **Testing Instructions**
 
 ### **Method 1: Quick Login (Recommended)**
-1. Visit any login URL (e.g., `http://localhost:5173/#/hrms/login`)
+1. Visit any login URL (e.g., `http://localhost:5174/#/hrms/login`)
 2. Click any "Quick Login" button (e.g., "HR Manager")
 3. Should automatically log you in and redirect to dashboard
 

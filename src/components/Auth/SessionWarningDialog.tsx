@@ -99,14 +99,10 @@ export default function SessionWarningDialog({
 
           {/* Progress Bar */}
           <div className="space-y-2">
-            <Progress 
-              value={progressPercentage} 
-              className="h-2"
-              indicatorClassName={`transition-all duration-1000 ${
-                progressPercentage > 50 ? 'bg-green-500' : 
-                progressPercentage > 25 ? 'bg-yellow-500' : 'bg-red-500'
-              }`}
-            />
+          <Progress 
+            value={progressPercentage} 
+            className={`h-2 transition-all duration-1000`}
+          />
             <div className="flex justify-between text-xs text-gray-500">
               <span>Session timeout</span>
               <span>{Math.floor(progressPercentage)}% remaining</span>

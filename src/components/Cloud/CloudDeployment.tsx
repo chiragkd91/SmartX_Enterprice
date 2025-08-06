@@ -9,7 +9,7 @@ import {
   Cloud, Server, Database, Globe, Activity, CheckCircle, 
   AlertTriangle, Settings, RefreshCw, Plus, Eye, Zap, Shield, 
   Users, Clock, DollarSign, TrendingUp, Cpu, HardDrive, 
-  Wifi, Lock, Unlock, Download, Upload, Play, Pause, Stop
+  Wifi, Lock, Unlock, Download, Upload, Play, Pause, Square
 } from 'lucide-react';
 
 interface CloudEnvironment {

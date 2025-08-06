@@ -32,7 +32,6 @@ import {
   Upload,
   Play,
   Pause,
-  Stop,
   RotateCcw,
   ArrowRight,
   ArrowDown,

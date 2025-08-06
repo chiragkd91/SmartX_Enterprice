@@ -129,7 +129,7 @@ export const roles: Record<string, Role> = {
   admin: {
     name: 'admin',
     displayName: 'Administrator',
-    description: 'System administrator with most permissions',
+    description: 'System administrator with complete access to all modules',
     permissions: [
       permissions['dashboard.read'],
       permissions['dashboard.customize'],
@@ -137,39 +137,51 @@ export const roles: Record<string, Role> = {
       permissions['crm.write'],
       permissions['crm.create'],
       permissions['crm.delete'],
+      permissions['crm.admin'],
       permissions['erp.read'],
       permissions['erp.write'],
       permissions['erp.create'],
       permissions['erp.delete'],
+      permissions['erp.admin'],
       permissions['hr.read'],
       permissions['hr.write'],
       permissions['hr.create'],
       permissions['hr.delete'],
+      permissions['hr.admin'],
       permissions['assets.read'],
       permissions['assets.write'],
       permissions['assets.create'],
       permissions['assets.delete'],
+      permissions['assets.admin'],
       permissions['gst.read'],
       permissions['gst.write'],
       permissions['gst.create'],
       permissions['gst.delete'],
+      permissions['gst.admin'],
       permissions['bi.read'],
       permissions['bi.write'],
+      permissions['bi.admin'],
       permissions['automation.read'],
       permissions['automation.write'],
+      permissions['automation.admin'],
       permissions['files.read'],
       permissions['files.write'],
       permissions['files.create'],
       permissions['files.delete'],
+      permissions['files.admin'],
       permissions['users.read'],
       permissions['users.write'],
       permissions['users.create'],
+      permissions['users.delete'],
+      permissions['users.admin'],
       permissions['reports.read'],
       permissions['reports.write'],
+      permissions['reports.admin'],
       permissions['settings.read'],
-      permissions['settings.write']
+      permissions['settings.write'],
+      permissions['settings.admin']
     ],
-    modules: ['dashboard', 'crm', 'erp', 'hr', 'assets', 'gst', 'bi', 'automation', 'files', 'users', 'reports', 'settings'],
+    modules: ['*'], // Full access to all modules
     isSystem: true,
     isActive: true,
     priority: 900
@@ -340,6 +352,120 @@ export const roles: Record<string, Role> = {
     priority: 300
   },
   
+  erpManager: {
+    name: 'erpManager',
+    displayName: 'ERP Manager',
+    description: 'ERP module manager with full ERP access',
+    permissions: [
+      permissions['dashboard.read'],
+      permissions['dashboard.customize'],
+      permissions['erp.read'],
+      permissions['erp.write'],
+      permissions['erp.create'],
+      permissions['erp.delete'],
+      permissions['erp.admin'],
+      permissions['gst.read'],
+      permissions['gst.write'],
+      permissions['gst.create'],
+      permissions['reports.read'],
+      permissions['files.read'],
+      permissions['files.write']
+    ],
+    modules: ['dashboard', 'erp', 'gst', 'reports', 'files'],
+    isSystem: false,
+    isActive: true,
+    priority: 700
+  },
+  
+  financeManager: {
+    name: 'financeManager',
+    displayName: 'Finance Manager',
+    description: 'Finance and accounting manager',
+    permissions: [
+      permissions['dashboard.read'],
+      permissions['dashboard.customize'],
+      permissions['erp.read'],
+      permissions['erp.write'],
+      permissions['erp.create'],
+      permissions['gst.read'],
+      permissions['gst.write'],
+      permissions['gst.create'],
+      permissions['gst.delete'],
+      permissions['gst.admin'],
+      permissions['bi.read'],
+      permissions['reports.read'],
+      permissions['reports.write'],
+      permissions['files.read'],
+      permissions['files.write']
+    ],
+    modules: ['dashboard', 'erp/financial', 'erp/invoices', 'erp/orders', 'gst', 'bi', 'reports', 'files'],
+    isSystem: false,
+    isActive: true,
+    priority: 700
+  },
+  
+  salesManager: {
+    name: 'salesManager',
+    displayName: 'Sales Manager',
+    description: 'Sales team manager with CRM access',
+    permissions: [
+      permissions['dashboard.read'],
+      permissions['dashboard.customize'],
+      permissions['crm.read'],
+      permissions['crm.write'],
+      permissions['crm.create'],
+      permissions['crm.delete'],
+      permissions['crm.admin'],
+      permissions['bi.read'],
+      permissions['reports.read'],
+      permissions['files.read'],
+      permissions['files.write']
+    ],
+    modules: ['dashboard', 'crm', 'bi', 'reports', 'files'],
+    isSystem: false,
+    isActive: true,
+    priority: 700
+  },
+  
+  supportAgent: {
+    name: 'supportAgent',
+    displayName: 'Support Agent',
+    description: 'Customer support representative',
+    permissions: [
+      permissions['dashboard.read'],
+      permissions['crm.read'],
+      permissions['crm.write'],
+      permissions['assets.read'],
+      permissions['assets.write'],
+      permissions['files.read'],
+      permissions['files.write']
+    ],
+    modules: ['dashboard', 'crm/customers', 'assets/support', 'files'],
+    isSystem: false,
+    isActive: true,
+    priority: 200
+  },
+  
+  viewer: {
+    name: 'viewer',
+    displayName: 'Viewer',
+    description: 'Read-only access to reports and dashboards',
+    permissions: [
+      permissions['dashboard.read'],
+      permissions['crm.read'],
+      permissions['erp.read'],
+      permissions['hr.read'],
+      permissions['assets.read'],
+      permissions['gst.read'],
+      permissions['bi.read'],
+      permissions['reports.read']
+    ],
+    modules: ['dashboard', 'reports', 'bi'],
+    isSystem: false,
+    isActive: true,
+    priority: 50
+  },
+  
   guest: {
     name: 'guest',
     displayName: 'Guest',
@@ -350,7 +476,7 @@ export const roles: Record<string, Role> = {
     modules: ['dashboard'],
     isSystem: true,
     isActive: true,
-    priority: 50
+    priority: 25
   }
 };
 

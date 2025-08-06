@@ -177,5 +177,796 @@
     }
   ],
   "employeeBenefits": [],
-  "auditLogs": []
+  "auditLogs": [
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1753904693930",
+      "createdAt": "2025-07-30T19:44:53.931Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753904752259",
+      "createdAt": "2025-07-30T19:45:52.259Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753904763644",
+      "createdAt": "2025-07-30T19:46:03.644Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1753904926741",
+      "createdAt": "2025-07-30T19:48:46.741Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753904947272",
+      "createdAt": "2025-07-30T19:49:07.272Z"
+    },
+    {
+      "userId": "emp-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-001",
+      "ipAddress": "::ffff:127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753904997562",
+      "createdAt": "2025-07-30T19:49:57.562Z"
+    },
+    {
+      "userId": "emp-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753905026746",
+      "createdAt": "2025-07-30T19:50:26.746Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753905071742",
+      "createdAt": "2025-07-30T19:51:11.742Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753905222804",
+      "createdAt": "2025-07-30T19:53:42.804Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Mobile Safari/537.36",
+      "id": "audit-1753905357494",
+      "createdAt": "2025-07-30T19:55:57.494Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1753936976531",
+      "createdAt": "2025-07-31T04:42:56.532Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754074630594",
+      "createdAt": "2025-08-01T18:57:10.594Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754074638536",
+      "createdAt": "2025-08-01T18:57:18.536Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754074653083",
+      "createdAt": "2025-08-01T18:57:33.083Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754074654945",
+      "createdAt": "2025-08-01T18:57:34.945Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754074831373",
+      "createdAt": "2025-08-01T19:00:31.373Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754075095788",
+      "createdAt": "2025-08-01T19:04:55.788Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.100.3 Chrome/132.0.6834.210 Electron/34.5.1 Safari/537.36",
+      "id": "audit-1754075117891",
+      "createdAt": "2025-08-01T19:05:17.891Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754075309395",
+      "createdAt": "2025-08-01T19:08:29.398Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472384534",
+      "createdAt": "2025-08-06T09:26:24.535Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472386417",
+      "createdAt": "2025-08-06T09:26:26.417Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472394909",
+      "createdAt": "2025-08-06T09:26:34.909Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472400780",
+      "createdAt": "2025-08-06T09:26:40.780Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472425639",
+      "createdAt": "2025-08-06T09:27:05.639Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472427634",
+      "createdAt": "2025-08-06T09:27:07.634Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472427683",
+      "createdAt": "2025-08-06T09:27:07.683Z"
+    },
+    {
+      "userId": "emp-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472427717",
+      "createdAt": "2025-08-06T09:27:07.717Z"
+    },
+    {
+      "userId": "emp-002",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-002",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472427746",
+      "createdAt": "2025-08-06T09:27:07.746Z"
+    },
+    {
+      "userId": "emp-003",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-003",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.1591",
+      "id": "audit-1754472427768",
+      "createdAt": "2025-08-06T09:27:07.768Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472498184",
+      "createdAt": "2025-08-06T09:28:18.184Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472537349",
+      "createdAt": "2025-08-06T09:28:57.349Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472588202",
+      "createdAt": "2025-08-06T09:29:48.202Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472642580",
+      "createdAt": "2025-08-06T09:30:42.580Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472647503",
+      "createdAt": "2025-08-06T09:30:47.503Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754472728543",
+      "createdAt": "2025-08-06T09:32:08.543Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472834298",
+      "createdAt": "2025-08-06T09:33:54.298Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472845292",
+      "createdAt": "2025-08-06T09:34:05.292Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472880598",
+      "createdAt": "2025-08-06T09:34:40.598Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472890498",
+      "createdAt": "2025-08-06T09:34:50.498Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472898289",
+      "createdAt": "2025-08-06T09:34:58.289Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472906015",
+      "createdAt": "2025-08-06T09:35:06.015Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472913764",
+      "createdAt": "2025-08-06T09:35:13.764Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472921656",
+      "createdAt": "2025-08-06T09:35:21.656Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "id": "audit-1754472929685",
+      "createdAt": "2025-08-06T09:35:29.685Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473026572",
+      "createdAt": "2025-08-06T09:37:06.572Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473308401",
+      "createdAt": "2025-08-06T09:41:48.402Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473343904",
+      "createdAt": "2025-08-06T09:42:23.904Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473421349",
+      "createdAt": "2025-08-06T09:43:41.349Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473441185",
+      "createdAt": "2025-08-06T09:44:01.185Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473486149",
+      "createdAt": "2025-08-06T09:44:46.149Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473549018",
+      "createdAt": "2025-08-06T09:45:49.018Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473586207",
+      "createdAt": "2025-08-06T09:46:26.207Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473590780",
+      "createdAt": "2025-08-06T09:46:30.780Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473620592",
+      "createdAt": "2025-08-06T09:47:00.592Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473881488",
+      "createdAt": "2025-08-06T09:51:21.488Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754473893664",
+      "createdAt": "2025-08-06T09:51:33.664Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474147043",
+      "createdAt": "2025-08-06T09:55:47.043Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474210880",
+      "createdAt": "2025-08-06T09:56:50.880Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474418956",
+      "createdAt": "2025-08-06T10:00:18.956Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474434730",
+      "createdAt": "2025-08-06T10:00:34.730Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474458872",
+      "createdAt": "2025-08-06T10:00:58.872Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474739618",
+      "createdAt": "2025-08-06T10:05:39.619Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474754483",
+      "createdAt": "2025-08-06T10:05:54.483Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474777576",
+      "createdAt": "2025-08-06T10:06:17.576Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474824616",
+      "createdAt": "2025-08-06T10:07:04.616Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474969049",
+      "createdAt": "2025-08-06T10:09:29.049Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754474997661",
+      "createdAt": "2025-08-06T10:09:57.661Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475000857",
+      "createdAt": "2025-08-06T10:10:00.857Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475002824",
+      "createdAt": "2025-08-06T10:10:02.824Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475018903",
+      "createdAt": "2025-08-06T10:10:18.903Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475023549",
+      "createdAt": "2025-08-06T10:10:23.549Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475117298",
+      "createdAt": "2025-08-06T10:11:57.299Z"
+    },
+    {
+      "userId": "hr-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "hr-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475120651",
+      "createdAt": "2025-08-06T10:12:00.651Z"
+    },
+    {
+      "userId": "emp-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475122796",
+      "createdAt": "2025-08-06T10:12:02.796Z"
+    },
+    {
+      "userId": "emp-002",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-002",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475125133",
+      "createdAt": "2025-08-06T10:12:05.133Z"
+    },
+    {
+      "userId": "emp-003",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "emp-003",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475126695",
+      "createdAt": "2025-08-06T10:12:06.695Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475130569",
+      "createdAt": "2025-08-06T10:12:10.569Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475132860",
+      "createdAt": "2025-08-06T10:12:12.860Z"
+    },
+    {
+      "userId": "admin-001",
+      "action": "LOGIN",
+      "table": "users",
+      "recordId": "admin-001",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 Edg/138.0.0.0",
+      "id": "audit-1754475134686",
+      "createdAt": "2025-08-06T10:12:14.686Z"
+    }
+  ]
 }

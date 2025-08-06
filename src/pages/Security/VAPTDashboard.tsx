@@ -21,7 +21,7 @@ import {
   Settings, RefreshCw, Plus, Zap, Database, Users, Clock, 
   DollarSign, TrendingUp, Cpu, HardDrive, Wifi, Key, 
   Fingerprint, Camera, Bell, Activity, Target, Crosshair, Code,
-  Bug, Search, FileText, Download, Upload, Play, Stop, 
+  Bug, Search, FileText, Download, Upload, Play,
   BarChart3, ShieldCheck, AlertCircle, XCircle, Info, Edit
 } from 'lucide-react';
 import { format } from 'date-fns';

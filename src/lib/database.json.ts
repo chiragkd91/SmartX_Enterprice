@@ -232,9 +232,9 @@ class JSONDatabase {
     if (filters?.search) {
       const searchLower = filters.search.toLowerCase();
       courses = courses.filter(course => 
-        course.title.toLowerCase().includes(searchLower) ||
-        course.description.toLowerCase().includes(searchLower) ||
-        course.instructor.toLowerCase().includes(searchLower)
+        (course.title?.toLowerCase() || '').includes(searchLower) ||
+        (course.description?.toLowerCase() || '').includes(searchLower) ||
+        (course.instructor?.toLowerCase() || '').includes(searchLower)
       );
     }
 
@@ -505,11 +505,13 @@ class JSONDatabase {
   // Backup Code operations
   async createBackupCodes(userId: number, codes: string[]): Promise<BackupCode[]> {
     const backupCodes: BackupCode[] = codes.map(code => ({
-      id: this.generateId(),
+      id: Date.now() + Math.random(),
       user_id: userId,
       code,
       is_used: false,
-      created_at: new Date().toISOString()
+      used: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     }));
     this.data.backupCodes.push(...backupCodes);
     this.saveDatabase();

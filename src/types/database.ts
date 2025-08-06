@@ -60,6 +60,7 @@ export interface Employee extends BaseEntity {
   address?: string;
   emergency_contact?: Record<string, any>;
   active: boolean;
+  date_of_birth?: string;
   
   // Joined data
   department?: Department;
@@ -292,22 +293,123 @@ export interface ReportFilter {
   priority?: string;
 }
 
-// Export all types
-export type {
-  Department,
-  Role,
-  Employee,
-  OnboardingProcess,
-  OnboardingTask,
-  OffboardingProcess,
-  ITAsset,
-  SoftwareLicense,
-  SupportTicket,
-  SystemEnvironment,
-  SystemDeployment,
-  AccessRequest,
-  Notification,
-  AuditLog,
-  DashboardMetrics,
-  ReportFilter
-};
+// Additional types for compatibility
+export interface User extends BaseEntity {
+  email: string;
+  password_hash: string;
+  role: string;
+  department?: string;
+  phone?: string;
+  status: string;
+  permissions?: string;
+  first_name?: string;
+  last_name?: string;
+  is_active?: boolean;
+}
+
+export interface TrainingCourse extends BaseEntity {
+  name: string;
+  title?: string;
+  description?: string;
+  duration: number;
+  instructor?: string;
+  max_participants: number;
+  status: 'active' | 'inactive' | 'completed';
+  start_date: string;
+  end_date?: string;
+  category?: string;
+  level?: string;
+}
+
+export interface EmployeeTraining extends BaseEntity {
+  employee_id: number;
+  course_id: number;
+  status: 'enrolled' | 'in_progress' | 'completed' | 'failed';
+  enrollment_date: string;
+  completion_date?: string;
+  score?: number;
+  certificate_issued: boolean;
+  progress?: number;
+  
+  // Joined data
+  employee?: Employee;
+  course?: TrainingCourse;
+}
+
+export interface LeaveRequest extends BaseEntity {
+  employee_id: number;
+  leave_type: string;
+  type?: string;
+  start_date: string;
+  end_date: string;
+  days_requested: number;
+  days?: number;
+  reason?: string;
+  status: 'pending' | 'approved' | 'rejected';
+  approved_by?: string;
+  approved_at?: string;
+  
+  // Joined data
+  employee?: Employee;
+}
+
+export interface Payslip extends BaseEntity {
+  employee_id: number;
+  pay_period: string;
+  month?: string;
+  year?: number;
+  basic_salary: number;
+  allowances: number;
+  deductions: number;
+  gross_pay: number;
+  net_pay: number;
+  tax_deducted: number;
+  generated_date: string;
+  status?: string;
+  
+  // Joined data
+  employee?: Employee;
+}
+
+export interface TwoFactorMethod extends BaseEntity {
+  user_id: number;
+  method_type: 'sms' | 'email' | 'app';
+  identifier: string; // phone number, email, or app name
+  is_primary: boolean;
+  is_verified: boolean;
+  is_enabled?: boolean;
+  secret?: string; // for TOTP apps
+  backup_codes?: string[];
+  
+  // Joined data
+  user?: User;
+}
+
+export interface BackupCode extends BaseEntity {
+  user_id: number;
+  code: string;
+  used: boolean;
+  is_used?: boolean;
+  used_at?: string;
+  
+  // Joined data
+  user?: User;
+}
+
+export interface TrustedDevice extends BaseEntity {
+  user_id: number;
+  device_id: string;
+  device_name: string;
+  device_type: string;
+  ip_address: string;
+  user_agent: string;
+  is_trusted: boolean;
+  expires_at: string;
+  last_active?: string;
+  
+  // Joined data
+  user?: User;
+}
+
+// All types are already exported above as interface declarations
+// No need for additional exports as they are already available

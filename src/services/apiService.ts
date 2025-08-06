@@ -72,7 +72,7 @@ class ApiService {
       body: JSON.stringify({ email, password }),
     });
 
-    if (response.data) {
+    if (response.data && response.data.token) {
       this.token = response.data.token;
       localStorage.setItem('authToken', this.token);
     }

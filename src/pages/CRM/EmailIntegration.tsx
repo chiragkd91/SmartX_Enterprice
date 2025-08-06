@@ -37,7 +37,7 @@ import {
   Settings,
   Play,
   Pause,
-  Stop,
+  Square,
   RotateCcw,
   Eye as EyeIcon,
   EyeOff,

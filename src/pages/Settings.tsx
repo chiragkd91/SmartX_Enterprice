@@ -1,5 +1,5 @@
 /**
- * Comprehensive Settings page for Global Cyber IT Admin Portal
+ * Comprehensive Settings page for SmartSuite X Portal
  */
 
 import { useState } from 'react';
@@ -125,12 +125,12 @@ export default function Settings() {
   const [unsavedChanges, setUnsavedChanges] = useState(false);
 
   const [companySettings, setCompanySettings] = useState<CompanySettings>({
-    name: 'Global Cyber IT',
-    logo: 'https://pub-cdn.sider.ai/u/U0Y3HGVYKOY/web-coder/68696f720dd11641ee25c3cd/resource/230c9bb3-027c-4cbd-b776-54ac3adaf347.jpg',
+    name: 'SmartSuite X Portal',
+    logo: '',
     address: '123 Technology Drive, Cyber City, CA 94105',
     phone: '+1 (555) 123-4567',
-    email: 'contact@globalcyberit.com',
-    website: 'https://www.globalcyberit.com',
+    email: 'contact@smartsuitex.com',
+    website: 'https://www.smartsuitex.com',
     timezone: 'America/Los_Angeles',
     currency: 'USD',
     language: 'en',
@@ -167,13 +167,13 @@ export default function Settings() {
 
   const [integrationSettings, setIntegrationSettings] = useState<IntegrationSettings>({
     smtpEnabled: true,
-    smtpHost: 'smtp.globalcyberit.com',
+    smtpHost: 'smtp.smartsuitex.com',
     smtpPort: 587,
-    smtpUsername: 'noreply@globalcyberit.com',
+    smtpUsername: 'noreply@smartsuitex.com',
     smtpPassword: '••••••••••••',
     smtpEncryption: 'TLS',
-    apiKey: 'gci_sk_1234567890abcdef',
-    webhookUrl: 'https://api.globalcyberit.com/webhooks',
+    apiKey: 'ssx_sk_1234567890abcdef',
+    webhookUrl: 'https://api.smartsuitex.com/webhooks',
     backupEnabled: true,
     backupFrequency: 'daily',
     backupLocation: 'AWS S3'
@@ -199,7 +199,7 @@ export default function Settings() {
   };
 
   const generateApiKey = () => {
-    const newKey = 'gci_sk_' + Math.random().toString(36).substr(2, 32);
+    const newKey = 'ssx_sk_' + Math.random().toString(36).substr(2, 32);
     setIntegrationSettings(prev => ({ ...prev, apiKey: newKey }));
     setUnsavedChanges(true);
   };
@@ -228,7 +228,7 @@ export default function Settings() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'global-cyber-it-settings.json';
+    link.download = 'smartsuite-x-portal-settings.json';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -241,7 +241,7 @@ export default function Settings() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
-          <p className="text-gray-600">Configure and manage Global Cyber IT system preferences</p>
+          <p className="text-gray-600">Configure and manage SmartSuite X Portal system preferences</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" onClick={exportSettings}>

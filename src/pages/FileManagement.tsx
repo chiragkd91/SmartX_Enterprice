@@ -492,7 +492,7 @@ export default function FileManagement() {
                       <p className="font-medium text-sm truncate w-full" title={file.name}>
                         {file.name}
                       </p>
-                      <Badge className={getFileTypeColor(file.type)} size="sm">
+                      <Badge className={getFileTypeColor(file.type)}>
                         {file.type}
                       </Badge>
                       <p className="text-xs text-gray-500 mt-1">{file.size}</p>

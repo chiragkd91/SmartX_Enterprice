@@ -1,7 +1,7 @@
 {
-  "name": "smartx-solution-hr-portal",
+  "name": "smartsuite-x-portal",
   "version": "1.0.0",
-  "description": "SmartX Solution HR Portal - Complete HR Management System",
+  "description": "SmartSuite X Portal - Complete Business Management System",
   "type": "module",
   "scripts": {
     "dev": "vite",

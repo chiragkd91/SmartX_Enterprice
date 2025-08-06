@@ -19,10 +19,10 @@ export default function CRMLogin({ onLoginSuccess }: CRMLoginProps) {
 
   // CRM-specific user types
   const crmUsers = [
-    { email: 'crm@smartbizflow.com', password: 'password123', role: 'crm_manager', name: 'CRM Manager' },
-    { email: 'sales@smartbizflow.com', password: 'password123', role: 'sales_rep', name: 'Sales Representative' },
-    { email: 'support@smartbizflow.com', password: 'password123', role: 'customer_support', name: 'Customer Support' },
-    { email: 'admin@smartbizflow.com', password: 'password123', role: 'admin', name: 'System Administrator' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'crm_manager', name: 'CRM Manager' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'sales_rep', name: 'Sales Representative' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'customer_support', name: 'Customer Support' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'admin', name: 'System Administrator' }
   ];
 
   const handleQuickLogin = async (user: typeof crmUsers[0]) => {

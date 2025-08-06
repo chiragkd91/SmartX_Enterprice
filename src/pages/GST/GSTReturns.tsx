@@ -42,12 +42,12 @@ import {
   Save,
   Send,
   FileCheck,
-  FileX,
+  FileMinus2,
   FileClock,
-  FileAlert,
+  AlertCircle,
   FileSearch,
   FileSpreadsheet,
-  FilePdf,
+  FileType2,
   FileArchive
 } from 'lucide-react';
 import {

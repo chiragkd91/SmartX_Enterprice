@@ -250,8 +250,8 @@ export default function IndianCustomers() {
     if (!validateForm()) return;
 
     const newCustomer: IndianCustomer = {
-      id: Date.now().toString(),
-      ...formData as IndianCustomer
+      ...formData as IndianCustomer,
+      id: Date.now().toString()
     };
 
     setCustomers(prev => [...prev, newCustomer]);

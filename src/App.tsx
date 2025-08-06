@@ -1,8 +1,9 @@
 /**
- * SmartX Solution - ERP + CRM + HR + IT Asset Portal - Complete Indian Business Solution
+ * SmartBizFlow Enterprise - ERP + CRM + HR + IT Asset Portal - Complete Indian Business Solution
  * Fully responsive application with GST compliance and multi-user support
  */
 
+import { useEffect } from 'react';
 import { HashRouter, Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import { useStore } from './store/useStore';
 import AppLayout from './components/Layout/AppLayout';
@@ -98,6 +99,32 @@ import Home from './pages/Home';
 import Customization from './pages/Customization';
 
 function AppContent() {
+  const { isAuthenticated, currentUser, loading, checkAuth } = useStore();
+  const location = useLocation();
+
+  console.log('🔍 App component render:', { isAuthenticated, currentUser, loading, path: location.pathname });
+
+  // Check authentication on app startup
+  useEffect(() => {
+    if (!isAuthenticated && !loading) {
+      checkAuth();
+    }
+  }, [isAuthenticated, loading, checkAuth]);
+
+  // Show loading spinner while checking authentication
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">
+      <div className="text-lg">Loading...</div>
+    </div>;
+  }
+
+  if (!isAuthenticated) {
+    console.log('🔐 User not authenticated, redirecting to unified login');
+    // Use Navigate component instead of window.location for proper routing
+    return <Navigate to="/login" replace />;
+  }
+
+  console.log('✅ User authenticated, showing main app layout');
   return (
     <AppLayout>
       <Routes>
@@ -213,7 +240,21 @@ export default function App() {
           v7_relativeSplatPath: true
         }}>
           <Routes>
-            {/* All routes go directly to main app */}
+            {/* Unified login route - provides access to all modules */}
+            <Route path="/login" element={<LoginForm />} />
+            
+            {/* Module-specific login routes - these don't require authentication */}
+            <Route path="/hrms/login" element={<ModularLoginRouter />} />
+            <Route path="/hr/login" element={<ModularLoginRouter />} />
+            <Route path="/crm/login" element={<ModularLoginRouter />} />
+            <Route path="/erp/login" element={<ModularLoginRouter />} />
+            <Route path="/assets/login" element={<ModularLoginRouter />} />
+            <Route path="/it-asset/login" element={<ModularLoginRouter />} />
+            <Route path="/reports/login" element={<ModularLoginRouter />} />
+            <Route path="/business-intelligence/login" element={<ModularLoginRouter />} />
+            <Route path="/automation/login" element={<ModularLoginRouter />} />
+            
+            {/* All other routes require authentication */}
             <Route path="/*" element={<AppContent />} />
           </Routes>
         </HashRouter>

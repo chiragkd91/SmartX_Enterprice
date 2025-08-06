@@ -19,10 +19,10 @@ export default function AutomationLogin({ onLoginSuccess }: AutomationLoginProps
 
   // Automation-specific user types
   const automationUsers = [
-    { email: 'admin@smartbizflow.com', password: 'password123', role: 'admin', name: 'System Administrator' },
-    { email: 'it@smartbizflow.com', password: 'password123', role: 'it_admin', name: 'IT Administrator' },
-    { email: 'hr@smartbizflow.com', password: 'password123', role: 'hr_manager', name: 'HR Manager' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', role: 'viewer', name: 'Automation Viewer' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'admin', name: 'System Administrator' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'it_admin', name: 'IT Administrator' },
+    { email: 'hr@smartbizflow.com', password: 'hr123', role: 'hr_manager', name: 'HR Manager' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'viewer', name: 'Automation Viewer' }
   ];
 
   const handleQuickLogin = async (user: typeof automationUsers[0]) => {

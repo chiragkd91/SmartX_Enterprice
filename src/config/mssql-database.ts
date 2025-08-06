@@ -16,18 +16,18 @@ export const sqlServerConfig: sql.config = {
   server: process.env.MSSQL_SERVER || 'localhost',
   database: process.env.MSSQL_DATABASE || 'SmartXSolution',
   port: parseInt(process.env.MSSQL_PORT || '1433'),
+  pool: {
+    max: 10,
+    min: 0,
+    idleTimeoutMillis: 30000
+  },
   options: {
     encrypt: process.env.MSSQL_ENCRYPT === 'true',
     trustServerCertificate: process.env.MSSQL_TRUST_CERT === 'true',
-    enableArithAbort: true,
-    requestTimeout: 30000,
-    connectTimeout: 30000,
-    pool: {
-      max: 10,
-      min: 0,
-      idleTimeoutMillis: 30000
-    }
-  }
+    enableArithAbort: true
+  },
+  requestTimeout: 30000,
+  connectionTimeout: 30000
 };
 
 // Database connection pool

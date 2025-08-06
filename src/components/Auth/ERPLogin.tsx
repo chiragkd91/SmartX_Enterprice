@@ -19,10 +19,10 @@ export default function ERPLogin({ onLoginSuccess }: ERPLoginProps) {
 
   // ERP-specific user types
   const erpUsers = [
-    { email: 'finance@smartbizflow.com', password: 'password123', role: 'finance_manager', name: 'Finance Manager' },
-    { email: 'admin@smartbizflow.com', password: 'password123', role: 'admin', name: 'System Administrator' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', role: 'viewer', name: 'ERP Viewer' },
-    { email: 'hr@smartbizflow.com', password: 'password123', role: 'hr_manager', name: 'HR Manager' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'finance_manager', name: 'Finance Manager' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'admin', name: 'System Administrator' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'viewer', name: 'ERP Viewer' },
+    { email: 'hr@smartbizflow.com', password: 'hr123', role: 'hr_manager', name: 'HR Manager' }
   ];
 
   const handleQuickLogin = async (user: typeof erpUsers[0]) => {

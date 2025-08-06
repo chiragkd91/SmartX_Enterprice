@@ -4,8 +4,8 @@
  */
 
 // Using JSON database instead of SQLite for better compatibility
-// import sqlite3 from 'sqlite3';
-// import { open, Database } from 'sqlite';
+import sqlite3 from 'sqlite3';
+import { open, Database } from 'sqlite';
 import path from 'path';
 
 // Database interface types
@@ -404,7 +404,9 @@ class SQLiteDatabase {
       VALUES (?, ?, ?, ?, ?, ?)
     `, [user.username, user.email, user.password_hash, user.role, user.is_active, user.last_login]);
 
-    return this.getUserById(result.lastID!);
+    const createdUser = await this.getUserById(result.lastID!);
+    if (!createdUser) throw new Error('Failed to create user');
+    return createdUser;
   }
 
   /**
@@ -484,7 +486,9 @@ class SQLiteDatabase {
       employee.salary, employee.manager_id, employee.status
     ]);
 
-    return this.getEmployeeById(result.lastID!);
+    const createdEmployee = await this.getEmployeeById(result.lastID!);
+    if (!createdEmployee) throw new Error('Failed to create employee');
+    return createdEmployee;
   }
 
   /**
@@ -588,7 +592,9 @@ class SQLiteDatabase {
       course.current_enrollment, course.status, course.rating, course.total_ratings
     ]);
 
-    return this.getTrainingCourseById(result.lastID!);
+    const createdCourse = await this.getTrainingCourseById(result.lastID!);
+    if (!createdCourse) throw new Error('Failed to create training course');
+    return createdCourse;
   }
 
   /**
@@ -688,7 +694,9 @@ class SQLiteDatabase {
       enrollment.certificate, enrollment.score, enrollment.attempts, enrollment.last_accessed
     ]);
 
-    return this.getEmployeeTrainingById(result.lastID!);
+    const createdEnrollment = await this.getEmployeeTrainingById(result.lastID!);
+    if (!createdEnrollment) throw new Error('Failed to enroll employee in training');
+    return createdEnrollment;
   }
 
   /**
@@ -780,7 +788,9 @@ class SQLiteDatabase {
       request.approved_by, request.approved_date, request.comments
     ]);
 
-    return this.getLeaveRequestById(result.lastID!);
+    const createdRequest = await this.getLeaveRequestById(result.lastID!);
+    if (!createdRequest) throw new Error('Failed to create leave request');
+    return createdRequest;
   }
 
   /**
@@ -882,7 +892,9 @@ class SQLiteDatabase {
       payslip.gross_pay, payslip.net_pay, payslip.status, payslip.payment_date
     ]);
 
-    return this.getPayslipById(result.lastID!);
+    const createdPayslip = await this.getPayslipById(result.lastID!);
+    if (!createdPayslip) throw new Error('Failed to create payslip');
+    return createdPayslip;
   }
 
   /**
@@ -978,7 +990,9 @@ class SQLiteDatabase {
       method.is_primary, method.device_info, method.last_used
     ]);
 
-    return this.getTwoFactorMethodById(result.lastID!);
+    const createdMethod = await this.getTwoFactorMethodById(result.lastID!);
+    if (!createdMethod) throw new Error('Failed to create two-factor method');
+    return createdMethod;
   }
 
   /**
@@ -1111,7 +1125,9 @@ class SQLiteDatabase {
       device.ip_address, device.location, device.is_trusted, device.last_active
     ]);
 
-    return this.getTrustedDeviceById(result.lastID!);
+    const createdDevice = await this.getTrustedDeviceById(result.lastID!);
+    if (!createdDevice) throw new Error('Failed to create trusted device');
+    return createdDevice;
   }
 
   /**

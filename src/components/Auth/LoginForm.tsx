@@ -1,9 +1,11 @@
 /**
  * Comprehensive HRMS + CRM Login Form
  * Supports multiple user types with role-based access
+ * Fixed duplicate key issue with unique IDs
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -98,7 +100,8 @@ import {
   MessageSquare,
   MessageCircle,
   Phone as PhoneIcon,
-  Laptop
+  Laptop,
+  Receipt
 } from 'lucide-react';
 
 type AuthScreen = 'login' | 'forgot-password' | 'reset-success';
@@ -125,17 +128,66 @@ export default function LoginForm() {
     userType: 'admin'
   });
   const [forgotSuccess, setForgotSuccess] = useState(false);
+  const [retryAfter, setRetryAfter] = useState<number | null>(null);
+  const [cooldownActive, setCooldownActive] = useState(false);
 
-  const { login } = useStore();
+  const { login, isAuthenticated } = useStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
+
+  // Cooldown timer effect
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (retryAfter && retryAfter > 0) {
+      setCooldownActive(true);
+      timer = setInterval(() => {
+        setRetryAfter(prev => {
+          if (prev && prev > 1) {
+            return prev - 1;
+          } else {
+            setCooldownActive(false);
+            return null;
+          }
+        });
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [retryAfter]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('🚀 Login form submitted:', { email, password });
+    
+    if (cooldownActive) {
+      setError(`Please wait ${retryAfter} seconds before trying again.`);
+      return;
+    }
+    
+    console.log('🚀 Login form submitted:', { email, password, userType: selectedUserType });
     setLoading(true);
     setError(null);
     
     try {
-      const success = await login(email, password);
+      // Determine module based on user type
+      let loginModule;
+      if (['hr_manager', 'employee'].includes(selectedUserType)) {
+        loginModule = 'hrms';
+      } else if (['crm_manager', 'sales_rep', 'customer_support'].includes(selectedUserType)) {
+        loginModule = 'crm';
+      } else if (['finance_manager'].includes(selectedUserType)) {
+        loginModule = 'erp';
+      } else if (['it_admin'].includes(selectedUserType)) {
+        loginModule = 'it';
+      }
+      
+      const success = await login(email, password, loginModule);
       console.log('🔐 Login result:', success);
       
       if (success) {
@@ -146,9 +198,20 @@ export default function LoginForm() {
         console.log('❌ Login failed');
         setError('Invalid email or password');
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('🚨 Login error:', err);
-      setError('Login failed. Please try again.');
+      
+      // Handle rate limiting errors
+      if (err?.response?.status === 429) {
+        const retryAfterSeconds = err?.response?.data?.retryAfter || 60;
+        setRetryAfter(retryAfterSeconds);
+        setError(`Too many login attempts. Please wait ${retryAfterSeconds} seconds before trying again.`);
+      } else if (err?.message?.includes('429') || err?.message?.includes('rate limit')) {
+        setRetryAfter(60); // Default 1 minute cooldown
+        setError('Too many login attempts. Please wait 1 minute before trying again.');
+      } else {
+        setError('Login failed. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -180,12 +243,28 @@ export default function LoginForm() {
     setEmail(userEmail);
     setPassword(userPassword);
     
+    // Find user type from quickLoginUsers
+    const user = quickLoginUsers.find(u => u.email === userEmail);
+    let loginModule;
+    
+    if (user) {
+      if (['hr_manager', 'employee'].includes(user.type)) {
+        loginModule = 'hrms';
+      } else if (['crm_manager', 'sales_rep', 'customer_support'].includes(user.type)) {
+        loginModule = 'crm';
+      } else if (['finance_manager'].includes(user.type)) {
+        loginModule = 'erp';
+      } else if (['it_admin'].includes(user.type)) {
+        loginModule = 'it';
+      }
+    }
+    
     // Automatically submit the login form
     setLoading(true);
     setError(null);
     
     try {
-      const success = await login(userEmail, userPassword);
+      const success = await login(userEmail, userPassword, loginModule);
       console.log('🔐 Quick login result:', success);
       
       if (success) {
@@ -217,15 +296,32 @@ export default function LoginForm() {
   ];
 
   const quickLoginUsers = [
-    { email: 'admin@smartbizflow.com', password: 'password123', type: 'admin', name: 'System Admin', color: 'red' },
-    { email: 'hr@smartbizflow.com', password: 'password123', type: 'hr_manager', name: 'HR Manager', color: 'blue' },
-    { email: 'john.smith@smartbizflow.com', password: 'password123', type: 'employee', name: 'John Smith', color: 'green' },
-    { email: 'crm@smartbizflow.com', password: 'password123', type: 'crm_manager', name: 'CRM Manager', color: 'purple' },
-    { email: 'sales@smartbizflow.com', password: 'password123', type: 'sales_rep', name: 'Sales Rep', color: 'orange' },
-    { email: 'support@smartbizflow.com', password: 'password123', type: 'customer_support', name: 'Support Agent', color: 'pink' },
-    { email: 'finance@smartbizflow.com', password: 'password123', type: 'finance_manager', name: 'Finance Manager', color: 'yellow' },
-    { email: 'it@smartbizflow.com', password: 'password123', type: 'it_admin', name: 'IT Admin', color: 'indigo' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', type: 'viewer', name: 'Viewer', color: 'gray' }
+    // System Admin Users
+    { id: 'admin-sys', email: 'admin@smartbizflow.com', password: 'password123', type: 'admin', name: 'System Administrator', color: 'red' },
+    { id: 'admin-it', email: 'it@smartbizflow.com', password: 'password123', type: 'it_admin', name: 'IT Administrator', color: 'indigo' },
+    { id: 'admin-view', email: 'viewer@smartbizflow.com', password: 'password123', type: 'viewer', name: 'Report Viewer', color: 'gray' },
+    
+    // HR & Employee Users
+    { id: 'hr-mgr', email: 'hr@smartbizflow.com', password: 'password123', type: 'hr_manager', name: 'HR Manager', color: 'blue' },
+    { id: 'emp-john', email: 'john.smith@smartbizflow.com', password: 'password123', type: 'employee', name: 'John Smith', color: 'green' },
+    { id: 'emp-sarah', email: 'sarah.johnson@smartbizflow.com', password: 'password123', type: 'employee', name: 'Sarah Johnson', color: 'emerald' },
+    { id: 'emp-mike', email: 'mike.wilson@smartbizflow.com', password: 'password123', type: 'employee', name: 'Mike Wilson', color: 'teal' },
+    { id: 'emp-lisa', email: 'lisa.brown@smartbizflow.com', password: 'password123', type: 'employee', name: 'Lisa Brown', color: 'cyan' },
+    { id: 'emp-david', email: 'david.davis@smartbizflow.com', password: 'password123', type: 'employee', name: 'David Davis', color: 'sky' },
+    
+    // Finance Users
+    { id: 'finance-mgr', email: 'finance@smartbizflow.com', password: 'password123', type: 'finance_manager', name: 'Finance Manager', color: 'yellow' },
+    
+    // CRM & Sales Users
+    { id: 'crm-mgr', email: 'crm@smartbizflow.com', password: 'password123', type: 'crm_manager', name: 'CRM Manager', color: 'purple' },
+    { id: 'sales-rep', email: 'sales@smartbizflow.com', password: 'password123', type: 'sales_rep', name: 'Sales Representative', color: 'orange' },
+    { id: 'support-agent', email: 'support@smartbizflow.com', password: 'password123', type: 'customer_support', name: 'Support Agent', color: 'pink' },
+    
+    // Healthcare Users (if applicable)
+    { id: 'doctor', email: 'dr.smith@healthcareflow.com', password: 'password123', type: 'employee', name: 'Dr. Smith', color: 'red' },
+    { id: 'nurse', email: 'nurse.johnson@healthcareflow.com', password: 'password123', type: 'employee', name: 'Nurse Johnson', color: 'blue' },
+    { id: 'healthcare-hr', email: 'hr@healthcareflow.com', password: 'password123', type: 'hr_manager', name: 'Healthcare HR', color: 'green' },
+    { id: 'healthcare-fin', email: 'finance@healthcareflow.com', password: 'password123', type: 'finance_manager', name: 'Healthcare Finance', color: 'purple' }
   ];
 
   return (
@@ -241,16 +337,16 @@ export default function LoginForm() {
               </div>
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              SmartX Solution Enterprise
+              SmartBizFlow Enterprise
             </h1>
             <p className="text-xl text-gray-600">
-              Complete SmartX CRM + ERP + HRMS + IT Asset Solution
+              Complete HRMS + CRM + ERP Solution
             </p>
             <div className="flex justify-center space-x-2">
-              <Badge variant="secondary" className="bg-blue-100 text-blue-800">SmartX CRM</Badge>
-              <Badge variant="secondary" className="bg-purple-100 text-purple-800">SmartX ERP</Badge>
-              <Badge variant="secondary" className="bg-green-100 text-green-800">SmartX HRMS</Badge>
-              <Badge variant="secondary" className="bg-orange-100 text-orange-800">SmartX IT Asset</Badge>
+              <Badge variant="secondary" className="bg-blue-100 text-blue-800">HRMS</Badge>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">CRM</Badge>
+              <Badge variant="secondary" className="bg-purple-100 text-purple-800">ERP</Badge>
+              <Badge variant="secondary" className="bg-orange-100 text-orange-800">GST</Badge>
             </div>
           </div>
 
@@ -258,7 +354,7 @@ export default function LoginForm() {
             <div className="bg-white p-6 rounded-xl shadow-lg border border-blue-100">
               <div className="flex items-center space-x-3 mb-3">
                 <TrendingUp className="h-8 w-8 text-blue-600" />
-                <h3 className="font-semibold text-gray-800">SmartX CRM</h3>
+                <h3 className="font-semibold text-gray-800">CRM System</h3>
               </div>
               <p className="text-sm text-gray-600">
                 Customer relationship management with lead tracking, sales pipeline, and analytics
@@ -268,7 +364,7 @@ export default function LoginForm() {
             <div className="bg-white p-6 rounded-xl shadow-lg border border-purple-100">
               <div className="flex items-center space-x-3 mb-3">
                 <Package className="h-8 w-8 text-purple-600" />
-                <h3 className="font-semibold text-gray-800">SmartX ERP</h3>
+                <h3 className="font-semibold text-gray-800">ERP Operations</h3>
               </div>
               <p className="text-sm text-gray-600">
                 Enterprise resource planning with inventory, orders, invoices, and vendor management
@@ -278,7 +374,7 @@ export default function LoginForm() {
             <div className="bg-white p-6 rounded-xl shadow-lg border border-green-100">
               <div className="flex items-center space-x-3 mb-3">
                 <Users className="h-8 w-8 text-green-600" />
-                <h3 className="font-semibold text-gray-800">SmartX HRMS</h3>
+                <h3 className="font-semibold text-gray-800">HR Management</h3>
               </div>
               <p className="text-sm text-gray-600">
                 Complete employee lifecycle management with payroll, attendance, and performance tracking
@@ -287,34 +383,34 @@ export default function LoginForm() {
 
             <div className="bg-white p-6 rounded-xl shadow-lg border border-orange-100">
               <div className="flex items-center space-x-3 mb-3">
-                <Laptop className="h-8 w-8 text-orange-600" />
-                <h3 className="font-semibold text-gray-800">SmartX IT Asset</h3>
+                <Receipt className="h-8 w-8 text-orange-600" />
+                <h3 className="font-semibold text-gray-800">GST Compliance</h3>
               </div>
               <p className="text-sm text-gray-600">
-                IT asset management with tracking, maintenance, software licenses, and support tickets
+                Indian GST support with automatic tax calculations and e-invoice generation
               </p>
             </div>
           </div>
 
           {/* System Stats */}
           <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-            <h3 className="font-semibold text-gray-800 mb-4">SmartX Solution Overview</h3>
+            <h3 className="font-semibold text-gray-800 mb-4">System Overview</h3>
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div className="flex items-center space-x-2">
                 <TrendingUp className="h-4 w-4 text-blue-600" />
-                <span className="text-gray-600">SmartX CRM</span>
+                <span className="text-gray-600">1000+ Customers</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Package className="h-4 w-4 text-purple-600" />
-                <span className="text-gray-600">SmartX ERP</span>
+                <span className="text-gray-600">200+ Products</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Users className="h-4 w-4 text-green-600" />
-                <span className="text-gray-600">SmartX HRMS</span>
+                <span className="text-gray-600">500+ Employees</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Laptop className="h-4 w-4 text-orange-600" />
-                <span className="text-gray-600">SmartX IT Asset</span>
+                <Receipt className="h-4 w-4 text-orange-600" />
+                <span className="text-gray-600">99.9% Uptime</span>
               </div>
             </div>
           </div>
@@ -336,7 +432,7 @@ export default function LoginForm() {
                     Welcome Back
                   </CardTitle>
                   <CardDescription className="text-gray-600">
-                    Sign in to your SmartX Solution Enterprise Portal
+                    Sign in to your SmartBizFlow Enterprise Portal
                   </CardDescription>
                   
                   {/* Logout Reason Alert */}
@@ -432,13 +528,22 @@ export default function LoginForm() {
                     {/* Login Button */}
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                      disabled={loading}
+                      className={`w-full transition-all duration-200 ${
+                        cooldownActive 
+                          ? 'bg-gray-400 text-gray-700 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
+                      }`}
+                      disabled={loading || cooldownActive}
                     >
                       {loading ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Signing In...
+                        </>
+                      ) : cooldownActive ? (
+                        <>
+                          <Clock className="mr-2 h-4 w-4" />
+                          Wait {retryAfter}s
                         </>
                       ) : (
                         <>
@@ -454,16 +559,17 @@ export default function LoginForm() {
                     <h4 className="font-medium text-gray-800 text-center">Quick Login Options:</h4>
                     
                     <Tabs defaultValue="admin" className="w-full">
-                      <TabsList className="grid w-full grid-cols-3">
+                      <TabsList className="grid w-full grid-cols-4">
                         <TabsTrigger value="admin">Admin</TabsTrigger>
                         <TabsTrigger value="hr">HR</TabsTrigger>
                         <TabsTrigger value="crm">CRM</TabsTrigger>
+                        <TabsTrigger value="healthcare">Health</TabsTrigger>
                       </TabsList>
                       
                       <TabsContent value="admin" className="space-y-2">
                         <div className="grid grid-cols-1 gap-2">
                           {quickLoginUsers.filter(user => ['admin', 'it_admin', 'viewer'].includes(user.type)).map((user) => (
-                            <div key={user.email} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                            <div key={user.id} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
                                   <div className={`w-3 h-3 rounded-full bg-${user.color}-500`}></div>
@@ -486,7 +592,7 @@ export default function LoginForm() {
                       <TabsContent value="hr" className="space-y-2">
                         <div className="grid grid-cols-1 gap-2">
                           {quickLoginUsers.filter(user => ['hr_manager', 'employee', 'finance_manager'].includes(user.type)).map((user) => (
-                            <div key={user.email} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                            <div key={user.id} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
                                   <div className={`w-3 h-3 rounded-full bg-${user.color}-500`}></div>
@@ -509,7 +615,30 @@ export default function LoginForm() {
                       <TabsContent value="crm" className="space-y-2">
                         <div className="grid grid-cols-1 gap-2">
                           {quickLoginUsers.filter(user => ['crm_manager', 'sales_rep', 'customer_support'].includes(user.type)).map((user) => (
-                            <div key={user.email} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                            <div key={user.id} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <div className={`w-3 h-3 rounded-full bg-${user.color}-500`}></div>
+                                  <span className="text-sm font-medium text-gray-700">{user.name}</span>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => quickLogin(user.email, user.password)}
+                                  className="text-xs"
+                                >
+                                  Login
+                                </Button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </TabsContent>
+                      
+                      <TabsContent value="healthcare" className="space-y-2">
+                        <div className="grid grid-cols-1 gap-2">
+                          {quickLoginUsers.filter(user => user.email.includes('healthcareflow.com')).map((user) => (
+                            <div key={user.id} className="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border border-gray-200">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
                                   <div className={`w-3 h-3 rounded-full bg-${user.color}-500`}></div>
@@ -543,7 +672,7 @@ export default function LoginForm() {
 
                   <div className="mt-6 text-center">
                     <p className="text-xs text-gray-500">
-                      © 2024 SmartX Solution Enterprise. All rights reserved.
+                      © 2024 SmartBizFlow Enterprise. All rights reserved.
                     </p>
                   </div>
                 </CardContent>

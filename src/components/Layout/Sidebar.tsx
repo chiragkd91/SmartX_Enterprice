@@ -1,5 +1,5 @@
 /**
- * Responsive sidebar navigation for SmartX Solution - CRM + ERP + HRMS + IT Asset Portal
+ * Responsive sidebar navigation for SmartSuite X Portal
  * Includes role-based navigation and mobile-friendly design
  */
 
@@ -177,13 +177,13 @@ const navigationItems: NavItem[] = [
     href: '/business-intelligence',
     icon: Brain,
     badge: 'BI',
-    permissions: ['bi.view'],
+    permissions: ['business.intelligence'],
     children: [
-      { title: 'BI Dashboard', href: '/business-intelligence', icon: Activity, permissions: ['bi.view'] },
-      { title: 'Custom Reports', href: '/business-intelligence/reports', icon: BarChart3, permissions: ['bi.view'] },
-      { title: 'Real-time KPIs', href: '/business-intelligence/kpis', icon: Activity, permissions: ['bi.view'] },
-      { title: 'Predictive Analytics', href: '/business-intelligence/predictive', icon: Brain, permissions: ['bi.view'] },
-      { title: 'Advanced BI', href: '/business-intelligence/advanced', icon: Brain, permissions: ['bi.view'] }
+      { title: 'BI Dashboard', href: '/business-intelligence', icon: Activity, permissions: ['business.intelligence'] },
+      { title: 'Custom Reports', href: '/business-intelligence/reports', icon: BarChart3, permissions: ['business.intelligence'] },
+      { title: 'Real-time KPIs', href: '/business-intelligence/kpis', icon: Activity, permissions: ['business.intelligence'] },
+      { title: 'Predictive Analytics', href: '/business-intelligence/predictive', icon: Brain, permissions: ['analytics.predictive'] },
+      { title: 'Advanced BI', href: '/business-intelligence/advanced', icon: Brain, permissions: ['business.intelligence.advanced'] }
     ]
   },
   {
@@ -272,7 +272,7 @@ interface SidebarProps {
 export default function Sidebar({ open, onClose }: SidebarProps) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { currentUser, logout } = useStore();
+  const { currentUser, logout, allowedModules, currentModule } = useStore();
   // Set default expanded state to show all modules
   const [expandedItems, setExpandedItems] = useState<string[]>([
     'SmartX CRM', 'SmartX ERP', 'SmartX HRMS', 'SmartX IT Asset', 
@@ -292,20 +292,34 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       return false;
     }
     
-    // Use the RBAC system properly
-    const { canAccess } = useRBAC();
-    
-    // Check if user has admin role (full access)
+    // Check if user has admin role (full access to everything)
     if (currentUser.role === 'admin' || currentUser.role === 'superAdmin') {
+      console.log(`👑 Admin user has access to all features:`, permissions);
       return true;
     }
     
-    // Check specific permissions
+    // Use the RBAC system for non-admin users
+    const { canAccess } = useRBAC();
+    
+    // Check specific permissions for non-admin users
     if (permissions.length > 0) {
-      return permissions.some(permission => {
+      const hasAccess = permissions.some(permission => {
+        // Check if user has the exact permission
+        if (currentUser.permissions?.includes(permission)) {
+          return true;
+        }
+        // Check using RBAC system
         const [resource, action] = permission.split('.');
         return canAccess(resource);
       });
+      
+      console.log(`🔑 Permission check for ${currentUser.role}:`, {
+        permissions,
+        userPermissions: currentUser.permissions?.slice(0, 5),
+        hasAccess
+      });
+      
+      return hasAccess;
     }
     
     // Default to false for security
@@ -319,7 +333,21 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     return location.pathname === href || (href !== '/dashboard' && location.pathname.startsWith(href));
   };
 
-  const filteredNavItems = navigationItems.filter(item => hasPermission(item.permissions));
+  // Filter navigation items based on user permissions AND allowed modules
+  const filteredNavItems = navigationItems.filter(item => {
+    // First check permissions
+    if (!hasPermission(item.permissions)) {
+      return false;
+    }
+    
+    // Then check if module is allowed for this user
+    if (allowedModules && allowedModules.length > 0) {
+      return allowedModules.includes(item.title);
+    }
+    
+    // Default to showing all items if no module restrictions
+    return true;
+  });
   
   const handleLogout = () => {
     logout();
@@ -336,14 +364,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           {/* Header */}
           <div className="p-4 lg:p-6 border-b border-gray-200">
             <div className="flex items-center space-x-3">
-              <img 
-                src="https://pub-cdn.sider.ai/u/U0Y3HGVYKOY/web-coder/68696f720dd11641ee25c3cd/resource/90441119-b118-4ef3-a4e2-cd32f4917cfb.png" 
-                alt="Global Cyber IT Logo" 
-                className="h-8 w-auto"
-              />
               <div>
-                <h2 className="text-lg font-bold text-gray-900">Global Cyber IT</h2>
-                <p className="text-xs text-gray-600">Business Portal</p>
+                <h2 className="text-lg font-bold text-gray-900">SmartSuite X Portal</h2>
               </div>
             </div>
           </div>
@@ -365,10 +387,21 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                   >
                     {currentUser?.role}
                   </Badge>
+                  {currentModule && (
+                    <Badge variant="outline" className="text-xs bg-green-100 text-green-800">
+                      {currentModule.toUpperCase()}
+                    </Badge>
+                  )}
                   <span className="text-xs text-gray-500">{currentUser?.department}</span>
                 </div>
               </div>
             </div>
+            {/* Module Access Info */}
+            {allowedModules && allowedModules.length > 0 && (
+              <div className="mt-2 text-xs text-gray-600">
+                <span className="font-medium">Access:</span> {allowedModules.join(', ')}
+              </div>
+            )}
           </div>
 
           {/* Navigation */}

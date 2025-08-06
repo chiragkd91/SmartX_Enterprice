@@ -54,7 +54,7 @@ export default function GSTInvoice() {
   const [supplierGST] = useState({
     gstin: '27ABCDE1234F1Z5',
     panNumber: 'ABCDE1234F',
-    businessName: 'Global Cyber IT Solutions Pvt Ltd',
+    businessName: 'SmartSuite X Portal Solutions Pvt Ltd',
     stateCode: '27',
     address: {
       street: 'Tech Park, Sector 15',

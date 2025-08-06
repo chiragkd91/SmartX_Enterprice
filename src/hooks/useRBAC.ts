@@ -22,7 +22,34 @@ export const useRBAC = () => {
   
   // Check if user can access a specific module
   const canAccess = (moduleName: string): boolean => {
-    return canAccessModule(userRoles, moduleName);
+    if (!currentUser) return false;
+    
+    // Map module names to their corresponding resources
+    const moduleMap: { [key: string]: string } = {
+      'dashboard': 'dashboard',
+      'home': 'dashboard',
+      'crm': 'crm',
+      'erp': 'erp', 
+      'hr': 'hr',
+      'hrms': 'hr',
+      'assets': 'assets',
+      'itAssets': 'assets',
+      'gst': 'gst',
+      'businessIntelligence': 'bi',
+      'bi': 'bi',
+      'automation': 'automation',
+      'fileManagement': 'files',
+      'files': 'files',
+      'userManagement': 'users',
+      'users': 'users',
+      'reports': 'reports',
+      'settings': 'settings'
+    };
+    
+    const resource = moduleMap[moduleName] || moduleName;
+    
+    // Check if user has at least read access to the module
+    return canPerformAction(userRoles, resource, 'read') || canAccessModule(userRoles, moduleName);
   };
   
   // Check if user can perform a specific action on a resource

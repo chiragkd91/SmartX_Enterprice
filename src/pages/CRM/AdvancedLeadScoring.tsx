@@ -77,14 +77,7 @@ import {
   Wifi,
   Signal,
   Battery,
-  WifiOff,
-  SignalHigh,
-  SignalMedium,
-  SignalLow,
-  BatteryFull,
-  BatteryMedium,
-  BatteryLow,
-  BatteryEmpty
+  WifiOff
 } from 'lucide-react';
 import {
   ResponsiveContainer,
@@ -101,7 +94,6 @@ import {
   Bar,
   LineChart as RechartsLineChart,
   Line,
-  ScatterPlot,
   Scatter,
   RadarChart,
   PolarGrid,
@@ -660,7 +652,7 @@ export default function AdvancedLeadScoring() {
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={[
+                  <RechartsLineChart data={[
                     { month: 'Jan', avgScore: 45, qualifiedLeads: 25 },
                     { month: 'Feb', avgScore: 52, qualifiedLeads: 30 },
                     { month: 'Mar', avgScore: 48, qualifiedLeads: 28 },
@@ -674,7 +666,7 @@ export default function AdvancedLeadScoring() {
                     <Tooltip />
                     <Line type="monotone" dataKey="avgScore" stroke="#3B82F6" name="Avg Score" />
                     <Line type="monotone" dataKey="qualifiedLeads" stroke="#10B981" name="Qualified Leads" />
-                  </LineChart>
+                  </RechartsLineChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>

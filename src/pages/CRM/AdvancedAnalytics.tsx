@@ -55,7 +55,6 @@ import {
   Bar,
   LineChart,
   Line,
-  ScatterPlot,
   Scatter,
   RadarChart,
   PolarGrid,

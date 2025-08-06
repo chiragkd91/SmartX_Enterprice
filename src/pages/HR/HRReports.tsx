@@ -24,7 +24,8 @@ import {
   UserCheck,
   AlertTriangle,
   Building2,
-  Filter
+  Filter,
+  Eye
 } from 'lucide-react';
 import {
   ResponsiveContainer,

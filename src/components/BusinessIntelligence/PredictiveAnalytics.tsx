@@ -47,7 +47,8 @@ import {
   Line,
   BarChart,
   Bar,
-  ComposedChart
+  ComposedChart,
+  Legend
 } from 'recharts';
 
 interface PredictionModel {

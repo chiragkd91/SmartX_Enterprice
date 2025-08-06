@@ -58,7 +58,7 @@ export class DatabaseService {
       ...userData,
       role: userData.role || 'employee',
       is_active: userData.is_active ?? true,
-      last_login: undefined
+      status: 'active'
     });
   }
 
@@ -120,7 +120,8 @@ export class DatabaseService {
       ...employeeData,
       phone: employeeData.phone || '',
       date_of_birth: employeeData.date_of_birth || '',
-      status: (employeeData.status as 'active' | 'inactive' | 'terminated') || 'active'
+      status: (employeeData.status as 'active' | 'inactive' | 'terminated') || 'active',
+      active: true
     });
   }
 
@@ -185,8 +186,7 @@ export class DatabaseService {
     return await database.createTrainingCourse({
       ...courseData,
       description: courseData.description || '',
-      current_enrollment: courseData.current_enrollment || 0,
-      status: courseData.status || 'Draft',
+      status: (courseData.status as 'active' | 'inactive' | 'completed') || 'active',
       rating: courseData.rating || 0,
       total_ratings: courseData.total_ratings || 0
     });
@@ -241,7 +241,7 @@ export class DatabaseService {
     score?: number;
     attempts?: number;
   }): Promise<EmployeeTraining> {
-    return await database.enrollEmployeeInTraining({
+    return await database.createEmployeeTraining({
       ...enrollmentData,
       status: enrollmentData.status || 'enrolled',
       progress: enrollmentData.progress || 0,
@@ -303,8 +303,7 @@ export class DatabaseService {
     return await database.createLeaveRequest({
       ...requestData,
       reason: requestData.reason || '',
-      status: requestData.status || 'Pending',
-      submitted_date: requestData.submitted_date || new Date().toISOString()
+      status: (requestData.status as 'pending' | 'approved' | 'rejected') || 'pending',
     });
   }
 
@@ -358,6 +357,12 @@ export class DatabaseService {
   }): Promise<Payslip> {
     return await database.createPayslip({
       ...payslipData,
+      pay_period: payslipData.month || new Date().toISOString().substr(0, 7),
+      basic_salary: payslipData.gross_pay * 0.7,
+      allowances: payslipData.gross_pay * 0.2,
+      deductions: payslipData.gross_pay * 0.1,
+      tax_deducted: payslipData.gross_pay * 0.1,
+      generated_date: new Date().toISOString(),
       status: payslipData.status || 'Generated'
     });
   }
@@ -411,6 +416,9 @@ export class DatabaseService {
   }): Promise<TwoFactorMethod> {
     return await database.createTwoFactorMethod({
       ...methodData,
+      method_type: (methodData.type as 'sms' | 'email' | 'app') || 'sms',
+      identifier: methodData.name,
+      is_verified: false,
       is_enabled: methodData.is_enabled ?? false,
       is_primary: methodData.is_primary ?? false
     });
@@ -499,6 +507,11 @@ export class DatabaseService {
   }): Promise<TrustedDevice> {
     return await database.createTrustedDevice({
       ...deviceData,
+      device_id: `device_${Date.now()}`,
+      device_name: deviceData.name,
+      device_type: deviceData.type,
+      user_agent: `${deviceData.browser} ${deviceData.os}`,
+      expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
       is_trusted: deviceData.is_trusted ?? false,
       last_active: deviceData.last_active || new Date().toISOString()
     });
@@ -589,10 +602,10 @@ export class DatabaseService {
 
     // Calculate used leave
     leaveRequests.forEach(request => {
-      if (request.status === 'Approved') {
+      if (request.status === 'approved') {
         const leaveType = leaveBalance.find(lb => lb.type === request.type);
         if (leaveType) {
-          leaveType.used += request.days;
+          leaveType.used += request.days || request.days_requested;
           leaveType.remaining = leaveType.total - leaveType.used;
         }
       }
@@ -625,15 +638,15 @@ export class DatabaseService {
     ]);
 
     const activeEmployees = employees.filter(emp => emp.status === 'active').length;
-    const pendingLeaveRequests = leaveRequests.filter(req => req.status === 'Pending').length;
+    const pendingLeaveRequests = leaveRequests.filter(req => req.status === 'pending').length;
     const recentHires = employees
       .filter(emp => new Date(emp.hire_date) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000))
       .slice(0, 5);
 
     const leaveRequestsByStatus = [
-      { status: 'Pending', count: leaveRequests.filter(req => req.status === 'Pending').length },
-      { status: 'Approved', count: leaveRequests.filter(req => req.status === 'Approved').length },
-      { status: 'Rejected', count: leaveRequests.filter(req => req.status === 'Rejected').length }
+      { status: 'Pending', count: leaveRequests.filter(req => req.status === 'pending').length },
+      { status: 'Approved', count: leaveRequests.filter(req => req.status === 'approved').length },
+      { status: 'Rejected', count: leaveRequests.filter(req => req.status === 'rejected').length }
     ];
 
     return {
@@ -651,9 +664,9 @@ export class DatabaseService {
    */
   async approveLeaveRequest(requestId: number, approvedBy: number, comments?: string): Promise<LeaveRequest | null> {
     return await this.updateLeaveRequest(requestId, {
-      status: 'Approved',
-      approved_by: approvedBy,
-      approved_date: new Date().toISOString(),
+      status: 'approved',
+      approved_by: String(approvedBy),
+      approved_at: new Date().toISOString(),
       comments
     });
   }
@@ -663,9 +676,9 @@ export class DatabaseService {
    */
   async rejectLeaveRequest(requestId: number, approvedBy: number, comments?: string): Promise<LeaveRequest | null> {
     return await this.updateLeaveRequest(requestId, {
-      status: 'Rejected',
-      approved_by: approvedBy,
-      approved_date: new Date().toISOString(),
+      status: 'rejected',
+      approved_by: String(approvedBy),
+      approved_at: new Date().toISOString(),
       comments
     });
   }
@@ -679,8 +692,6 @@ export class DatabaseService {
       progress: 100,
       completion_date: new Date().toISOString(),
       score,
-      certificate,
-      last_accessed: new Date().toISOString()
     });
   }
 

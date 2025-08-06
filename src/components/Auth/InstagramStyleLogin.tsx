@@ -1,5 +1,5 @@
 /**
- * Instagram-Style Login Form for SmartX Solution
+ * Instagram-Style Login Form for SmartSuite X Portal
  * Features RBAC policy and department name display
  */
 
@@ -170,15 +170,15 @@ export default function InstagramStyleLogin() {
   ];
 
   const quickLoginUsers = [
-    { email: 'admin@smartbizflow.com', password: 'password123', type: 'admin', name: 'System Admin', color: 'red', department: 'IT Administration' },
-    { email: 'hr@smartbizflow.com', password: 'password123', type: 'hr_manager', name: 'HR Manager', color: 'blue', department: 'Human Resources' },
-    { email: 'john.smith@smartbizflow.com', password: 'password123', type: 'employee', name: 'John Smith', color: 'green', department: 'Engineering' },
-    { email: 'crm@smartbizflow.com', password: 'password123', type: 'crm_manager', name: 'CRM Manager', color: 'purple', department: 'Customer Relations' },
-    { email: 'sales@smartbizflow.com', password: 'password123', type: 'sales_rep', name: 'Sales Rep', color: 'orange', department: 'Sales' },
-    { email: 'support@smartbizflow.com', password: 'password123', type: 'customer_support', name: 'Support Agent', color: 'pink', department: 'Customer Support' },
-    { email: 'finance@smartbizflow.com', password: 'password123', type: 'finance_manager', name: 'Finance Manager', color: 'yellow', department: 'Finance' },
-    { email: 'it@smartbizflow.com', password: 'password123', type: 'it_admin', name: 'IT Admin', color: 'indigo', department: 'Information Technology' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', type: 'viewer', name: 'Viewer', color: 'gray', department: 'General' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', type: 'admin', name: 'System Admin', color: 'red', department: 'IT Administration' },
+    { email: 'hr@smartbizflow.com', password: 'hr123', type: 'hr_manager', name: 'HR Manager', color: 'blue', department: 'Human Resources' },
+    { email: 'john.doe@smartbizflow.com', password: 'employee123', type: 'employee', name: 'John Doe', color: 'green', department: 'Engineering' },
+    { email: 'jane.smith@smartbizflow.com', password: 'employee123', type: 'employee', name: 'Jane Smith', color: 'purple', department: 'Marketing' },
+    { email: 'mike.wilson@smartbizflow.com', password: 'employee123', type: 'employee', name: 'Mike Wilson', color: 'orange', department: 'Sales' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', type: 'customer_support', name: 'Support Access', color: 'pink', department: 'Customer Support' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', type: 'finance_manager', name: 'Finance Access', color: 'yellow', department: 'Finance' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', type: 'it_admin', name: 'IT Access', color: 'indigo', department: 'Information Technology' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', type: 'viewer', name: 'View Access', color: 'gray', department: 'General' }
   ];
 
   const selectedUserTypeData = userTypes.find(type => type.value === selectedUserType);
@@ -196,7 +196,7 @@ export default function InstagramStyleLogin() {
               </div>
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">
-              SmartX Solution
+              SmartSuite X Portal
             </h1>
             <p className="text-blue-100 text-sm">
               Enterprise Portal Access
@@ -458,7 +458,7 @@ export default function InstagramStyleLogin() {
         {/* Footer */}
         <div className="text-center mt-6">
           <p className="text-xs text-gray-400">
-            © 2024 SmartX Solution. All rights reserved.
+            © 2024 SmartSuite X Portal. All rights reserved.
           </p>
           <div className="flex justify-center space-x-4 mt-2">
             <a href="#" className="text-xs text-gray-400 hover:text-gray-600">Privacy Policy</a>

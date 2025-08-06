@@ -207,11 +207,6 @@ const Pricing: React.FC = () => {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-3 mb-4">
-          <img 
-            src="https://pub-cdn.sider.ai/u/U0Y3HGVYKOY/web-coder/68696f720dd11641ee25c3cd/resource/90441119-b118-4ef3-a4e2-cd32f4917cfb.png" 
-            alt="Global Cyber IT Logo" 
-            className="h-12 w-auto"
-          />
           <h1 className="text-4xl font-bold bg-gradient-to-r from-orange-600 via-slate-800 to-green-600 bg-clip-text text-transparent">
             Smart ERP + CRM Pricing
           </h1>

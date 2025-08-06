@@ -56,6 +56,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
   BarChart,
   Bar,
   PieChart as RechartsPieChart,
@@ -262,9 +263,9 @@ export default function BusinessIntelligence() {
   }, [autoRefresh, refreshInterval]);
 
   const renderChart = (widget: DashboardWidget) => {
-    const { type, data, config } = widget;
+    const { data, config } = widget;
 
-    switch (type) {
+    switch (config.type) {
       case 'area':
         return (
           <ResponsiveContainer width="100%" height={300}>

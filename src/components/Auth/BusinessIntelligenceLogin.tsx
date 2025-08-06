@@ -19,10 +19,10 @@ export default function BusinessIntelligenceLogin({ onLoginSuccess }: BusinessIn
 
   // Business Intelligence-specific user types
   const biUsers = [
-    { email: 'admin@smartbizflow.com', password: 'password123', role: 'admin', name: 'System Administrator' },
-    { email: 'finance@smartbizflow.com', password: 'password123', role: 'finance_manager', name: 'Finance Manager' },
-    { email: 'hr@smartbizflow.com', password: 'password123', role: 'hr_manager', name: 'HR Manager' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', role: 'viewer', name: 'Report Viewer' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'admin', name: 'System Administrator' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'finance_manager', name: 'Finance Manager' },
+    { email: 'hr@smartbizflow.com', password: 'hr123', role: 'hr_manager', name: 'HR Manager' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'viewer', name: 'Report Viewer' }
   ];
 
   const handleQuickLogin = async (user: typeof biUsers[0]) => {

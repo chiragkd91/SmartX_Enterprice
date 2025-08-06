@@ -1,7 +1,7 @@
 /**
- * Database Configuration for HR Management System
- * Neon PostgreSQL Database Configuration
- * Connection: postgresql://neondb_owner:npg_mnUM9d1OwFJo@ep-falling-leaf-adt7rhys.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
+ * Database Configuration for SmartBizFlow
+ * Single Database Configuration - Microsoft SQL Server
+ * Primary Database: SmartXSolution on SQL Server
  */
 
 export interface DatabaseConfig {
@@ -26,17 +26,17 @@ const getEnvVar = (key: string, defaultValue: string = ''): string => {
   return process.env[key] || defaultValue;
 };
 
-// Neon PostgreSQL configuration
+// Single Database Configuration - SQL Server Only
 export const databaseConfig: DatabaseConfig = {
-  host: getEnvVar('DB_HOST', 'ep-falling-leaf-adt7rhys.c-2.us-east-1.aws.neon.tech'),
-  port: parseInt(getEnvVar('DB_PORT', '5432')),
-  database: getEnvVar('DB_NAME', 'neondb'),
-  username: getEnvVar('DB_USER', 'neondb_owner'),
-  password: getEnvVar('DB_PASSWORD', 'npg_mnUM9d1OwFJo'),
-  ssl: true, // Neon requires SSL
+  host: getEnvVar('MSSQL_SERVER', '103.206.57.30'),
+  port: parseInt(getEnvVar('MSSQL_PORT', '1201')),
+  database: getEnvVar('MSSQL_DATABASE', 'SmartXSolution'),
+  username: getEnvVar('MSSQL_USER', 'sa'),
+  password: getEnvVar('MSSQL_PASSWORD', 'Password@123'),
+  ssl: false, // SQL Server with trust certificate
   connectionString: getEnvVar(
     'DATABASE_URL', 
-    'postgresql://neondb_owner:npg_mnUM9d1OwFJo@ep-falling-leaf-adt7rhys.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require'
+    'sqlserver://103.206.57.30:1201;database=SmartXSolution;user=sa;password=Password@123;trustServerCertificate=true;encrypt=false'
   ),
 };
 

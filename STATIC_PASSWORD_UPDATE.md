@@ -5,8 +5,7 @@
 ### **1. Updated Login Authentication**
 - **File**: `src/store/useStore.ts`
 - **Change**: Modified `loginFallback` function to use static password
-- **Static Password**: `admin123`
-- **Backup Password**: `password123` (still works)
+- **Static Password**: `password123`
 
 ### **2. Updated Quick Login Buttons**
 - **File**: `src/components/Auth/HRMSLogin.tsx`
@@ -15,20 +14,21 @@
 ## 🧪 **How to Test**
 
 ### **Method 1: Use Static Password**
-1. Go to: `http://localhost:5175/#/hrms/login`
+1. Go to: `http://localhost:5174/#/hrms/login`
 2. Enter any valid email: `hr@smartbizflow.com`
-3. Enter static password: **`admin123`**
+3. Enter static password: **`password123`**
 4. Click Login
 
 ### **Method 2: Use Quick Login Buttons**
-1. Go to: `http://localhost:5175/#/hrms/login`
+1. Go to: `http://localhost:5174/#/hrms/login`
 2. Click any "Quick Login" button (HR Manager, Employee, etc.)
 3. System automatically uses static password
 
-### **Method 3: Use Backup Password**
-1. Use any valid email
-2. Enter backup password: **`password123`**
-3. Still works for backward compatibility
+### **Method 3: Server Authentication**
+1. Start the server with `npm run server`
+2. Use any valid email
+3. Enter password: **`password123`**
+4. System will try server authentication first
 
 ## 📧 **Valid Email Addresses**
 - `hr@smartbizflow.com`
@@ -43,10 +43,10 @@
 ### **Authentication Logic**
 ```typescript
 // Static password for all users
-const STATIC_PASSWORD = 'admin123';
+const VALID_PASSWORD = 'password123';
 
 // Check if user exists and password matches
-const isValidLogin = user && (password === STATIC_PASSWORD || password === 'password123');
+const isValidLogin = user && password === VALID_PASSWORD;
 ```
 
 ### **Console Output**

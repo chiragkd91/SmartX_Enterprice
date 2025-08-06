@@ -16,7 +16,7 @@ import {
   BarChart3, 
   LineChart, 
   PieChart, 
-  Scatter,
+  Zap,
   Table,
   Download,
   Save,
@@ -87,7 +87,7 @@ const AVAILABLE_CHARTS = [
   { type: 'bar', name: 'Bar Chart', icon: BarChart3, description: 'Compare values across categories' },
   { type: 'line', name: 'Line Chart', icon: LineChart, description: 'Show trends over time' },
   { type: 'pie', name: 'Pie Chart', icon: PieChart, description: 'Show proportions of a whole' },
-  { type: 'scatter', name: 'Scatter Plot', icon: Scatter, description: 'Show correlation between variables' },
+  { type: 'scatter', name: 'Scatter Plot', icon: Zap, description: 'Show correlation between variables' },
   { type: 'table', name: 'Data Table', icon: Table, description: 'Display data in tabular format' }
 ];
 

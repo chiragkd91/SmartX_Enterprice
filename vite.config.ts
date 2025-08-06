@@ -7,16 +7,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5174,
-    strictPort: true
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
-    },
-  },
-  server: {
-    port: 5173,
     host: true,
+    strictPort: false,
+    hmr: {
+      overlay: true,
+      clientPort: 5174
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
@@ -24,6 +20,11 @@ export default defineConfig({
         secure: false,
       }
     }
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
   build: {
     outDir: 'dist',
@@ -42,4 +43,4 @@ export default defineConfig({
   define: {
     'process.env': {}
   }
-}) 
+})

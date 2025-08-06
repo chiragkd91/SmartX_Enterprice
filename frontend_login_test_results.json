@@ -1,0 +1,97 @@
+{
+  "timestamp": "2025-08-06T09:35:33.023Z",
+  "summary": {
+    "total": 8,
+    "successful": 7,
+    "failed": 1,
+    "successRate": "87.5%"
+  },
+  "results": [
+    {
+      "page": "Main Login",
+      "url": "http://localhost:5177/",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/hrms/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "Direct Login",
+      "url": "http://localhost:5177/#/login",
+      "formExists": false,
+      "emailInput": false,
+      "passwordInput": false,
+      "loginSuccessful": false,
+      "error": "Missing form elements"
+    },
+    {
+      "page": "HRMS Login",
+      "url": "http://localhost:5177/#/hrms/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/hrms/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "CRM Login",
+      "url": "http://localhost:5177/#/crm/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/crm/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "ERP Login",
+      "url": "http://localhost:5177/#/erp/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/erp/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "IT Assets Login",
+      "url": "http://localhost:5177/#/assets/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/assets/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "Reports Login",
+      "url": "http://localhost:5177/#/reports/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/reports/login",
+      "hasAuthToken": true
+    },
+    {
+      "page": "Automation Login",
+      "url": "http://localhost:5177/#/automation/login",
+      "formExists": true,
+      "emailInput": true,
+      "passwordInput": true,
+      "submitButton": true,
+      "loginSuccessful": true,
+      "finalUrl": "http://localhost:5177/#/automation/login",
+      "hasAuthToken": true
+    }
+  ]
+}

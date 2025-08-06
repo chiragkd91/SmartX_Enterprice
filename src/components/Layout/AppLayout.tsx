@@ -14,27 +14,12 @@ interface AppLayoutProps {
 }
 
 export default function AppLayout({ children }: AppLayoutProps) {
-  const { initializeApp, loadDashboardData, loading } = useStore();
+  const { loading } = useStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { sessionState, extendSession, getSessionConfig } = useSessionManager();
   const { currentUser, logout } = useStore();
 
-  useEffect(() => {
-    const initApp = async () => {
-      try {
-        console.log('🔄 AppLayout: Starting app initialization...');
-        await initializeApp();
-        console.log('🔄 AppLayout: App initialization completed');
-      } catch (error) {
-        console.error('Failed to initialize app:', error);
-      }
-    };
-
-    // Only initialize if not already loading
-    if (!loading) {
-      initApp();
-    }
-  }, []); // Remove dependencies to prevent infinite re-renders
+  console.log('🏠 AppLayout render - loading:', loading);
 
   // Close mobile menu on screen resize
   useEffect(() => {

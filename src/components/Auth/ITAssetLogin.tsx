@@ -19,10 +19,10 @@ export default function ITAssetLogin({ onLoginSuccess }: ITAssetLoginProps) {
 
   // IT Asset-specific user types
   const itAssetUsers = [
-    { email: 'it@smartbizflow.com', password: 'password123', role: 'it_admin', name: 'IT Administrator' },
-    { email: 'admin@smartbizflow.com', password: 'password123', role: 'admin', name: 'System Administrator' },
-    { email: 'support@smartbizflow.com', password: 'password123', role: 'customer_support', name: 'IT Support' },
-    { email: 'viewer@smartbizflow.com', password: 'password123', role: 'viewer', name: 'Asset Viewer' }
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'it_admin', name: 'IT Administrator' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'admin', name: 'System Administrator' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'customer_support', name: 'IT Support' },
+    { email: 'admin@smartbizflow.com', password: 'admin123', role: 'viewer', name: 'Asset Viewer' }
   ];
 
   const handleQuickLogin = async (user: typeof itAssetUsers[0]) => {

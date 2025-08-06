@@ -47,6 +47,7 @@ import {
   Zap,
   Calendar,
   FileCheck,
+  Plus,
   AlertTriangle,
   CheckSquare,
   Square,
@@ -55,7 +56,6 @@ import {
   BarChart3,
   TrendingUp,
   ShieldCheck,
-  FileX,
   FileSearch,
   UserX,
   UserCheck2,
@@ -172,7 +172,7 @@ const BackgroundVerification: React.FC = () => {
             id: '2',
             name: 'Engineering Degree',
             type: 'Education',
-            status: 'In Progress',
+            status: 'Submitted',
             uploadedDate: new Date('2024-01-21'),
             fileUrl: '/documents/degree.pdf',
             notes: 'Pending verification from university',
@@ -808,7 +808,7 @@ const BackgroundVerification: React.FC = () => {
                     </AlertDescription>
                   </Alert>
                   <Alert>
-                    <FileX className="h-4 w-4" />
+                    <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
                       2 cases have missing documents that need to be collected
                     </AlertDescription>

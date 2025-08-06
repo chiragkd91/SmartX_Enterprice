@@ -34,7 +34,8 @@ import {
   Award,
   DollarSign,
   Clock,
-  Target
+  Target,
+  Briefcase
 } from 'lucide-react';
 import { Textarea } from '../../components/ui/textarea';
 
@@ -192,13 +193,10 @@ export default function EmployeeManagement() {
 
   const handleAddEmployee = () => {
     const newEmployee: Employee = {
-      id: Date.now().toString(),
-      employeeId: `GCI${(employees.length + 1).toString().padStart(3, '0')}`,
       ...formData as Employee,
-      skills: formData.skills || [],
-      performance: 4.0
+      id: Date.now().toString(),
+      employeeId: `GCI${(employees.length + 1).toString().padStart(3, '0')}`
     };
-    
     setEmployees(prev => [...prev, newEmployee]);
     setIsAddDialogOpen(false);
     setFormData({
