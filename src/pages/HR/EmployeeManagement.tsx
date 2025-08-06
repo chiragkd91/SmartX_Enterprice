@@ -240,6 +240,112 @@ export default function EmployeeManagement() {
     }).format(amount);
   };
 
+  // Export functionality
+  const handleExport = () => {
+    const exportData = employees.map(emp => ({
+      'Employee ID': emp.employeeId,
+      'Full Name': emp.name,
+      'Email': emp.email,
+      'Phone': emp.phone,
+      'Department': emp.department,
+      'Position': emp.position,
+      'Annual Salary': emp.salary,
+      'Join Date': emp.joinDate,
+      'Status': emp.status,
+      'Manager': emp.manager,
+      'Address': emp.address,
+      'Emergency Contact': emp.emergencyContact,
+      'Skills': emp.skills.join(', '),
+      'Performance Rating': emp.performance
+    }));
+
+    // Convert to CSV
+    const headers = Object.keys(exportData[0]);
+    const csvContent = [
+      headers.join(','),
+      ...exportData.map(row => 
+        headers.map(header => {
+          const value = row[header];
+          // Escape commas and quotes in CSV
+          return typeof value === 'string' && value.includes(',') 
+            ? `"${value.replace(/"/g, '""')}"` 
+            : value;
+        }).join(',')
+      )
+    ].join('\n');
+
+    // Download CSV file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `employees_export_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Import functionality
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const csvContent = e.target?.result as string;
+        const lines = csvContent.split('\n').filter(line => line.trim());
+        
+        if (lines.length < 2) {
+          alert('Invalid CSV file format');
+          return;
+        }
+
+        const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+        const importedEmployees: Employee[] = [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
+          
+          if (values.length >= headers.length) {
+            const employee: Employee = {
+              id: Date.now().toString() + i,
+              employeeId: values[headers.indexOf('Employee ID')] || `GCI${(employees.length + i).toString().padStart(3, '0')}`,
+              name: values[headers.indexOf('Full Name')] || '',
+              email: values[headers.indexOf('Email')] || '',
+              phone: values[headers.indexOf('Phone')] || '',
+              department: values[headers.indexOf('Department')] || '',
+              position: values[headers.indexOf('Position')] || '',
+              salary: parseFloat(values[headers.indexOf('Annual Salary')]) || 0,
+              joinDate: values[headers.indexOf('Join Date')] || new Date().toISOString().split('T')[0],
+              status: (values[headers.indexOf('Status')] || 'Active') as 'Active' | 'Inactive' | 'On Leave',
+              manager: values[headers.indexOf('Manager')] || '',
+              address: values[headers.indexOf('Address')] || '',
+              emergencyContact: values[headers.indexOf('Emergency Contact')] || '',
+              skills: values[headers.indexOf('Skills')] ? values[headers.indexOf('Skills')].split(';').map(s => s.trim()) : [],
+              performance: parseFloat(values[headers.indexOf('Performance Rating')]) || 4.0
+            };
+
+            importedEmployees.push(employee);
+          }
+        }
+
+        if (importedEmployees.length > 0) {
+          setEmployees(prev => [...prev, ...importedEmployees]);
+          alert(`Successfully imported ${importedEmployees.length} employees`);
+        }
+      } catch (error) {
+        alert('Error importing file. Please check the file format.');
+        console.error('Import error:', error);
+      }
+    };
+
+    reader.readAsText(file);
+    // Reset input value to allow re-importing the same file
+    event.target.value = '';
+  };
+
   const totalEmployees = employees.length;
   const activeEmployees = employees.filter(e => e.status === 'Active').length;
   const onLeave = employees.filter(e => e.status === 'On Leave').length;
@@ -257,14 +363,27 @@ export default function EmployeeManagement() {
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button variant="outline" className="flex items-center">
+            <Button 
+              variant="outline" 
+              className="flex items-center" 
+              onClick={handleExport}
+            >
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
-            <Button variant="outline" className="flex items-center">
-              <Upload className="h-4 w-4 mr-2" />
-              Import
-            </Button>
+            <div className="relative">
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleImport}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                id="file-import"
+              />
+              <Button variant="outline" className="flex items-center">
+                <Upload className="h-4 w-4 mr-2" />
+                Import
+              </Button>
+            </div>
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
               <DialogTrigger asChild>
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white">
