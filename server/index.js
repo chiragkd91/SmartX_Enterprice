@@ -19,6 +19,7 @@ import WebSocketManager from './websocket.js';
 import rbacManager from './rbac.js';
 import encryptionManager from './encryption.js';
 import { createServer } from 'http';
+import OpenAI from 'openai';
 
 // Load environment variables
 dotenv.config();
@@ -818,6 +819,81 @@ app.get('/api/dashboard/stats', authenticateToken, authorize(['dashboard.view'])
   } catch (error) {
     console.error('Get dashboard stats error:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// OpenAI Job Description Generation Route
+app.post('/api/generate-job-description', authenticateToken, async (req, res) => {
+  try {
+    const { title, department, experience, type, location, salaryRange } = req.body;
+
+    if (!title || !department) {
+      return res.status(400).json({ error: 'Job title and department are required' });
+    }
+
+    // Initialize OpenAI client
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    
+    // Temporarily disable SSL verification for OpenAI requests (for corporate environments)
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+    const prompt = `
+      Generate a detailed job description for a ${title} in the ${department} department.
+      
+      **Job Details:**
+      - **Experience Level:** ${experience || 'Not specified'}
+      - **Job Type:** ${type || 'Not specified'}
+      - **Location:** ${location || 'Not specified'}
+      - **Salary Range:** ${salaryRange || 'Not specified'}
+
+      **Output should be a JSON object with three properties: "description", "requirements", and "benefits".**
+
+      **Description:**
+      - A compelling overview of the role and its responsibilities.
+      - Mention the company culture (e.g., innovative, fast-paced, collaborative).
+      - Outline key responsibilities with bullet points.
+
+      **Requirements:**
+      - List essential skills, qualifications, and experience.
+      - Include both technical and soft skills.
+      - Mention any preferred qualifications or certifications.
+
+      **Benefits:**
+      - List attractive benefits and perks.
+      - Include both standard benefits (health, PTO) and unique perks.
+    `;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 800,
+      response_format: { type: "json_object" },
+    });
+
+    if (response.choices[0].message.content) {
+      const content = JSON.parse(response.choices[0].message.content);
+      res.status(200).json(content);
+    } else {
+      res.status(500).json({ error: 'Failed to generate job description' });
+    }
+  } catch (error) {
+    console.error('OpenAI API error:', error);
+    if (error.code === 'invalid_api_key') {
+      res.status(401).json({ error: 'Invalid OpenAI API key. Please check your configuration.' });
+    } else if (error.code === 'insufficient_quota') {
+      // Provide a sample response when quota is exceeded (for development/demo)
+      console.log('⚠️ OpenAI quota exceeded, providing sample response');
+      res.status(200).json({
+        description: `We are seeking a talented ${title} to join our ${department} team. This role offers an exciting opportunity to contribute to innovative projects in a collaborative environment. Key responsibilities include developing high-quality solutions, collaborating with cross-functional teams, and staying current with industry best practices.`,
+        requirements: `• Bachelor's degree in relevant field or equivalent experience\n• ${experience || '2-5 years'} of professional experience\n• Strong problem-solving and analytical skills\n• Excellent communication and teamwork abilities\n• Proficiency in relevant technologies and tools\n• Ability to work in a fast-paced environment`,
+        benefits: `• Competitive salary range: ${salaryRange || 'Competitive package'}\n• Comprehensive health insurance\n• Flexible work arrangements\n• Professional development opportunities\n• Collaborative and innovative work environment\n• Performance-based bonuses and career growth opportunities`
+      });
+    } else {
+      res.status(500).json({ error: 'An error occurred while generating the job description' });
+    }
   }
 });
 

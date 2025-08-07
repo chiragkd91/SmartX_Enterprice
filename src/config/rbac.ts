@@ -481,6 +481,41 @@ export const roles: Record<string, Role> = {
 };
 
 // RBAC Configuration
+// Enhanced Security Configuration
+export interface SecuritySettings {
+  sessionTimeout: number; // in minutes
+  maxFailedLogins: number;
+  lockoutDuration: number; // in minutes
+  passwordPolicy: {
+    minLength: number;
+    requireUppercase: boolean;
+    requireLowercase: boolean;
+    requireNumbers: boolean;
+    requireSymbols: boolean;
+    preventReuse: number; // last N passwords
+  };
+  mfaRequired: string[]; // roles that require MFA
+  ipWhitelist?: string[];
+  auditLogging: boolean;
+}
+
+export const securitySettings: SecuritySettings = {
+  sessionTimeout: 480, // 8 hours
+  maxFailedLogins: 5,
+  lockoutDuration: 30, // 30 minutes
+  passwordPolicy: {
+    minLength: 12,
+    requireUppercase: true,
+    requireLowercase: true,
+    requireNumbers: true,
+    requireSymbols: true,
+    preventReuse: 5
+  },
+  mfaRequired: ['superAdmin', 'admin', 'hrManager', 'financeManager'],
+  auditLogging: true
+};
+
+// Enhanced RBAC Configuration
 export const rbacConfig: RBACConfig = {
   roles,
   permissions,
@@ -581,10 +616,76 @@ export const deleteRole = (roleName: string): boolean => {
   return true;
 };
 
+// Security validation functions
+export const validatePassword = (password: string): { isValid: boolean; errors: string[] } => {
+  const errors: string[] = [];
+  const policy = securitySettings.passwordPolicy;
+  
+  if (password.length < policy.minLength) {
+    errors.push(`Password must be at least ${policy.minLength} characters long`);
+  }
+  
+  if (policy.requireUppercase && !/[A-Z]/.test(password)) {
+    errors.push('Password must contain at least one uppercase letter');
+  }
+  
+  if (policy.requireLowercase && !/[a-z]/.test(password)) {
+    errors.push('Password must contain at least one lowercase letter');
+  }
+  
+  if (policy.requireNumbers && !/[0-9]/.test(password)) {
+    errors.push('Password must contain at least one number');
+  }
+  
+  if (policy.requireSymbols && !/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    errors.push('Password must contain at least one special character');
+  }
+  
+  return { isValid: errors.length === 0, errors };
+};
+
+export const isRoleElevated = (roleName: string): boolean => {
+  const role = roles[roleName];
+  return role ? role.priority >= 700 : false;
+};
+
+export const requiresMFA = (roleName: string): boolean => {
+  return securitySettings.mfaRequired.includes(roleName);
+};
+
+export const canElevateRole = (currentRole: string, targetRole: string): boolean => {
+  const current = roles[currentRole];
+  const target = roles[targetRole];
+  
+  if (!current || !target) return false;
+  
+  // Super Admin can elevate anyone
+  if (current.name === 'superAdmin') return true;
+  
+  // Admin can elevate up to manager level but not to admin or superAdmin
+  if (current.name === 'admin') {
+    return target.priority <= 800 && target.name !== 'admin' && target.name !== 'superAdmin';
+  }
+  
+  // Others cannot elevate roles
+  return false;
+};
+
+export const getSessionTimeout = (roleName: string): number => {
+  const role = roles[roleName];
+  if (!role) return securitySettings.sessionTimeout;
+  
+  // Higher priority roles get longer sessions
+  if (role.priority >= 900) return securitySettings.sessionTimeout * 2; // Admin: 16 hours
+  if (role.priority >= 800) return securitySettings.sessionTimeout * 1.5; // Manager: 12 hours
+  return securitySettings.sessionTimeout; // Default: 8 hours
+};
+
 export default {
   rbacConfig,
   roles,
   permissions,
+  securitySettings,
   hasPermission,
   hasRole,
   getRolePermissions,
@@ -596,5 +697,10 @@ export default {
   getCustomRoles,
   createCustomRole,
   updateRole,
-  deleteRole
-}; 
+  deleteRole,
+  validatePassword,
+  isRoleElevated,
+  requiresMFA,
+  canElevateRole,
+  getSessionTimeout
+};

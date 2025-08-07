@@ -11,7 +11,13 @@ import {
   getRolePermissions,
   getRoleModules,
   roles,
-  permissions
+  permissions,
+  securitySettings,
+  validatePassword,
+  isRoleElevated,
+  requiresMFA,
+  canElevateRole,
+  getSessionTimeout
 } from '../config/rbac';
 
 export const useRBAC = () => {
@@ -188,6 +194,106 @@ export const useRBAC = () => {
     return canPerform(resource, 'read') || canPerform(resource, 'admin');
   };
   
+  // Enhanced security functions
+  const validateUserPassword = (password: string) => {
+    return validatePassword(password);
+  };
+  
+  const isElevatedRole = (): boolean => {
+    if (!currentUser) return false;
+    return isRoleElevated(currentUser.role);
+  };
+  
+  const userRequiresMFA = (): boolean => {
+    if (!currentUser) return false;
+    return requiresMFA(currentUser.role);
+  };
+  
+  const canElevateUserRole = (targetRole: string): boolean => {
+    if (!currentUser) return false;
+    return canElevateRole(currentUser.role, targetRole);
+  };
+  
+  const getUserSessionTimeout = (): number => {
+    if (!currentUser) return securitySettings.sessionTimeout;
+    return getSessionTimeout(currentUser.role);
+  };
+  
+  // Enhanced permission checks
+  const canViewSensitiveData = (): boolean => {
+    return isAdmin() || isSuperAdmin() || isElevatedRole();
+  };
+  
+  const canPerformBulkOperations = (): boolean => {
+    return isAdmin() || isSuperAdmin();
+  };
+  
+  const canBypassWorkflow = (): boolean => {
+    return isSuperAdmin() || (isAdmin() && !isElevatedRole());
+  };
+  
+  const canAccessAuditLogs = (): boolean => {
+    return isSuperAdmin() || (isAdmin() && hasPermission('audit.logs'));
+  };
+  
+  const canManageSecuritySettings = (): boolean => {
+    return isSuperAdmin();
+  };
+  
+  // Time-based access control
+  const isWithinBusinessHours = (): boolean => {
+    const now = new Date();
+    const hour = now.getHours();
+    const day = now.getDay();
+    
+    // Business hours: Monday-Friday, 8 AM - 6 PM
+    return day >= 1 && day <= 5 && hour >= 8 && hour < 18;
+  };
+  
+  const canAccessAfterHours = (): boolean => {
+    if (isWithinBusinessHours()) return true;
+    return isAdmin() || isSuperAdmin() || hasPermission('access.afterhours');
+  };
+  
+  // Risk assessment
+  const assessActionRisk = (resource: string, action: string): 'low' | 'medium' | 'high' | 'critical' => {
+    if (action === 'delete' && ['users', 'settings'].includes(resource)) return 'critical';
+    if (action === 'admin') return 'high';
+    if (['create', 'update'].includes(action) && ['users', 'roles'].includes(resource)) return 'high';
+    if (action === 'delete') return 'medium';
+    return 'low';
+  };
+  
+  const requiresAdditionalApproval = (resource: string, action: string): boolean => {
+    const risk = assessActionRisk(resource, action);
+    return risk === 'critical' || (risk === 'high' && !isSuperAdmin());
+  };
+  
+  // Data access patterns
+  const canAccessPersonalData = (targetUserId?: string): boolean => {
+    if (!currentUser) return false;
+    
+    // Users can always access their own data
+    if (targetUserId === currentUser.id) return true;
+    
+    // Admin and HR can access personal data
+    return isAdmin() || hasUserRole('hrManager') || hasPermission('personal.data.access');
+  };
+  
+  const canAccessFinancialData = (): boolean => {
+    return isAdmin() || hasUserRole('financeManager') || hasUserRole('accountant') || hasPermission('financial.data.access');
+  };
+  
+  const canViewSalaryInformation = (targetUserId?: string): boolean => {
+    if (!currentUser) return false;
+    
+    // Users can view their own salary
+    if (targetUserId === currentUser.id) return true;
+    
+    // Only admin, HR managers, and finance can view others' salary
+    return isAdmin() || hasUserRole('hrManager') || hasUserRole('financeManager');
+  };
+  
   return {
     // User roles and permissions
     userRoles,
@@ -219,6 +325,33 @@ export const useRBAC = () => {
     canDeleteRecords,
     canCreateRecords,
     canEditRecords,
-    canViewRecords
+    canViewRecords,
+    
+    // Enhanced security functions
+    validateUserPassword,
+    isElevatedRole,
+    userRequiresMFA,
+    canElevateUserRole,
+    getUserSessionTimeout,
+    
+    // Enhanced permission checks
+    canViewSensitiveData,
+    canPerformBulkOperations,
+    canBypassWorkflow,
+    canAccessAuditLogs,
+    canManageSecuritySettings,
+    
+    // Time-based access
+    isWithinBusinessHours,
+    canAccessAfterHours,
+    
+    // Risk assessment
+    assessActionRisk,
+    requiresAdditionalApproval,
+    
+    // Data access patterns
+    canAccessPersonalData,
+    canAccessFinancialData,
+    canViewSalaryInformation
   };
 }; 

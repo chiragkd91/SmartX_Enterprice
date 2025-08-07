@@ -9,6 +9,7 @@ import { Badge } from '../../components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import { Calendar } from '../../components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '../../components/ui/popover';
+import ReportModal from '../../components/ReportModal';
 import { 
   BarChart3, 
   TrendingUp, 
@@ -106,6 +107,8 @@ export default function HRReports() {
     start: undefined,
     end: undefined
   });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<{type: string, title: string}>({ type: '', title: '' });
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -117,8 +120,159 @@ export default function HRReports() {
   };
 
   const exportReport = (reportType: string) => {
-    // Implementation for exporting different report types
-    console.log(`Exporting ${reportType} report...`);
+    try {
+      // Generate CSV data based on report type
+      let csvData = '';
+      let filename = '';
+      
+      switch (reportType) {
+        case 'directory':
+          csvData = generateEmployeeDirectoryCSV();
+          filename = 'employee_directory.csv';
+          break;
+        case 'attendance':
+          csvData = generateAttendanceReportCSV();
+          filename = 'attendance_summary.csv';
+          break;
+        case 'payroll':
+          csvData = generatePayrollReportCSV();
+          filename = 'payroll_report.csv';
+          break;
+        case 'performance':
+          csvData = generatePerformanceReviewCSV();
+          filename = 'performance_reviews.csv';
+          break;
+        case 'training':
+          csvData = generateTrainingRecordsCSV();
+          filename = 'training_records.csv';
+          break;
+        case 'compliance':
+          csvData = generateComplianceReportCSV();
+          filename = 'compliance_report.csv';
+          break;
+        default:
+          console.log(`Unknown report type: ${reportType}`);
+          return;
+      }
+      
+      // Create and trigger download
+      downloadCSV(csvData, filename);
+      
+      // Show success message (you can integrate with a toast notification)
+      console.log(`Successfully exported ${reportType} report as ${filename}`);
+    } catch (error) {
+      console.error(`Error exporting ${reportType} report:`, error);
+    }
+  };
+  
+  const downloadCSV = (csvData: string, filename: string) => {
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  };
+  
+  const generateEmployeeDirectoryCSV = () => {
+    const headers = ['Employee ID', 'Full Name', 'Email', 'Department', 'Position', 'Phone', 'Hire Date', 'Status'];
+    const sampleEmployees = [
+      ['EMP001', 'John Doe', 'john.doe@company.com', 'IT', 'Software Engineer', '+1-555-0101', '2023-01-15', 'Active'],
+      ['EMP002', 'Jane Smith', 'jane.smith@company.com', 'HR', 'HR Manager', '+1-555-0102', '2022-03-10', 'Active'],
+      ['EMP003', 'Mike Johnson', 'mike.johnson@company.com', 'Sales', 'Sales Executive', '+1-555-0103', '2023-06-20', 'Active'],
+      ['EMP004', 'Sarah Wilson', 'sarah.wilson@company.com', 'Marketing', 'Marketing Manager', '+1-555-0104', '2022-11-08', 'Active'],
+      ['EMP005', 'David Brown', 'david.brown@company.com', 'Finance', 'Financial Analyst', '+1-555-0105', '2023-02-14', 'Active']
+    ];
+    
+    return [headers, ...sampleEmployees]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const generateAttendanceReportCSV = () => {
+    const headers = ['Date', 'Employee Name', 'Department', 'Check In', 'Check Out', 'Total Hours', 'Status'];
+    const sampleData = [
+      ['2024-01-15', 'John Doe', 'IT', '09:00 AM', '06:00 PM', '9.0', 'Present'],
+      ['2024-01-15', 'Jane Smith', 'HR', '09:15 AM', '06:00 PM', '8.75', 'Late'],
+      ['2024-01-15', 'Mike Johnson', 'Sales', '09:00 AM', '06:00 PM', '9.0', 'Present'],
+      ['2024-01-15', 'Sarah Wilson', 'Marketing', '--', '--', '0', 'Absent'],
+      ['2024-01-15', 'David Brown', 'Finance', '10:00 AM', '02:00 PM', '4.0', 'Half Day']
+    ];
+    
+    return [headers, ...sampleData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const generatePayrollReportCSV = () => {
+    const headers = ['Employee ID', 'Employee Name', 'Department', 'Basic Salary', 'Allowances', 'Deductions', 'Net Salary', 'Pay Date'];
+    const sampleData = [
+      ['EMP001', 'John Doe', 'IT', '₹75,000', '₹15,000', '₹8,500', '₹81,500', '2024-01-31'],
+      ['EMP002', 'Jane Smith', 'HR', '₹65,000', '₹12,000', '₹7,200', '₹69,800', '2024-01-31'],
+      ['EMP003', 'Mike Johnson', 'Sales', '₹55,000', '₹18,000', '₹6,800', '₹66,200', '2024-01-31'],
+      ['EMP004', 'Sarah Wilson', 'Marketing', '₹60,000', '₹14,000', '₹7,000', '₹67,000', '2024-01-31'],
+      ['EMP005', 'David Brown', 'Finance', '₹70,000', '₹13,000', '₹7,800', '₹75,200', '2024-01-31']
+    ];
+    
+    return [headers, ...sampleData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const generatePerformanceReviewCSV = () => {
+    const headers = ['Employee ID', 'Employee Name', 'Department', 'Review Period', 'Overall Rating', 'Goals Achieved', 'Manager Rating', 'Comments'];
+    const sampleData = [
+      ['EMP001', 'John Doe', 'IT', 'Q4 2023', '4.5/5', '8/10', 'Excellent', 'Outstanding performance and technical skills'],
+      ['EMP002', 'Jane Smith', 'HR', 'Q4 2023', '4.8/5', '9/10', 'Excellent', 'Exceptional leadership and team management'],
+      ['EMP003', 'Mike Johnson', 'Sales', 'Q4 2023', '4.2/5', '7/8', 'Good', 'Strong sales performance, exceeded targets'],
+      ['EMP004', 'Sarah Wilson', 'Marketing', 'Q4 2023', '4.0/5', '6/8', 'Good', 'Creative campaigns, good results'],
+      ['EMP005', 'David Brown', 'Finance', 'Q4 2023', '4.3/5', '7/9', 'Good', 'Accurate reporting and analysis']
+    ];
+    
+    return [headers, ...sampleData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const generateTrainingRecordsCSV = () => {
+    const headers = ['Employee Name', 'Training Program', 'Start Date', 'Completion Date', 'Status', 'Score', 'Certification'];
+    const sampleData = [
+      ['John Doe', 'Leadership Skills', '2023-10-01', '2023-11-15', 'Completed', '95%', 'Certified'],
+      ['Jane Smith', 'Technical Skills', '2023-09-15', '2023-10-30', 'Completed', '88%', 'Certified'],
+      ['Mike Johnson', 'Sales Training', '2023-11-01', 'In Progress', 'In Progress', '--', 'Pending'],
+      ['Sarah Wilson', 'Digital Marketing', '2023-08-20', '2023-09-25', 'Completed', '92%', 'Certified'],
+      ['David Brown', 'Financial Analysis', '2023-10-15', '2023-12-01', 'Completed', '90%', 'Certified']
+    ];
+    
+    return [headers, ...sampleData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const generateComplianceReportCSV = () => {
+    const headers = ['Employee Name', 'Department', 'Document Type', 'Status', 'Expiry Date', 'Compliance Score', 'Action Required'];
+    const sampleData = [
+      ['John Doe', 'IT', 'Data Protection Certificate', 'Valid', '2024-12-31', '100%', 'None'],
+      ['Jane Smith', 'HR', 'HR Compliance Training', 'Valid', '2024-06-30', '100%', 'None'],
+      ['Mike Johnson', 'Sales', 'Sales Ethics Certificate', 'Expired', '2023-12-31', '75%', 'Renewal Required'],
+      ['Sarah Wilson', 'Marketing', 'GDPR Compliance', 'Valid', '2024-08-15', '100%', 'None'],
+      ['David Brown', 'Finance', 'Financial Regulations', 'Valid', '2024-10-30', '100%', 'None']
+    ];
+    
+    return [headers, ...sampleData]
+      .map(row => row.map(field => `"${field}"`).join(','))
+      .join('\n');
+  };
+  
+  const viewReport = (reportTitle: string) => {
+    console.log(`Opening ${reportTitle} report for viewing...`);
+    setSelectedReport({ type: reportTitle, title: reportTitle });
+    setModalOpen(true);
   };
 
   // Calculate key metrics
@@ -487,11 +641,26 @@ export default function HRReports() {
                         <h3 className="font-medium text-gray-900">{report.title}</h3>
                         <p className="text-sm text-gray-600 mt-1">{report.description}</p>
                         <div className="flex items-center space-x-2 mt-3">
-                          <Button size="sm" variant="outline" className="text-xs">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-xs"
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent card click event
+                              report.action();
+                            }}
+                          >
                             <Download className="h-3 w-3 mr-1" />
                             Export
                           </Button>
-                          <Button size="sm" variant="outline" className="text-xs">
+                          <Button 
+                            size="sm" 
+                            className="text-xs bg-blue-600 hover:bg-blue-700 text-white"
+                            onClick={(e) => {
+                              e.stopPropagation(); // Prevent card click event
+                              viewReport(report.title);
+                            }}
+                          >
                             <Eye className="h-3 w-3 mr-1" />
                             View
                           </Button>
@@ -505,6 +674,14 @@ export default function HRReports() {
           </CardContent>
         </Card>
       </div>
+      
+      {/* Report Modal */}
+      <ReportModal 
+        isOpen={modalOpen} 
+        onClose={() => setModalOpen(false)} 
+        reportType={selectedReport.type} 
+        reportTitle={selectedReport.title} 
+      />
     </div>
   );
 }

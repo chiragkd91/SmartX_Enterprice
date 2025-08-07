@@ -323,7 +323,7 @@ export default function EmployeeManagement() {
               manager: values[headers.indexOf('Manager')] || '',
               address: values[headers.indexOf('Address')] || '',
               emergencyContact: values[headers.indexOf('Emergency Contact')] || '',
-              skills: values[headers.indexOf('Skills')] ? values[headers.indexOf('Skills')].split(';').map(s => s.trim()) : [],
+              skills: values[headers.indexOf('Skills')] ? values[headers.indexOf('Skills')].split(',').map(s => s.trim()) : [],
               performance: parseFloat(values[headers.indexOf('Performance Rating')]) || 4.0
             };
 

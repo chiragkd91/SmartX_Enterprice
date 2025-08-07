@@ -620,13 +620,20 @@ export const useStore = create<StoreState>((set, get) => ({
           password_hash: '', // Don't store password hash on frontend
         };
 
+        // Determine allowed modules based on user role and selected module
+        const allowedModules = get().getModulesForRole(user.role, module);
+        console.log(`🎯 Server login - assigning allowedModules:`, allowedModules, 'for role:', user.role);
+        
         set({
           currentUser: user,
           isAuthenticated: true,
           loading: false,
           error: null,
-          currentModule: module || null
+          currentModule: module || null,
+          allowedModules
         });
+        
+        console.log(`✅ Server login - state updated with allowedModules:`, get().allowedModules);
         
         console.log('📊 Loading dashboard data...');
         await get().loadDashboardData();
@@ -784,11 +791,15 @@ export const useStore = create<StoreState>((set, get) => ({
           password_hash: '',
         };
 
+        // Determine allowed modules based on user role
+        const allowedModules = get().getModulesForRole(user.role);
+
         set({
           currentUser: user,
           isAuthenticated: true,
           loading: false,
-          error: null
+          error: null,
+          allowedModules
         });
         
         console.log('📊 Loading dashboard data after token verification...');
@@ -813,23 +824,27 @@ export const useStore = create<StoreState>((set, get) => ({
 
   // Get modules allowed for a user role
   getModulesForRole: (role: string, specificModule?: string) => {
+    // Normalize role to lowercase for consistent mapping
+    const normalizedRole = role.toLowerCase();
+    
     const moduleMap = {
       'admin': ['Dashboard', 'SmartX CRM', 'SmartX ERP', 'SmartX HRMS', 'SmartX IT Asset', 'GST & Invoicing', 'Business Intelligence', 'Reports & Analytics', 'Automation Hub', 'Future Enhancements', 'File Management', 'User Management', 'Settings'],
       'hr_manager': ['Dashboard', 'SmartX HRMS', 'Reports & Analytics', 'File Management'],
-      'hrManager': ['Dashboard', 'SmartX HRMS', 'Reports & Analytics', 'File Management'],
+      'hrmanager': ['Dashboard', 'SmartX HRMS', 'Reports & Analytics', 'File Management'],
       'employee': ['Dashboard', 'SmartX HRMS'],
       'crm_manager': ['Dashboard', 'SmartX CRM', 'Reports & Analytics', 'File Management'],
-      'crmManager': ['Dashboard', 'SmartX CRM', 'Reports & Analytics', 'File Management'],
+      'crmmanager': ['Dashboard', 'SmartX CRM', 'Reports & Analytics', 'File Management'],
       'sales_rep': ['Dashboard', 'SmartX CRM'],
-      'salesRep': ['Dashboard', 'SmartX CRM'],
+      'salesrep': ['Dashboard', 'SmartX CRM'],
       'customer_support': ['Dashboard', 'SmartX CRM'],
       'finance_manager': ['Dashboard', 'SmartX ERP', 'GST & Invoicing', 'Reports & Analytics'],
       'it_admin': ['Dashboard', 'SmartX IT Asset', 'User Management', 'Settings'],
-      'itManager': ['Dashboard', 'SmartX IT Asset', 'User Management', 'Settings'],
+      'itmanager': ['Dashboard', 'SmartX IT Asset', 'User Management', 'Settings'],
       'viewer': ['Dashboard', 'Reports & Analytics']
     };
 
-    let allowedModules = moduleMap[role] || ['Dashboard'];
+    let allowedModules = moduleMap[normalizedRole] || ['Dashboard'];
+    console.log(`🔍 getModulesForRole - Input role: '${role}', Normalized: '${normalizedRole}', Modules:`, allowedModules);
     
     // If user selected a specific module on login, restrict to just that module + Dashboard
     if (specificModule) {

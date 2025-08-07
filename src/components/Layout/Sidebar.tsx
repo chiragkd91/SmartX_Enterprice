@@ -292,9 +292,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       return false;
     }
     
-    // Check if user has admin role (full access to everything)
-    if (currentUser.role === 'admin' || currentUser.role === 'superAdmin') {
-      console.log(`👑 Admin user has access to all features:`, permissions);
+    // Check if user has admin role (full access to everything) - handle case insensitive
+    const normalizedRole = currentUser.role.toLowerCase();
+    if (normalizedRole === 'admin' || normalizedRole === 'superadmin') {
+      console.log(`👑 Admin user has access to all features:`, permissions, 'Role:', currentUser.role);
       return true;
     }
     
@@ -308,6 +309,22 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         if (currentUser.permissions?.includes(permission)) {
           return true;
         }
+        
+        // Special mappings for common permissions
+        const permissionMappings = {
+          'files.view': 'file.management',
+          'users.view': 'user.permissions.manage',
+          'settings.view': 'system.admin',
+          'pricing.view': 'admin',
+          'home.view': 'dashboard.view',
+          'profile.view': 'dashboard.view'
+        };
+        
+        const mappedPermission = permissionMappings[permission];
+        if (mappedPermission && currentUser.permissions?.includes(mappedPermission)) {
+          return true;
+        }
+        
         // Check using RBAC system
         const [resource, action] = permission.split('.');
         return canAccess(resource);
@@ -337,17 +354,23 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const filteredNavItems = navigationItems.filter(item => {
     // First check permissions
     if (!hasPermission(item.permissions)) {
+      console.log(`❌ Permission denied for: ${item.title}`);
       return false;
     }
     
     // Then check if module is allowed for this user
     if (allowedModules && allowedModules.length > 0) {
-      return allowedModules.includes(item.title);
+      const isAllowed = allowedModules.includes(item.title);
+      console.log(`🔍 Module check for ${item.title}: ${isAllowed ? 'ALLOWED' : 'DENIED'} (allowedModules: [${allowedModules.join(', ')}])`);
+      return isAllowed;
     }
     
     // Default to showing all items if no module restrictions
+    console.log(`✅ No module restrictions, showing: ${item.title}`);
     return true;
   });
+  
+  console.log(`🎯 Sidebar filtered ${filteredNavItems.length} nav items for user:`, currentUser?.name, 'role:', currentUser?.role, 'allowedModules:', allowedModules);
   
   const handleLogout = () => {
     logout();

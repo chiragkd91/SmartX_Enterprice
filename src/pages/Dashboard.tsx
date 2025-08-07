@@ -4,11 +4,13 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import WelcomeCustomization from '../components/Customization/WelcomeCustomization';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { useStore } from '../store/useStore';
+import ReportModal from '../components/ReportModal';
 import { 
   Users, 
   TrendingUp, 
@@ -89,10 +91,40 @@ const recentActivities = [
 
 export default function Dashboard() {
   const { currentUser, dashboardStats, loading } = useStore();
+  const navigate = useNavigate();
   const [selectedPeriod, setSelectedPeriod] = useState('thisMonth');
   const [showWelcome, setShowWelcome] = useState(true);
+  const [reportModalOpen, setReportModalOpen] = useState(false);
+  const [selectedReportType, setSelectedReportType] = useState<{type: string, title: string}>({ type: '', title: '' });
 
   console.log('📊 Dashboard component render:', { currentUser, loading });
+
+  // Handle View Full Reports button click - generates comprehensive report based on selected period
+  const handleViewFullReports = () => {
+    console.log(`📊 Generating comprehensive report for period: ${selectedPeriod}`);
+    
+    // Generate comprehensive report title based on period
+    const periodMap = {
+      today: 'Today\'s Business Report',
+      thisWeek: 'This Week\'s Business Report', 
+      thisMonth: 'This Month\'s Business Report',
+      thisQuarter: 'This Quarter\'s Business Report',
+      thisYear: 'This Year\'s Business Report'
+    };
+    
+    const reportTitle = periodMap[selectedPeriod as keyof typeof periodMap] || 'Comprehensive Business Report';
+    
+    // For now, open the comprehensive dashboard report modal
+    // In a real implementation, this would generate data based on the selected period
+    setSelectedReportType({ type: 'Comprehensive Dashboard Report', title: reportTitle });
+    setReportModalOpen(true);
+    
+    // Alternative: Navigate to reports page with period parameter
+    // navigate(`/reports?period=${selectedPeriod}&type=comprehensive`);
+    
+    // Alternative: Navigate to business intelligence with comprehensive view
+    // navigate(`/business-intelligence?period=${selectedPeriod}&view=comprehensive`);
+  };
 
   // Role-based comprehensive stats
   const getUnifiedStats = () => {
@@ -279,7 +311,10 @@ export default function Dashboard() {
               <option value="thisQuarter">This Quarter</option>
               <option value="thisYear">This Year</option>
             </select>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap">
+            <Button 
+              className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+              onClick={handleViewFullReports}
+            >
               <BarChart3 className="h-4 w-4 mr-2" />
               View Full Reports
             </Button>
@@ -407,7 +442,7 @@ export default function Dashboard() {
                       key={action.title}
                       variant="ghost"
                       className={`h-auto p-4 flex flex-col items-center space-y-2 ${action.color} transition-colors`}
-                      onClick={() => window.location.href = action.path}
+                      onClick={() => navigate(action.path)}
                     >
                       <Icon className="h-6 w-6" />
                       <span className="text-xs font-medium text-center">{action.title}</span>
@@ -465,7 +500,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="h-auto p-4 flex flex-col items-center space-y-2 bg-white hover:bg-purple-50 border-purple-300"
-                onClick={() => window.location.href = '/profile'}
+                onClick={() => navigate('/profile')}
               >
                 <User className="h-8 w-8 text-purple-600" />
                 <span className="font-medium text-purple-800">My Profile</span>
@@ -505,7 +540,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="h-auto p-4 flex flex-col items-center space-y-2 bg-white hover:bg-cyan-50 border-cyan-300"
-                onClick={() => window.location.href = '/business-intelligence'}
+                onClick={() => navigate('/business-intelligence')}
               >
                 <Activity className="h-8 w-8 text-cyan-600" />
                 <span className="font-medium text-cyan-800">BI Dashboard</span>
@@ -515,7 +550,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="h-auto p-4 flex flex-col items-center space-y-2 bg-white hover:bg-cyan-50 border-cyan-300"
-                onClick={() => window.location.href = '/business-intelligence?tab=reports'}
+                onClick={() => navigate('/business-intelligence?tab=reports')}
               >
                 <BarChart3 className="h-8 w-8 text-cyan-600" />
                 <span className="font-medium text-cyan-800">Custom Reports</span>
@@ -525,7 +560,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="h-auto p-4 flex flex-col items-center space-y-2 bg-white hover:bg-cyan-50 border-cyan-300"
-                onClick={() => window.location.href = '/business-intelligence?tab=analytics'}
+                onClick={() => navigate('/business-intelligence?tab=analytics')}
               >
                 <TrendingUp className="h-8 w-8 text-cyan-600" />
                 <span className="font-medium text-cyan-800">Predictive Analytics</span>
@@ -535,7 +570,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="h-auto p-4 flex flex-col items-center space-y-2 bg-white hover:bg-cyan-50 border-cyan-300"
-                onClick={() => window.location.href = '/business-intelligence?tab=predictive'}
+                onClick={() => navigate('/business-intelligence?tab=predictive')}
               >
                 <Brain className="h-8 w-8 text-cyan-600" />
                 <span className="font-medium text-cyan-800">KPI Tracking</span>
@@ -570,6 +605,14 @@ export default function Dashboard() {
           })}
         </div>
       </div>
+      
+      {/* Comprehensive Report Modal */}
+      <ReportModal 
+        isOpen={reportModalOpen} 
+        onClose={() => setReportModalOpen(false)} 
+        reportType={selectedReportType.type} 
+        reportTitle={selectedReportType.title} 
+      />
     </div>
   );
 }

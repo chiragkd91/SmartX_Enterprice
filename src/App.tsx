@@ -56,6 +56,8 @@ import OffboardingManagement from './pages/HR/OffboardingManagement';
 import BenefitsAdministration from './pages/HR/BenefitsAdministration';
 import WorkflowAutomation from './pages/HR/WorkflowAutomation';
 import SecurityManagement from './pages/HR/SecurityManagement';
+import ApplicantTrackingSystem from './pages/HR/ApplicantTrackingSystem';
+import BackgroundVerification from './pages/HR/BackgroundVerification';
 
 // Advanced Analytics Components
 import PredictiveAnalytics from './components/Analytics/PredictiveAnalytics';
@@ -176,6 +178,8 @@ function AppContent() {
           <Route path="/hr/benefits" element={<BenefitsAdministration />} />
           <Route path="/hr/workflow" element={<WorkflowAutomation />} />
           <Route path="/hr/security" element={<SecurityManagement />} />
+          <Route path="/hr/ats" element={<ApplicantTrackingSystem />} />
+          <Route path="/hr/bgv" element={<BackgroundVerification />} />
           
                       {/* Advanced Analytics Routes */}
             <Route path="/hr/predictive-analytics" element={<PredictiveAnalytics />} />

@@ -3,6 +3,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
 import { Badge } from '../../components/ui/badge';
@@ -82,7 +83,30 @@ const recentActivities = [
 
 export default function HRDashboard() {
   const { currentUser, dashboardStats, loading } = useStore();
+  const navigate = useNavigate();
   const [selectedPeriod, setSelectedPeriod] = useState('thisMonth');
+
+  // Handle action card clicks
+  const handleActionClick = (action: string) => {
+    console.log(`🎯 HR Dashboard action clicked: ${action}`);
+    
+    switch (action) {
+      case 'Review Now':
+        // Navigate to leave management with pending filter
+        navigate('/hr/leave?status=pending');
+        break;
+      case 'Schedule Reviews':
+        // Navigate to performance management
+        navigate('/hr/performance');
+        break;
+      case 'Update Records':
+        // Navigate to employee records or document management
+        navigate('/hr/employees');
+        break;
+      default:
+        console.log('Unknown action:', action);
+    }
+  };
 
   // Role-based stats calculation
   const getHRStats = () => {
@@ -310,7 +334,12 @@ export default function HRDashboard() {
                         <h3 className="font-medium text-gray-900 text-sm lg:text-base">{card.title}</h3>
                       </div>
                       <p className={`text-2xl font-bold ${urgencyTextColors[card.urgency]} mb-2`}>{card.value}</p>
-                      <Button size="sm" variant="outline" className="w-full">
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        className="w-full"
+                        onClick={() => handleActionClick(card.action)}
+                      >
                         {card.action}
                         <ChevronRight className="h-3 w-3 ml-1" />
                       </Button>
@@ -473,7 +502,7 @@ export default function HRDashboard() {
                     key={action.title}
                     variant="ghost"
                     className={`h-auto p-4 flex flex-col items-center space-y-2 ${action.color} transition-colors`}
-                    onClick={() => window.location.href = action.path}
+                    onClick={() => navigate(action.path)}
                   >
                     <Icon className="h-6 w-6" />
                     <span className="text-xs font-medium text-center">{action.title}</span>
